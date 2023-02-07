@@ -29,7 +29,9 @@
         if($year < $current_year ){
             if(preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $dob)){
                 // Checking is user 18 or above
-                if(($current_year - $year >= 18)){
+                $age = $current_year - $year;
+                echo $age;
+                if(( $age >= 18 && $age <= 100 )){
                     return TRUE;
                 }
             }

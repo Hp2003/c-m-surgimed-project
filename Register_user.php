@@ -22,15 +22,19 @@
         
         if($result === TRUE){
             // Inserting data into db
-            $sql = "insert into Users(UserName , FirstName , LastName , MobileNumber ,  Email , AccountPassword , UserAddress , Dob)
-            values('$username' , '$firstName' , '$lastname' , $mobilenumber , '$email' , '$password' , '$useraddress' , '$dob');";
-            $response = mysqli_query($GLOBALS['connection'] , $sql);
-            echo "$response <br>";
-            if($response){
-                return 1; // Account created
-            }else{
-                return 0; // Account Not created
-            }
+            try{
+                $sql = "insert into Users(UserName , FirstName , LastName , MobileNumber ,  Email , AccountPassword , UserAddress , Dob)
+                values('$username' , '$firstName' , '$lastname' , $mobilenumber , '$email' , '$password' , '$useraddress' , '$dob');";
+                $response = mysqli_query($GLOBALS['connection'] , $sql);
+                echo "$response <br>";
+                if($response){
+                    return 1; // Account created
+                }else{
+                    echo mysqli_error($GLOBALS['connection']);
+                    return 0; // Account Not created
+                }
+            }catch()
+
         }else{
             return 2; //Input is wrong
         }

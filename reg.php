@@ -2,15 +2,18 @@
     include 'Register_user.php';
 
     session_start();
-    
-    if (isset($_SESSION['error'])) {
-        echo $_SESSION['error'];
-        unset($_SESSION['error']);
+    // session_unset();
+    foreach($_SESSION as $key => $val){
+        if (isset($val)) {
+            echo $val;
+            unset($_SESSION[$key]);
+        }
     }
-    
+    // echo var_dump($_SESSION);
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        // All User Inputs
         if(isset($_POST['reg'])){
-            // All User Inputs
+
             $FirstName = $_POST['FirstName'];
             $LastName = $_POST['LastName'];
             $UserName = $_POST['UserName'];
@@ -19,21 +22,36 @@
             $Email = $_POST['Email'];
             $Address = $_POST['Address'];
             $Dob = $_POST['Dob'];
+            $fields = array($FirstName, $LastName, $UserName, $Mobile, $Password, $Email, $Address, $Dob);
+            $filled_fields = array_filter($fields, 'strlen');
 
-            echo $Dob . "<br>";
-            if(isset($_POST)){
+            if (count($fields) != count($filled_fields)) {
+                echo $_SESSION['InputInvalid'] = "Please Fill All Feilds";
+                header('Location: ' . $_SERVER['REQUEST_URI']);
+                exit;
+            }
                 $res = AddUser($UserName , $FirstName , $LastName , $Mobile , $Email ,  $Password , $Address , $Dob);
                 if($res === 1){
-                    echo "Account Created";
+                    echo $_SESSION['Success'] = "Account Created!";
+                    header('Location: ' . $_SERVER['REQUEST_URI']);
+                    // unset($_SESSION['Success']);
+                    exit;
                 }elseif($res === 2){
-                    echo "Account Not Created error in input";
+                    echo $_SESSION['InputError'] = "There is some error in Input!";
+                    header('Location: ' . $_SERVER['REQUEST_URI']);
+                    // unset($_SESSION['InputError']);
+                    exit;
                 }elseif($res === 0){
-                    echo "server error";
+                    echo $_SESSION['ServerError'] = "There is error with Server Try again!";
+                    header('Location: ' . $_SERVER['REQUEST_URI']);
+                    // unset($_SESSION['ServerError']);
+                    exit;
                 }
-            }
+
         }else{
-            echo $_SESSION['error'] = "Tray Again!";
+            echo $_SESSION['error'] = "Tray Again! (please Don't change anything in page html)";
             header('Location: ' . $_SERVER['REQUEST_URI']);
+            // unset($_SESSION['error']);
             exit;
         }
     }
