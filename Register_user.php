@@ -33,7 +33,14 @@
                     echo mysqli_error($GLOBALS['connection']);
                     return 0; // Account Not created
                 }
-            }catch()
+
+            }catch(mysqli_sql_exception $e){
+                if(mysqli_errno($GLOBALS['connection']) == 1062){
+                    return 3;       // Account already Exist
+                }else if(mysqli_errno($GLOBALS['connection']) == 1406){
+                    return 4;       // Value is too big
+                }
+            }
 
         }else{
             return 2; //Input is wrong
