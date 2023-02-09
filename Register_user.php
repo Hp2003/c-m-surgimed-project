@@ -1,6 +1,8 @@
 <?php 
     include 'connection.php';
     include 'Check_UserInput.php';
+    include 'validate_user.php';
+    include 'send_email.php';
 
     function AddUser($username , $firstName , $lastname , $mobilenumber , $email , $password , $useraddress , $dob){
         trim($email);
@@ -21,6 +23,9 @@
         } , true);
         
         if($result === TRUE){
+            if(check_user($email)){
+                
+            }
             // Inserting data into db
             try{
                 $sql = "insert into Users(UserName , FirstName , LastName , MobileNumber ,  Email , AccountPassword , UserAddress , Dob)

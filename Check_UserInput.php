@@ -1,11 +1,19 @@
-<?php 
+<?php
+require_once('PHPMailer/src/PHPMailer.php');
+require_once('PHPMailer/src/Exception.php');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
     // Validating email
     function check_email($email){
-        if (preg_match('/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/', $email)) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+        $mail = new PHPMailer();
+
+        if ($mail->validateAddress($email)) {
+            return true;
+          } else {
+            return false;
+          }
     }
     // password
     function Check_password($password){

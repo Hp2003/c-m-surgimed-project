@@ -1,34 +1,45 @@
 <?php
 require_once 'PHPMailer/src/PHPMailer.php';
 require_once 'PHPMailer/src/SMTP.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 
 
-$mail = new PHPMailer;
+
+// Sending email to user
+function send_email($reciver , $otp){
+    $mail = new PHPMailer;
 // Server configuring 
 
 $mail->isSMTP();
 $mail->Host = 'smtp.gmail.com';
 $mail->SMTPAuth = true;
-$mail->Username = 'hirenpanchal499@gmail.com';
-$mail->Password = 'volsmrrhkjounhdt';
+$mail->Username = 'hirenpanchal499@gmail.com'; // Sender's email
+$mail->Password = 'volsmrrhkjounhdt';          
 $mail->SMTPSecure = 'tls';
 $mail->Port = 587;
 
 // Recipent
 
-$mail->setFrom('hirenpanchal499@gmail.com', 'Mailer');
-$mail->addAddress('panchalhirenm123@gmail.com', 'user');
+$mail->setFrom('hirenpanchal499@gmail.com', 'Mailer');  // sender's email   
+$mail->addAddress("$reciver", 'user'); // Reciver's email
 
 // Content part
 
 $mail->isHTML(true);
 $mail->Subject = 'Test Email ';
-$mail->Body = 'Test Email for <h1>Application</h1>';
+$mail->Body = "Test Email for <h1>$otp</h1>";
 $mail->AltBody = 'This is alt body';
 
-$mail->send();
+try{
+    // $mail->send();
+}catch(Exception $e){
+    echo "Message could not sent because of {$mail->ErrorInfo}";
+}
 
 echo 'email has been sent';
+}
+
+
 
 ?>
