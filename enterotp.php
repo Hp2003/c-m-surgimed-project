@@ -1,12 +1,4 @@
 <?php
-include('validate_user.php');
-generate_OTP();
-if($_SERVER['REQUEST_URI'] === 'POST'){
-    if(isset($_POST['otpform'])){
-        $otp = $_POST['otp'];
-        validate_otp((string)$otp);
-    }
-}
 
 ?>
 <!DOCTYPE html>

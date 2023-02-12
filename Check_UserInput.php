@@ -5,7 +5,7 @@ require_once('PHPMailer/src/Exception.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-    // Validating email
+    // Validating email pattern
     function check_email($email){
         $mail = new PHPMailer();
 
@@ -15,7 +15,7 @@ use PHPMailer\PHPMailer\Exception;
             return false;
           }
     }
-    // password
+    // checking password pattern
     function Check_password($password){
         if(!preg_match( '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/' , $password)){
             return false;
@@ -38,7 +38,6 @@ use PHPMailer\PHPMailer\Exception;
             if(preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $dob)){
                 // Checking is user 18 or above
                 $age = $current_year - $year;
-                echo $age;
                 if(( $age >= 18 && $age <= 100 )){
                     return TRUE;
                 }
