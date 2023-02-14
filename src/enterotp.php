@@ -1,5 +1,9 @@
-<?php
-
+<?php 
+    session_start();
+    if(!isset($_SESSION['OTP'])){
+        die("Not allowed!");
+    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,0 +1,6 @@
+External Libararys Used In Application
+1) PHPMailer 
+-> https://github.com/PHPMailer/PHPMailer.git
+
+2) AltoRouter
+-> https://github.com/dannyvankooten/AltoRouter.git

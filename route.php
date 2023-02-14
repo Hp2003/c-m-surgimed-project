@@ -1,5 +1,5 @@
 <?php
-require_once('AltoRouter/AltoRouter.php');
+require_once('lib/AltoRouter/AltoRouter.php');
 
 $router = new AltoRouter();
 
@@ -11,11 +11,19 @@ $router->map('GET|POST', '/reg', function () {
 
 $router->map('GET|POST', '/enterotp', function () {
 
-    require 'enterotp.php';
+    require 'views/enterotp.php';
 
 });
 
-$router->map('GET|POST', '/enterotp.php', function () {
+$router->map('GET|POST', '/login', function () {
+    include('handlers/loginuser.php');
+
+    Login_user_handler();
+
+});
+
+$router->map('GET|POST', '/enterotp.php', function (){
+
 include('Register_user.php');
     session_start();
     $otp = $_POST['otp'];

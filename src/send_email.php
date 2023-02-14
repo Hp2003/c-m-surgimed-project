@@ -1,6 +1,6 @@
 <?php
-require_once 'PHPMailer/src/PHPMailer.php';
-require_once 'PHPMailer/src/SMTP.php';
+require_once './lib/PHPMailer/src/PHPMailer.php';
+require_once './lib/PHPMailer/src/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -32,7 +32,7 @@ $mail->Body = "Test Email for <h1>$otp</h1>";
 $mail->AltBody = 'This is alt body';
 
 try{
-    $mail->send();
+    // $mail->send();
     return 1;
 }catch(Exception $e){
     echo "Message could not sent because of {$mail->ErrorInfo}";
