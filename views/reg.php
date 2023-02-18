@@ -1,43 +1,3 @@
-<?php 
-    include 'Validate_user.php';
-
-    session_start();
-    // session_unset();
-    foreach($_SESSION as $key => $val){
-        if (isset($val)) {
-            unset($_SESSION[$key]);
-        }
-    }
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    if (isset($_POST['reg'])) {
-
-        // All User Inputs
-        $FirstName = $_POST['FirstName'];
-        $LastName = $_POST['LastName'];
-        $UserName = $_POST['UserName'];
-        $Mobile = $_POST['Mobile'];
-        $Password = $_POST['Password'];
-        $Email = $_POST['Email'];
-        $Address = $_POST['Address'];
-        $Dob = $_POST['Dob'];
-        $fields = array($FirstName, $LastName, $UserName, $Mobile, $Password, $Email, $Address, $Dob);
-        
-        
-        $filled_fields = array_filter($fields, 'strlen');
-
-        if (count($fields) != count($filled_fields)) {
-                echo $_SESSION['InputInvalid'] = "Please Fill All Feilds";
-                header('Location: ' . $_SERVER['REQUEST_URI']);
-                exit;
-            }
-            session_start();
-            $_SESSION['userdata'] = $fields;
-       Find_user($Email);
-        exit;
-        
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,14 +7,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <title>Registration Form</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <label for="FirstName">FistName : </label><input type="text" name="FirstName" id=""><br>
         <label for="LastName">Lastname : </label><input type="text" name="LastName" id=""><br>
         <label for="UserName">userName : </label><input type="text" name="UserName" id=""><br>
         <label for="UserName">Mobile : </label><input type="text" name="Mobile" id=""><br>
         <label for="Password">Password : </label><input type="Password" name="Password" id=""><br>
         <label for="Emaild">Email : </label><input type="text" name="Email" id=""><br>
-        <label for="Address">Address : </label><textarea name="Address" id="" cols="30" rows="10"></textarea>
+        <label for="Address">Address : </label><textarea name="Address" id="" cols="30" rows="10"></textarea><br>
+        <label for="Address">ProfilePicture : </label><input type="file" name="UserImg" id=""><br>
         <label for="Dob">Dob : </label><input type="date" name="Dob" id="">
 
         <input type="submit" value="Reg" name="reg">

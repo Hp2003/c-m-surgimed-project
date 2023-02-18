@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 
 // Sending email to user
-function send_email($reciver , $otp){
+function send_email($reciver , $Content){
     $mail = new PHPMailer;
 // Server configuring 
 
@@ -28,7 +28,7 @@ $mail->addAddress("$reciver", 'user'); // Reciver's email
 
 $mail->isHTML(true);
 $mail->Subject = 'Test Email ';
-$mail->Body = "Test Email for <h1>$otp</h1>";
+$mail->Body = "Test Email for <h1>$Content</h1>";
 $mail->AltBody = 'This is alt body';
 
 try{

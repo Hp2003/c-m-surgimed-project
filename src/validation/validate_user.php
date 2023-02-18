@@ -1,6 +1,6 @@
 <?php
-require_once('send_email.php');
-require_once('connection.php');
+require_once('./src/send_email.php');
+require_once('./src/connection.php');
 function generate_OTP(){
     $otp = '';
     for ($i = 0; $i < 6; $i++) {
@@ -32,9 +32,7 @@ function Validate_user($email){
     session_start();
     $_SESSION['OTP'] = generate_OTP();
     send_email($email , $_SESSION['OTP']);
-    require('enterotp.php');
+    header('Location: /enterotp');
     exit;
 }
-
-
 ?>

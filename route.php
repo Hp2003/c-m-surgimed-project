@@ -6,12 +6,16 @@ $router = new AltoRouter();
 // Add Routes here
 $router->map('GET|POST', '/reg', function () {
     
-    require 'reg.php';
+    require('handlers/reg_handler.php');
+
+    reg_handler();
 });
 
 $router->map('GET|POST', '/enterotp', function () {
 
-    require 'views/enterotp.php';
+    include('handlers/otp_handler.php');
+    
+    Otp_handler();
 
 });
 
@@ -22,22 +26,6 @@ $router->map('GET|POST', '/login', function () {
 
 });
 
-$router->map('GET|POST', '/enterotp.php', function (){
-
-include('Register_user.php');
-    session_start();
-    $otp = $_POST['otp'];
-
-    if((int)$_SESSION['OTP'] == (int)$otp){
-
-        call_user_func_array("Insert_user", $_SESSION['userdata']);
-        unset($_SESSION['OTP']);
-
-    }else{
-        echo "invalid";
-    }
-
-});
 
 $match = $router->match();
 

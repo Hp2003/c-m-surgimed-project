@@ -1,9 +1,5 @@
 <?php 
-    session_start();
-    if(!isset($_SESSION['OTP'])){
-        die("Not allowed!");
-    }
-    
+    echo $_SESSION['OTP'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +10,7 @@
     <title>Enter OTP</title>
 </head>
 <body>
-    <form action="enterotp.php" method="post" >
+    <form action="" method="post" >
     <input type="text" name="otp" id="">
     <input type="submit" value="submit" name="otpform" >
     </form>

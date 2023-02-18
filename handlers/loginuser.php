@@ -1,12 +1,13 @@
 <?php 
-require_once('./src/validate_user.php');
+require_once('./src/validation/validate_user.php');
 require_once('./src/connection.php');
-require_once('./src/Check_Userinput.php');
+require_once('./src/validation/Check_Userinput.php');
 
 function get_user($email , $password){
     $con = connect_to_db();
 
     $sql = "SELECT UserName FROM Users WHERE Email = ? AND AccountPassword = ? LIMIT 1";
+
     $stmt = $con->prepare($sql);
     $stmt->bind_param("ss", $email, $password);
     $stmt->execute();
@@ -14,6 +15,7 @@ function get_user($email , $password){
     $row = $result->fetch_assoc();
     echo $row['UserName'];
 }
+
 function Login_user_handler(){
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
