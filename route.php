@@ -1,39 +1,46 @@
 <?php
-require_once('lib/AltoRouter/AltoRouter.php');
+$url = $_SERVER['REQUEST_URI'];
+$request = str_replace("route.php" , '' , $url );
 
-$router = new AltoRouter();
+// echo "$request <br>";
 
-// Add Routes here
-$router->map('GET|POST', '/reg', function () {
-    
-    require('handlers/reg_handler.php');
+if($request == '/'){
+    echo "home page";
+}else if($request == '/reg'){
+
+    include 'handlers/reg_handler.php';
 
     reg_handler();
-});
 
-$router->map('GET|POST', '/enterotp', function () {
+}else if($request == '/login'){
 
-    include('handlers/otp_handler.php');
-    
-    Otp_handler();
-
-});
-
-$router->map('GET|POST', '/login', function () {
-    include('handlers/loginuser.php');
+    include 'handlers/loginuser.php';
 
     Login_user_handler();
 
-});
 
+}
+else if($request == '/enterotp'){
+    
+    require_once 'handlers/otp_handler.php';
 
-$match = $router->match();
-
-// Functon which call route
-if($match){
-    call_user_func_array($match['target'], $match['params']);
-}else{
-    echo "some wrong route";
+    Otp_handler();
 }
 
+else if($request == '/test'){
+    
+    require_once 'test.php';
+
+    // Otp_handler();
+}
+else if($request == '/complete_profile'){
+    
+    require_once 'handlers/Complete_profile_handler.php';
+
+    complete_profile_handler();
+}
+
+else{
+    echo "some wrong route";
+}
 ?>

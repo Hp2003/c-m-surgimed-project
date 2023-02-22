@@ -5,10 +5,11 @@
 require_once './src/connection.php';
 require_once './src/validation/Check_Userinput.php';
 require_once 'insertIMG.php';
-// require_once '.php';
 
-function Insert_user($firstname, $lastname, $username, $mobilenumber, $password, $email, $address, $dob){
-    session_start();
+function Insert_user($firstname, $lastname, $mobilenumber, $password, $email, $address, $dob, $gender){
+    if(session_status() != PHP_SESSION_ACTIVE){
+        session_start();
+    }
 
     trim($email);
     trim($password);
@@ -34,36 +35,29 @@ function Insert_user($firstname, $lastname, $username, $mobilenumber, $password,
             // Inserting user 
             $con = connect_to_db();
             try{
-            $sql = "insert into Users(UserName , FirstName , LastName , MobileNumber ,  Email , AccountPassword , UserAddress , Dob)
-            values('$username' , '$firstname' , '$lastname' , $mobilenumber , '$email' , '$password' , '$address' , '$dob');";
-            $response = mysqli_query($con , $sql);
+                $sql = "insert into Users(Username , FirstName , LastName , MobileNumber ,  Email , AccountPassword , UserAddress , Dob , Gender)
+                values('', '$firstname' , '$lastname' , $mobilenumber , '$email' , '$password' , '$address' , '$dob' , '$gender');";
+                $response = mysqli_query($con , $sql);
 
 
-            if($response){
-            $id  = $con->insert_id;
+                if($response){
+                    $_SESSION['id'] = $con->insert_id;
 
-            if($_SESSION['img_moved'] === TRUE){
+                    // Inserting default Image for user
+                    if($gender === 'MALE'){
+                        $insert_user_image = "UPDATE Users  SET ProfilePicture = 'img/defaultIMG/Default_male.jpg' WHERE UserId = '{$_SESSION['id']}'";
+                        mysqli_query($con ,$insert_user_image );
+                        $con->close();
 
-                $new_name = $id . '_' . $_SESSION['New_Profile_picturename'];
+                    }else if($gender === 'FEMALE'){
+                        $insert_user_image = "UPDATE Users  SET ProfilePicture = 'img/defaultIMG/Default_female.jpg'  WHERE UserId = '{$_SESSION['id']}'";
+                        mysqli_query($con ,$insert_user_image );
+                        $con->close();
+                    }
+                $_SESSION['full_name'] = $firstname . ' ' . $lastname;
+                $_SESSION['Is_account_created'] = TRUE;
 
-                rename("./img/temp/{$_SESSION['New_Profile_picturename']}" , "./img/User_images/$new_name");
-
-                $query = "UPDATE Users set ProfilePicture = 'img/User_images/$new_name'WHERE UserId = '$id' " ;
-
-
-                $_SESSION['is_proflie_image_uploaded'] = $con->query($query);
-
-                $con->close();
-                
-            }else{
-                // Inserting default Image for user
-                $insert_user_image = "UPDATE Users  SET ProfilePicture = 'img/defaultIMG/Default_male.jpg' WHERE UserId = '$id';";
-                mysqli_query($con ,$insert_user_image );
-                $con->close();
-                
-            }
-            echo "In";
-            header('Location: /login');
+                header('Location: /complete_profile');
         }else{
 
             echo mysqli_error($con);
@@ -77,7 +71,7 @@ function Insert_user($firstname, $lastname, $username, $mobilenumber, $password,
                 echo "value is too big";   // Value is too big
 
             }else{
-                echo "There is something wrong!";
+                echo $e;
             }
         }
     }else{

@@ -1,7 +1,9 @@
 <?php 
 function Otp_handler(){
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
-        session_start();
+        if(session_status() !== 'PHP_SESSION_ACTIVE'){
+            session_start();
+        }
         if(!isset($_SESSION['OTP'])){
             die("Not allowed!");
         }else{
@@ -11,7 +13,9 @@ function Otp_handler(){
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         require_once('./src/Register_user.php');
     
-        session_start();
+        if(session_status() != PHP_SESSION_ACTIVE){
+            session_start();
+        }
         $otp = $_POST['otp'];
         if((int)$_SESSION['OTP'] === (int)$otp){
     

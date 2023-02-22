@@ -6,7 +6,9 @@ function move_image($type ){
     if( strtoupper($type) === "PROFILE_IMAGE"){
         $imageFileType = strtolower(pathinfo($_FILES["UserImg"]["name"],PATHINFO_EXTENSION));
 
+        if(session_status() != PHP_SESSION_ACTIVE){
             session_start();
+        }
             // Generate a unique file name for the uploaded image
 
             $uniqueId = uniqid();
