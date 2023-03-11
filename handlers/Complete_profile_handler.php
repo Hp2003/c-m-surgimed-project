@@ -35,6 +35,13 @@ function complete_profile(){
     }else{
         $username = $_POST['full_name'];
     }
+    if(!($_FILES["UserImg"] && $_FILES["UserImg"]["error"] == 0)) {
+        $query = "UPDATE Users SET  UserName = '$username' WHERE UserId = '{$_SESSION['id']}'" ;
+
+        $response = $con->query($query);
+        $con->close();
+        return 1;
+    }
     if(isset($_POST['create_profile'])){
 
         $img_moved ;

@@ -2,7 +2,7 @@
 require_once('./src/send_email.php');
 require_once('./src/connection.php');
 function generate_OTP(){
-    if(session_status() !== 'PHP_SESSION_ACTIVE'){
+    if(session_status() != PHP_SESSION_ACTIVE){
         session_start();
     }
     $otp = '';

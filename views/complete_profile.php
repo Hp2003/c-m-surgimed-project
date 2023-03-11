@@ -8,7 +8,7 @@
 </head>
 <body>
     <form action="" method="post" enctype="multipart/form-data">
-        <label for="Address">ProfilePicture : </label><input type="file" name="UserImg" id="user_date_of_birth"><br>
+        <label for="Address">ProfilePicture : </label><input type="file" name="UserImg" id=""><br>
 
         <label for="UserName">userName : </label><input type="text" name="UserName" id="user_name"><br>
         <input type="submit" value="subnmit" name='create_profile'>
