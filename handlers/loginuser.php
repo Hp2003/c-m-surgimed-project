@@ -4,24 +4,49 @@ require_once('./src/connection.php');
 require_once('./src/validation/Check_Userinput.php');
 
 function get_user($email , $password){
+
     $con = connect_to_db();
 
-    $sql = "SELECT UserName FROM Users WHERE Email = ? AND AccountPassword = ? LIMIT 1";
+    $sql = "SELECT UserName, UserId, Email FROM Users WHERE Email = ? AND AccountPassword = ? LIMIT 1";
 
     $stmt = $con->prepare($sql);
     $stmt->bind_param("ss", $email, $password);
     $stmt->execute();
     $result =  $stmt->get_result();
     $row = $result->fetch_assoc();
-    echo $row['UserName'];
+
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    if($row != null){
+        // saving for later use
+        $_SESSION['userName'] = $row['UserName'];
+        $_SESSION['userId'] = $row['UserId'];
+        $_SESSION['UserEmail'] = $row['Email'];
+
+        header('Conent-Type: application/json');
+        $responseData = array(
+            'url' => '/'
+        );
+        echo json_encode($responseData);
+        return;
+    }else{
+        header('Conent-Type: application/json');
+        $responseData = array(
+            'text' => 'userNotFound'
+        );
+        echo json_encode($responseData);
+        return;
+    }
 }
 
 function Login_user_handler(){
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
-        require('./views/login_page.php');
+        require('./views/login_page_ui.php');
 
     }else if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
 
         $email = $_POST['Email'];
         $password = $_POST['password'];
@@ -29,7 +54,12 @@ function Login_user_handler(){
         if(check_email($email)){
             get_user($email , $password);
         }else{
-            echo "Invalid";
+            header("Content-Type: application/json");
+            $responseData = array(
+                'text' => "invalidEmail"
+            );
+            echo json_encode($responseData);
+            return;
         }
     }
 }

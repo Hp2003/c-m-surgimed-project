@@ -5,10 +5,12 @@ require_once './lib/PHPMailer/src/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 
 
-
 // Sending email to user
 function send_email($reciver , $Content){
     $mail = new PHPMailer;
+
+    
+    $mail->SMTPKeepAlive = false;
 // Server configuring 
 
 $mail->isSMTP();
@@ -35,7 +37,7 @@ try{
     // $mail->send();
     return 1;
 }catch(Exception $e){
-    echo "Message could not sent because of {$mail->ErrorInfo}";
+    return 0;
 }
 }
 

@@ -1,0 +1,20 @@
+.popover-container {
+    position: relative;
+}
+
+  .popover-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 100;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* .popover-container:hover .popover-content {
+    display: block;
+  } */
+  

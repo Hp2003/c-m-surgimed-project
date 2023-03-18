@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    color: white;
+}
+.error-outer {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sad-face{
+    text-align: center;
+    transform: rotatez(90deg);
+    font-size: 6em;
+    margin: auto;
+}

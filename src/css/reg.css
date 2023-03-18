@@ -1,0 +1,24 @@
+.gen-buttons{
+    display: flex;
+    flex-direction: row;
+}
+.transp-button{
+    background: transparent;
+    cursor:pointer;
+}
+.transp-button:checked{
+    box-shadow: 0 0 200px white, 0 0 10px white;
+    background-color: white;
+    border: 1px solid black;
+}
+input[type="date"] {
+    background-color: transparent;
+    border-width: 0px 0px 1px 0px; 
+    border-color: white; 
+    color: white;
+}
+
+  
+  
+  
+  

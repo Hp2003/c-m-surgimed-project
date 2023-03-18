@@ -6,19 +6,18 @@ require_once './src/connection.php';
 require_once './src/validation/Check_Userinput.php';
 require_once 'insertIMG.php';
 
-function Insert_user($firstname, $lastname, $mobilenumber, $password, $email, $address, $dob, $gender){
+function Insert_user($firstname, $lastname, $password, $email, $dob, $gender){
     if(session_status() != PHP_SESSION_ACTIVE){
         session_start();
     }
 
     trim($email);
     trim($password);
-    trim($mobilenumber);
 
     // Checking User Input
     $validation = [];
     $validation[0] = check_dob($dob);
-    $validation[1] = check_mobile($mobilenumber);
+    // $validation[1] = check_mobile($mobilenumber);
     $validation[2] = check_email($email);
     $validation[3] = check_password($password);
 
@@ -34,9 +33,10 @@ function Insert_user($firstname, $lastname, $mobilenumber, $password, $email, $a
             
             // Inserting user 
             $con = connect_to_db();
+            $fullname  = $firstname . $lastname;
             try{
-                $sql = "insert into Users(Username , FirstName , LastName , MobileNumber ,  Email , AccountPassword , UserAddress , Dob , Gender)
-                values('', '$firstname' , '$lastname' , $mobilenumber , '$email' , '$password' , '$address' , '$dob' , '$gender');";
+                $sql = "insert into Users(Username , FirstName , LastName ,  Email , AccountPassword, Dob , Gender)
+                values('$fullname', '$firstname' , '$lastname' , '$email' , '$password' , '$dob' , '$gender');";
                 $response = mysqli_query($con , $sql);
 
 
@@ -56,8 +56,16 @@ function Insert_user($firstname, $lastname, $mobilenumber, $password, $email, $a
                     }
                 $_SESSION['full_name'] = $firstname . ' ' . $lastname;
                 $_SESSION['Is_account_created'] = TRUE;
-
-                header('Location: /complete_profile');
+                // header('Content-Type: text/plain');
+                // echo "in";
+                // return;
+                unset($_SESSION['OTP']);
+                header('Content-Type: application/json');
+                $responseData = array(
+                    'url' => '/complete_profile'
+                );
+                echo json_encode($responseData);
+                return;
         }else{
 
             echo mysqli_error($con);
@@ -67,8 +75,13 @@ function Insert_user($firstname, $lastname, $mobilenumber, $password, $email, $a
         }catch(mysqli_sql_exception $e){
 
                 if(mysqli_errno($con) == 1406){
-
-                echo "value is too big";   // Value is too big
+                    header('Content-Type: application/json');
+                    $responseData = array(
+                        'text' => 'bigVal',
+                        'url'  => '/'
+                    );
+                    echo json_encode($response);
+                    return;
 
             }else{
                 echo $e;
