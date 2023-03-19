@@ -8,8 +8,12 @@ $request = str_replace("route.php" , '' , $url );
 
 // echo "$request <br>";
 
-if($request == '/'){
-    echo "home page";
+if($request == '/' || $request == '/home'){
+
+    include ('handlers/homepage_handler.php');
+
+    home_handler();
+
 }else if($request == '/reg'){
     include 'handlers/reg_handler.php';
 
@@ -42,16 +46,17 @@ else if($request == '/complete_profile'){
 
     complete_profile_handler();
 }
+else if($request == '/profile'){
+    require_once('handlers/profile_handler.php');
+
+    profile_handler();
+}
 else if($request == '/error'){
 
     include("views/Error_404.php");
 
 }
-else if($request == '/test'){
 
-    include("test.php");
-
-}
 
 else{
 

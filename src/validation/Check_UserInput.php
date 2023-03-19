@@ -12,9 +12,9 @@ function check_email($email){
     $mail = new PHPMailer();
 
     if ($mail->validateAddress($email)) {
-        return true;
+            return true;
         } else {
-        return false;
+            return false;
         }
 }
 ###########################################################################################################################################################

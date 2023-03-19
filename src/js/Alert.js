@@ -11,12 +11,15 @@ function createAlert(alertType, heading, message, duration = 5000){
   const alertDiv = document.createElement('div');
   alertDiv.classList.add('alert', `alert-${alertType}`, 'alert-dismissible', 'fade', 'show');
   alertDiv.setAttribute('data-bs-delay', `${duration}`);
+  alertDiv.style.position = 'fixed';
   alertDiv.style.zIndex = 9999;
   alertDiv.style.top = 0;
+  alertDiv.style.left = 0;
+  alertDiv.style.height = '60px';
   alertDiv.style.width = '100%';
-  alertDiv.style.position = 'absolute';
+  alertDiv.style.top = 0;
   alertDiv.innerHTML = `
-    <strong>${heading}!</strong> ${message}
+    <strong ">${heading}</strong> ${message}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   `;
   setTimeout(() => {

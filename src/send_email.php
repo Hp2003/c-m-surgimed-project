@@ -30,11 +30,11 @@ $mail->addAddress("$reciver", 'user'); // Reciver's email
 
 $mail->isHTML(true);
 $mail->Subject = 'Test Email ';
-$mail->Body = "Test Email for <h1>$Content</h1>";
+$mail->Body = " $Content";
 $mail->AltBody = 'This is alt body';
 
 try{
-    // $mail->send();
+    $mail->send();
     return 1;
 }catch(Exception $e){
     return 0;
