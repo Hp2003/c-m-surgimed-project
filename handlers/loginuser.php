@@ -15,7 +15,7 @@ function get_user($email , $password){
     $result =  $stmt->get_result();
     $row = $result->fetch_assoc();
 
-    if(!isset($_SESSION)){
+    if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
     if($row != null){
@@ -23,7 +23,7 @@ function get_user($email , $password){
         $_SESSION['userName'] = $row['UserName'];
         $_SESSION['userId'] = $row['UserId'];
         $_SESSION['UserEmail'] = $row['Email'];
-
+        $_SESSION['loggedIn'] = True;
         header('Conent-Type: application/json');
         $responseData = array(
             'url' => '/'

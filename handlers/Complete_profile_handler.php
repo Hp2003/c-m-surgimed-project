@@ -93,8 +93,7 @@ function complete_profile(){
             }
             return 0;
     } else {
-        // No file was uploaded via AJAX
-        // Handle non-file upload logic here
+
         $con = connect_to_db();
 
         $query = "UPDATE Users SET UserName = '$username' , MobileNumber = '$mobileNumber' , UserAddress = '$address' WHERE UserId = '{$_SESSION['id']}'";

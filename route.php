@@ -55,8 +55,34 @@ else if($request == '/error'){
 
     include("views/Error_404.php");
 
-}
+}else if (strpos($_SERVER['REQUEST_URI'], '/api') === 0) {
+    // handle API requests
+    if (strpos($_SERVER['REQUEST_URI'], '/api/userdata') === 0) {
+        // handle /api/userdata request
+        require_once 'src/get_user_data.php';
+        $user_data = get_user_data();
 
+        // getting image
+        $imgData = file_get_contents($user_data['ProfilePicture']);
+
+        $encodedImageData = base64_encode($imgData);
+
+        header('Content-Type: application/json');
+        $responseData = array(
+            'image' => $encodedImageData,
+            'userData' => $user_data
+        );
+        echo json_encode($responseData);
+        return;
+    }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/image') === 0) {
+        if($_SERVER['REQUEST_METHOD'] === "POST"){
+            require_once('src/get_user_img.php');
+            get_user_image();
+        }
+    }
+    
+}
 
 else{
 

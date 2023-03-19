@@ -63,7 +63,11 @@ function validate_image(){
 
     // Checking if images is real or fake
     $check = getimagesize($_FILES["UserImg"]["tmp_name"]);
-
+    // $responseData = array(
+    //     'text' => $_FILES['UserImg']['tmp_name']
+    // );
+    // echo json_encode($responseData);
+    // return;
     if($check){
         if ($_FILES["UserImg"]["size"] <=  5000000) {
             if($imgfiletype == "jpg" || $imgfiletype == "png" || $imgfiletype == "jpeg") {

@@ -1,5 +1,5 @@
-let container = document.querySelector('.upload-outer');
 var input = document.querySelector('#profile-image');
+let container = document.querySelector('.upload-outer');
 var preview = document.querySelector('#preview-image');
 let text = document.querySelector('.custom-file-upload');
 const form = document.getElementById('completeProfile');
@@ -52,21 +52,26 @@ function checkNumber(number){
 }
 // handling event on submit button
 let completeProfile = document.querySelector('.create_profile_btn')
-completeProfile.addEventListener('click',(e)=>{
-  e.preventDefault();
-  const number = document.querySelector('.mobile').value;
-
-  // checking phone number
-if(!checkNumber(number)){
-  createAlert("warning", 'Note! :', 'Please Enter valid mobile number'  );
+if(completeProfile !== null){
+  completeProfile.addEventListener('click',(e)=>{
+    e.preventDefault();
+    const number = document.querySelector('.mobile').value;
   
-  return 0;
-}
+    // checking phone number
+  if(!checkNumber(number)){
+    createAlert("warning", 'Note! :', 'Please Enter valid mobile number'  );
+    
+    return 0;
+  }
+})
+
 
 // checking mobile number
-if(document.querySelector('.Uname').value.trim() == "" ){
+let Uname = document.querySelector('.Uname').value.trim() ;
+
+if( Uname == "" ){
   createAlert("warning", 'Note! :', 'Please Enter valid user name !'  );
-  return 0;
+  throw new error('error');
 }
 const fileInput = form.querySelector('input[type="file"]');
 const formData = new FormData(form);
@@ -101,6 +106,6 @@ if(fileInput &&  fileInput.files.length > 0){
     console.log(error);
   })
   
-})
+}
 
 
