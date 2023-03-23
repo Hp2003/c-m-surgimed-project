@@ -30,8 +30,8 @@
 
                     <i class="fas fa-calendar-alt mr-2"></i>in Stock!
                 </div>
-                <div class="postcard__bar"></div>
-                <h4 class="postcard__title blue" ><a href="#"><i class="fa fa-inr" aria-hidden="true"></i> 20,000</a></h4>
+                <div class="postcard__bar" ></div>
+                <h5 class="postcard__title blue" ><a href="#"><i class="fa fa-inr" aria-hidden="true"></i> 8,000</a></h5>
                 <div class="postcard__preview-txt"></div>
                     <ul class="postcard__tagbox">
                         <?php 
@@ -42,6 +42,7 @@
                         ?>
                         <li class="tag__item play blue">
                             <a href="#">5 <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i></a>
+                            <a href="#">cart</a>
                         </li>
                     </ul>
                 </div>
@@ -54,16 +55,21 @@
                     <h1 class="postcard__title red"><a href="#">Podcast Title</a></h1>
                     <div class="postcard__subtitle small">
                         <time datetime="2020-05-25 12:00:00">
-                            <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
+                            <i class="fas fa-calendar-alt mr-2"></i>
                         </time>
                     </div>
                     <div class="postcard__bar"></div>
+                    <h4 class="postcard__title blue" ><a href="#"><i class="fa fa-inr" aria-hidden="true"></i> 8,000</a></h4>
                     <div class="postcard__preview-txt">i, illum quos!</div>
                     <ul class="postcard__tagbox">
-                        <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-                        <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-                        <li class="tag__item play red">
-                            <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+                    <?php 
+                            if($IsAdmin == true){
+                                echo " <li class='tag__item'>Delete</li>
+                                <li class='tag__item editProduct'><i class='fas fa-clock mr-2 '></i>Edit</li>";
+                            }
+                        ?>
+                        <li class="tag__item play blue">
+                            <a href="#">5 <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -76,16 +82,21 @@
                     <h1 class="postcard__title green"><a href="#">Podcast Title</a></h1>
                     <div class="postcard__subtitle small">
                         <time datetime="2020-05-25 12:00:00">
-                            <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
+                            <!-- <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020 -->
                         </time>
                     </div>
                     <div class="postcard__bar"></div>
+                    <h4 class="postcard__title blue" ><a href="#"><i class="fa fa-inr" aria-hidden="true"></i> 5,000</a></h4>
                     <div class="postcard__preview-txt"> quos!</div>
                     <ul class="postcard__tagbox">
-                        <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-                        <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-                        <li class="tag__item play green">
-                            <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+                    <?php 
+                            if($IsAdmin == true){
+                                echo " <li class='tag__item'>Delete</li>
+                                <li class='tag__item editProduct'><i class='fas fa-clock mr-2 '></i>Edit</li>";
+                            }
+                        ?>
+                        <li class="tag__item play blue">
+                            <a href="#">5 <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -98,16 +109,21 @@
                     <h1 class="postcard__title yellow"><a href="#">Podcast Title</a></h1>
                     <div class="postcard__subtitle small">
                         <time datetime="2020-05-25 12:00:00">
-                            <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
+                            <!-- <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020 -->
                         </time>
                     </div>
                     <div class="postcard__bar"></div>
+                    <h4 class="postcard__title blue" ><a href="#"><i class="fa fa-inr" aria-hidden="true"></i> 10,000</a></h4>
                     <div class="postcard__preview-txt">Lorem ipsum dolor illum quos!</div>
                     <ul class="postcard__tagbox">
-                        <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-                        <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-                        <li class="tag__item play yellow">
-                            <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+                    <?php 
+                            if($IsAdmin == true){
+                                echo " <li class='tag__item'>Delete</li>
+                                <li class='tag__item editProduct'><i class='fas fa-clock mr-2 '></i>Edit</li>";
+                            }
+                        ?>
+                        <li class="tag__item play blue">
+                            <a href="#">5 <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i></a>
                         </li>
                     </ul>
                 </div>
