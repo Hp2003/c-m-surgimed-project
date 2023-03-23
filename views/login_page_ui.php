@@ -25,16 +25,16 @@
                         <h2>Login..</h2>
                         <form id="login_form">
                             <div class="input__box">
-                            <div class="popover-container">
-                                    <input type="email" placeholder="Email" name="Email" class="my-textbox Email" required>
-                                    <div class="popover-content">
-                                        <p>Popover content goes here</p>
-                                    </div>
+                                <div class="popover-container" style="">
+                                        <input type="email" placeholder="Email" name="Email" class="my-textbox Email popover-container input-container" required>
+                                        <div class="popover-content">
+                                            <p>Popover content goes here</p>
+                                        </div>
                                 </div>
                             </div>
                             <div class="input__box">
-                            <div class="popover-container">
-                                    <input type="password" placeholder="password" name="password" class="my-textbox Email" required>
+                                <div class="">
+                                    <input type="password" placeholder="password" name="password" class="my-textbox input-container" required>
                                     <div class="popover-content">
                                         <p>Popover content goes here</p>
                                     </div>
@@ -47,7 +47,7 @@
                                 Forgot Password? <a href="#" class="link">Click Here</a>
                             </p>
                             <p class="forget">
-                                Don't have an account? <a href="#" class="link">Sign Up</a>
+                                Don't have an account? <a href="/reg" class="link">Sign Up</a>
                             </p>
                         </form>
                     </div>
@@ -60,9 +60,9 @@
 
     <!-- Custom js -->
     <!-- <script src="../src/js/input_validation_user_data.js"></script> -->
+    <script src="../src/js/popover.js"></script>
     <script src="../src/js/Alert.js"></script>
     <script src="../src/js/login_page.js"></script>
-    <script src="../src/js/popover.js"></script>
 
     <!-- Bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

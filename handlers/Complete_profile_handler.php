@@ -43,6 +43,7 @@ function complete_profile(){
 
     $address = str_replace(array("\r\n", "\n"), " ", $address);
     $fields = array($username, $address, $mobileNumber);
+
     if(!check_mobile($mobileNumber)){
         header('Content-Type: application/json');
         $responseData = array(

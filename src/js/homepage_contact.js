@@ -1,7 +1,7 @@
 let contactForm = document.getElementById('contactUs_form');
 let submitContactBtn = document.getElementById('hcb');
 const emailContact = document.getElementById('ehc');
-const message = document.getElementById('mhc');
+const Message = document.getElementById('mhc');
 
 submitContactBtn.addEventListener('click', (e)=>{
     e.preventDefault();
@@ -10,7 +10,7 @@ submitContactBtn.addEventListener('click', (e)=>{
         createAlert('warning', 'Email', 'Please Enter Valid Email', 8000 );
         return 0;
     }
-    else if(message.value == ''){
+    else if(Message.value == ''){
         createAlert('warning', 'Message', 'Please Provide us a message!', 8000 );
         return 0;
     }else{
@@ -28,15 +28,15 @@ function make_request(){
     const formData = new FormData(contactForm);
 
     axios.post('', formData).then(Response =>{
-        const message = Response.data.text;
-        if(message !== "" || message !== undefined){
-            if(message == "eamilSentSuccessFully"){
+        const Message = Response.data.text;
+        if(Message !== "" || Message !== undefined){
+            if(Message == "eamilSentSuccessFully"){
                 createAlert('success', 'Email Sent! : ', 'Thankyou for Your Feedback! &#x1F60A;');
             }
-            else if(message == "emailIsIncorrect"){
+            else if(Message == "emailIsIncorrect"){
                 createAlert('danger', 'Warning : ', 'Check Email Input!');
             }
-            else if(message == "errorOccured"){
+            else if(Message == "errorOccured"){
                 createAlert('warning', 'Error! : ', 'Sorry Try Again Some Error Occured!');
             }
         }

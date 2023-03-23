@@ -1,5 +1,22 @@
 
-    <section class="dark">
+<?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    $IsAdmin = false ;
+    if(isset($_SESSION['IsAdmin'])){
+        if($_SESSION['IsAdmin'] == true){
+            $IsAdmin = $_SESSION['IsAdmin'];
+        }
+    }
+    if($IsAdmin == true){
+        require_once('admin_views/admin_dashboard.php');
+    }
+    // require_once('admin_views/admin_dashboard.php');
+?>
+
+    <section class="dark change">
+    
         <div class="container py-4">
             <!-- <h1 class="h1 text-center" id="pageHeaderTitle">My Cards Dark</h1> -->
     
@@ -8,19 +25,23 @@
                     <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
                 </a>
                 <div class="postcard__text">
-                    <h1 class="postcard__title blue"><a href="#">Podcast Title</a></h1>
+                    <h1 class="postcard__title blue"><a href="#">Product Title</a></h1>
                     <div class="postcard__subtitle small">
-                        <time datetime="2020-05-25 12:00:00">
-                            <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
-                        </time>
-                    </div>
-                    <div class="postcard__bar"></div>
-                    <div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
+
+                    <i class="fas fa-calendar-alt mr-2"></i>in Stock!
+                </div>
+                <div class="postcard__bar"></div>
+                <h4 class="postcard__title blue" ><a href="#"><i class="fa fa-inr" aria-hidden="true"></i> 20,000</a></h4>
+                <div class="postcard__preview-txt"></div>
                     <ul class="postcard__tagbox">
-                        <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-                        <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+                        <?php 
+                            if($IsAdmin == true){
+                                echo " <li class='tag__item'>Delete</li>
+                                <li class='tag__item editProduct'><i class='fas fa-clock mr-2 '></i>Edit</li>";
+                            }
+                        ?>
                         <li class="tag__item play blue">
-                            <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+                            <a href="#">5 <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -37,7 +58,7 @@
                         </time>
                     </div>
                     <div class="postcard__bar"></div>
-                    <div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
+                    <div class="postcard__preview-txt">i, illum quos!</div>
                     <ul class="postcard__tagbox">
                         <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
                         <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
@@ -59,7 +80,7 @@
                         </time>
                     </div>
                     <div class="postcard__bar"></div>
-                    <div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
+                    <div class="postcard__preview-txt"> quos!</div>
                     <ul class="postcard__tagbox">
                         <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
                         <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
@@ -81,7 +102,7 @@
                         </time>
                     </div>
                     <div class="postcard__bar"></div>
-                    <div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
+                    <div class="postcard__preview-txt">Lorem ipsum dolor illum quos!</div>
                     <ul class="postcard__tagbox">
                         <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
                         <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>

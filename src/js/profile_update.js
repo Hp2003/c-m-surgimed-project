@@ -10,27 +10,46 @@ psb.addEventListener('click', (e)=>{
     // const newFormProfile = 
     e.preventDefault();
     let formDataProfile = new FormData();
-    
-    psf.forEach(Element =>{
-        formDataProfile.append(Element.name , Element.value);
-    })
+
+    let isRadioChecked = false;
+    // checking if radio button is checked
+    psf.forEach(Element => {
+        if(Element.name === "flexRadioDefault" && Element.checked && isRadioChecked == false) {
+            formDataProfile.append(Element.name, Element.value);
+            isRadioChecked = true;
+        } else if(Element.name !== "flexRadioDefault" ){
+            formDataProfile.append(Element.name, Element.value);
+        }
+    });
+    if(isRadioChecked == false){
+        createAlert('warning', 'note !', 'Please check radio button!');
+        return;
+    }
+
     
     const entries = Array.from(formDataProfile.entries());
     // console.log(formDataProfile['Dob']);
 
-
+    
     entries.forEach((entry, index) => {
         const [key, value] = entry;
-        if (value === '') {
-            createAlert('warning', 'Missing value! : ', `Please provide us ${psf[index].name}`);
-            return;
+        // console.log(key);
+        if (value == '') {
+            if(!key == 'flexRadioDefault'){
+                createAlert('warning', 'Missing value! : ', `Please provide us ${psf[index].name}`);
+                return;
+            }
         }
       });
+      if(!checkAge(pdob.value) ){
+        console.log('in')
+        return 0;
+    }
     //   formDataProfile.forEach((Element, Index) =>{
     //     console.log(Index, Element);
     //   })
-    console.log(formDataProfile);
-    console.log(formDataProfile.get("MobileNumber"))
+    // console.log(formDataProfile);
+    // console.log(formDataProfile.get("MobileNumber"))
       if(!formDataProfile.get("MobileNumber").match(/^(?:\+\d{1,3}[- ]?)?\d{10}$/)){
         createAlert('warning', 'Wrong value! : ', `Please Enter Valid Mobile Number`);
             return;
@@ -44,7 +63,7 @@ psb.addEventListener('click', (e)=>{
             return;
       }
       
-    console.log(formDataProfile);
+    // console.log(formDataProfile);
       
     updateUserProfile(formDataProfile);
 })
@@ -56,7 +75,7 @@ function updateUserProfile(formDataProfile){
     // Getting form data
     const fileInput = psfOriginal.querySelector('input[type="file"]');
     const file = fileInput.files[0];
-    console.log(fileInput)
+    // console.log(fileInput)
     if(fileInput &&  fileInput.files.length > 0){
         const fileSizeMB = fileInput.files[0].size / 1024 / 1024;
         // Checking file size
@@ -78,6 +97,6 @@ function updateUserProfile(formDataProfile){
         }
         console.log(Response.data)
     })
-    console.log('here');
+    // console.log('here');
 
 }

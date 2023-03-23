@@ -2,7 +2,9 @@
 header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
 header("Pragma: no-cache"); // HTTP 1.0
 header("Expires: 0"); // Proxies
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 $url = $_SERVER['REQUEST_URI'];
 $request = str_replace("route.php" , '' , $url );
 
@@ -81,7 +83,55 @@ else if($request == '/error'){
             get_user_image();
         }
     }
-    
+    if (strpos($_SERVER['REQUEST_URI'], '/api/edit_product') === 0) {
+        if($_SESSION['IsAdmin'] == true){
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('src/display_edit_pro.php');
+                get_edit_pro();
+            }
+        }else{
+            header('Content-Type: application/json');
+            $resData = array(
+                'text' => "notAllowed"
+            );
+            echo json_encode($resData);
+            return;
+        }
+
+    }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/add_product') === 0) {
+        if($_SESSION['IsAdmin'] == true){
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                if($_POST['type'] === 'GetPage' ){
+                    require_once('src/display_add_product.php');
+                    get_add_pro();
+                }elseif($_POST['type'] === 'AddProduct' ){
+                    require_once('src/add_product.php');
+                    
+                    add_product();
+                }
+            }
+        }else{
+            header('Content-Type: application/json');
+            $resData = array(
+                'text' => "notAllowed"
+            );
+            echo json_encode($resData);
+            return;
+        }
+    }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/getHomePageData') === 0) {
+        if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('src/home_page_data.php');
+                get_home_page_ui_data();
+        }
+    }
+    // if (strpos($_SERVER['REQUEST_URI'], '/api/email') === 0) {
+    //     if($_SERVER['REQUEST_METHOD'] === "POST"){
+    //         require_once('src/get_user_img.php');
+    //         get_user_image();
+    //     }
+    // }
 }
 
 else{

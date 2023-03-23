@@ -1,4 +1,4 @@
-const form = document.getElementById("reg_form");
+const regForm = document.getElementById("reg_form");
 const submit = document.getElementById("reg_user");
 const popoverContainers = document.querySelectorAll('.popover-container');
 let count = 0;
@@ -17,12 +17,12 @@ popoverContainers.forEach((container, index) => {
     
     input.addEventListener('keyup', () => {
         
-        popover.childNodes[1].textContent = messages[index];
+        popover.childNodes[0].textContent = messages[index];
  
         switch(index){
             // For password
             case 1 :
-                console.log(count)
+                // console.log(count)
 
                 console.log(input.value);
                 if(checkPassword(input.value) === null ){
@@ -36,10 +36,11 @@ popoverContainers.forEach((container, index) => {
                 }
                 else if(checkPassword(input.value) !== null && password_flag === false){
                     hidePopover(popover);
+                    
                     popoverContainers[index + 1].childNodes[1].disabled = false
                     password_flag = true;
                     count++;
-                    console.log(count)
+                    // console.log(count)
                 }
             break;
             // For email
@@ -51,7 +52,7 @@ popoverContainers.forEach((container, index) => {
                         count --;
                         email_flag = false;
                     }
-                    console.log(count)
+                    // console.log(count)
                 }
                 else if(checkEmail(input.value) !== null && email_flag === false){
                     hidePopover(popover);
@@ -64,15 +65,15 @@ popoverContainers.forEach((container, index) => {
                 case 2 :
                 if(input.value !== popoverContainers[index-1].childNodes[1].value ){
                     showPopover(popover);
-                    if(count > 0 && re_password_flag === true){
+                    console.log(count)
+                    if(count > 0 && re_password_flag == true){
                         count --;
                         re_password_flag = false;
                     }
-                    console.log(count)
                 }
-                else if(input.value === popoverContainers[index-1].childNodes[1].value && re_password_flag === false){
+                else if(input.value === popoverContainers[index-1].childNodes[1].value && re_password_flag == false){
                     hidePopover(popover);
-                    email_flag = true;
+                    re_password_flag = true;
                     count++;
                     console.log(count)
                 }
@@ -98,16 +99,69 @@ function checkEmail(inputEmail){
 }
 
 // Preventing form from submitting 
-submit.addEventListener("click", (e)=>{
-    e.preventDefault();
-    if(checkInputAgain()){
-        submitForm();
+if(submit != null){
+    submit.addEventListener("click", (e)=>{
+        e.preventDefault();
+        if(checkInputAgain()){
+            if(checkDobName()){
+                console.log('here');
+                submitForm();
+            }
+        }
+    
+    })
+}
+// checking dob and missing feilds
+function checkDobName(){
+    let dobs = document.querySelector('.date').value;
+    let fname = document.querySelector('.fname').value;
+    let lname = document.querySelector('.lname').value;
+
+    const msgs = {
+        0 : 'Enter Date',
+        1 : 'Fill First Name',
+        2 : 'Fill Last Name'
+    };
+    const allInputs = [dobs, fname, lname];
+
+    for(let i = 0 ; i<3 ; i++){
+        if(allInputs[i] == ""){
+            createAlert('warning', `Please  ${msgs[i]}`,'');
+            return 0;
+        }
     }
+    
+    const res = checkAge(dobs);
+    if(res != 1){
+        return 0;
+    }else{
+        return 1;
+    }
+}
+function checkAge(dobs){
+    const dob = new Date(dobs);
+    // console.log(dob);
+    // Calculate the age based on the difference between the user's date of birth and the current date
+    const ageInMilliseconds = Date.now() - dob.getTime();
+    const ageDate = new Date(ageInMilliseconds);
+    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
 
-
-})
-// Cheking mobile number
-
+    if(dob.getFullYear() >= new Date().getFullYear()){
+        createAlert('warning', `Please  Enter valid age`,'');
+        return 0;
+    }
+    // Compare the age with the required minimum age (in this example, the required minimum age is 18)
+    if (age < 18) {
+    // User is below the required minimum age
+        createAlert('warning', 'Age is less then minimum age', '');
+        return 0;
+    } else if(age > 100) {
+    // User is above or equal to the required minimum age
+        createAlert('warning', 'Age  is invalid ', '');
+            return 2;
+    }
+    return 1;
+}
 // Chcking all inputs again
 function checkInputAgain(){
     const password = popoverContainers[1].childNodes[1].value;
@@ -130,7 +184,7 @@ function submitForm(){
     if(count < 3){
         checkInputAgain();
     }
-    const formData = new FormData(form);
+    const formData = new FormData(regForm);
     axios.post("",formData)
     // handling response
     .then(Response =>{

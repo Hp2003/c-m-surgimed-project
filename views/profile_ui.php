@@ -118,6 +118,7 @@ body{
   <!-- Custom js -->
   <script src="../src/js/Alert.js"></script>
   <script src="../src/js/profile_ui.js"></script>
+  <script src="../src/js/input_validation_user_data.js"></script>
   <script src="../src/js/complete_profile.js"></script>   
   <script src="../src/js/profile_update.js"></script>   
 

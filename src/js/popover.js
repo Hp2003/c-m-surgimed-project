@@ -1,9 +1,17 @@
-function showPopover(popover){
-    popover.style.display = 'block';
+const input = document.querySelector(".input-container");
+const popover = document.querySelector(".popover-content");
+
+input.addEventListener("focus", () => {
+  popover.style.display = "block";
+});
+
+input.addEventListener("blur", () => {
+  popover.style.display = "none";
+});
+function showPopover(pop, text){
+   pop.style.display = "block";
+  //  document.querySelector('.popover-content').textContent = text/;
 }
-function hidePopover(popover){
-    popover.style.display = 'none';
-}
-function setText(popover, text){
-    popover.value = text;
+function hidePopover(pop){
+   pop.style.display = 'none';
 }

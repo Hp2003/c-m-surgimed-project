@@ -1,15 +1,20 @@
 let form_login = document.getElementById('login_form');
 const btn = document.querySelector('.login_user');
 const popoverContainers = document.querySelector('.popover-container');
+
 let count = 0;
 let email_flag = false;
 popoverContainers.addEventListener('keyup', (e)=>{
-    const input = popoverContainers.querySelector('.my-textbox');
+    const input = document.querySelector('.my-textbox');
+    console.log(input)
     const popover = popoverContainers.querySelector('.popover-content');
+
+    console.log('in');
 
     console.log(input.value);
     if(checkEmail(input.value) === null ){
-        showPopover(popover);
+        // popoverMain.style.display = 'block';
+        showPopover(popover, "Enter valid email");
         if(count > 0 && email_flag === true){
             count --;
             email_flag = false;

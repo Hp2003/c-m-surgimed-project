@@ -42,14 +42,14 @@
                                 <label class="form-check-label text-white " for="flexRadioDefault2">
                                     First Name : 
                                 </label>
-                                <input type="text" class="mt-1" placeholder="First Name" name="FirstName" required/>
+                                <input type="text" class="mt-1 fname" placeholder="First Name" name="FirstName" required/>
                             </div>
                             <!-- Last name -->
                             <div class="input__box">
                                 <label class="form-check-label text-white " for="flexRadioDefault2">
                                     Last Name : 
                                 </label>
-                                <input type="text" class="mt-1" placeholder="Last Name" name="LastName" required/>
+                                <input type="text" class="mt-1 lname" placeholder="Last Name" name="LastName" required/>
                             </div>
                             <!-- Gen buttons -->
                             <div class="container gen-buttons mt-3 p-0">
@@ -83,9 +83,9 @@
                                 </label>
                                 <!-- <input type="Email" placeholder="Email" name="Email" class="Email my-textbox" required/>  <div class="popover-content"> <p>Popover content goes here</p> </div> -->
                                 <div class="popover-container">
-                                    <input type="email" placeholder="Email" name="Email" class="my-textbox Email" required>
+                                    <input type="email" placeholder="Email" name="Email" class="my-textbox Email input-container" required>
                                     <div class="popover-content">
-                                        <p>Popover content goes here</p>
+                                        <p></p>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                 <div class="popover-container">
                                     <input type="password" placeholder="Password" name="Password" class="my-textbox pass" required>
                                     <div class="popover-content">
-                                        <p>Popover content goes here</p>
+                                        <p></p>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
                                 <div class="popover-container">
                                     <input type="password" placeholder="password" name="email" class="my-textbox re_pass"  required disabled> 
                                     <div class="popover-content">
-                                        <p>Popover content goes here</p>
+                                        <p></p>
                                     </div>
                                 </div>
                             </div>

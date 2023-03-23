@@ -7,7 +7,7 @@ function get_user($email , $password){
 
     $con = connect_to_db();
 
-    $sql = "SELECT UserName, UserId, Email FROM Users WHERE Email = ? AND AccountPassword = ? LIMIT 1";
+    $sql = "SELECT UserName, UserId, Email, IsAdmin FROM Users WHERE Email = ? AND AccountPassword = ? LIMIT 1";
 
     $stmt = $con->prepare($sql);
     $stmt->bind_param("ss", $email, $password);
@@ -23,6 +23,8 @@ function get_user($email , $password){
         $_SESSION['userName'] = $row['UserName'];
         $_SESSION['userId'] = $row['UserId'];
         $_SESSION['UserEmail'] = $row['Email'];
+        $_SESSION['IsAdmin'] = $row['IsAdmin'];
+        
         $_SESSION['loggedIn'] = True;
         header('Conent-Type: application/json');
         $responseData = array(

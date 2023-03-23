@@ -1,4 +1,4 @@
-var input = document.querySelector('#profile-image');
+var ProfileImgInput = document.querySelector('#profile-image');
 let container = document.querySelector('.upload-outer');
 var preview = document.querySelector('#preview-image');
 let text = document.querySelector('.custom-file-upload');
@@ -40,7 +40,7 @@ container.addEventListener('drop', function(event) {
   handleFileSelect(file);
 });
 
-input.addEventListener('change', function(event) {
+ProfileImgInput.addEventListener('change', function(event) {
     var file = event.target.files[0];
     handleFileSelect(file);
 });
@@ -50,7 +50,7 @@ function checkNumber(number){
   const phoneNumberRegex = /^\d{10,15}$/;
   return phoneNumberRegex.test(number)
 }
-// handling event on submit button
+// handling sunmitting form
 let completeProfile = document.querySelector('.create_profile_btn')
 if(completeProfile !== null){
   completeProfile.addEventListener('click',(e)=>{
@@ -60,52 +60,59 @@ if(completeProfile !== null){
     // checking phone number
   if(!checkNumber(number)){
     createAlert("warning", 'Note! :', 'Please Enter valid mobile number'  );
-    
     return 0;
+  }else{
+    postData();
   }
 })
 
 
 // checking mobile number
-let Uname = document.querySelector('.Uname').value.trim() ;
-
-if( Uname == "" ){
-  createAlert("warning", 'Note! :', 'Please Enter valid user name !'  );
-  throw new error('error');
-}
-const fileInput = form.querySelector('input[type="file"]');
-const formData = new FormData(form);
-const file = fileInput.files[0];
 
 
-// checking file if it's there
-if(fileInput &&  fileInput.files.length > 0){
-  const fileSizeMB = fileInput.files[0].size / 1024 / 1024;
-  // Checking file size
-  if (fileSizeMB > 5) {
-      createAlert('warning', 'Oops! :', 'Please select small image', 10000);
-  } else {
-      formData.append('UserImg', file);
-    }
+function postData(){
+  const fileInput = form.querySelector('input[type="file"]');
+  const formData = new FormData(form);
+  const file = fileInput.files[0];
+  let Uname = document.querySelector('.Uname').value.trim() ;
+
+  if( Uname == "" ){
+    createAlert("warning", 'Note! :', 'Please Enter  user name !'  );
+    return 0;
+    // throw new error('error');
   }
-  // making request to server
-  axios.post('/complete_profile', formData)
-  .then(response => {
-    if(response.data.text !== ""){
-      if(response.data.text == "invalidMobile"){
-        createAlert('danger', 'Warning! : ', 'Mobile number is invalid!');
-      }else if(response.data.text == 'invalidUserName'){
-        createAlert('danger', 'Warning! : ', 'Enter a valid user name..!!');
+  // checking file if is there
+  if(fileInput &&  fileInput.files.length > 0){
+    const fileSizeMB = fileInput.files[0].size / 1024 / 1024;
+    // Checking file size
+    if (fileSizeMB > 5) {
+        createAlert('warning', 'Oops! :', 'Please select small image', 10000);
+    } else {
+        formData.append('UserImg', file);
       }
     }
-    // console.log(response.data.url);
-    if(response.data.url !== undefined && response.data.url !== ""){
-      window.location.href = response.data.url;
-    }
-  }).catch(error =>{
-    console.log(error);
-  })
   
+    // making request to server
+    axios.post('/complete_profile', formData)
+    .then(response => {
+      if(response.data.text !== ""){
+        if(response.data.text == "invalidMobile"){
+          createAlert('danger', 'Warning! : ', 'Mobile number is invalid!');
+        }else if(response.data.text == 'invalidUserName'){
+          createAlert('danger', 'Warning! : ', 'Enter a valid user name..!!');
+        }
+      }
+      console.log(response.data);
+      // console.log(response.data.url);
+      if(response.data.url !== undefined && response.data.url !== ""){
+        window.location.href = response.data.url;
+      }
+    }).catch(error =>{
+      console.log(error);
+    })
+    
+  }
 }
+
 
 

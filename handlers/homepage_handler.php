@@ -1,7 +1,9 @@
 <?php 
     require_once('./src/send_email.php');
     require_once('./src/validation/Check_UserInput.php');
-
+    if(session_status() !== PHP_SESSION_ACTIVE){
+        session_start();
+    }
     function home_handler(){
         if($_SERVER['REQUEST_METHOD' ] === 'GET'){
             give_user_name();
@@ -11,9 +13,7 @@
         }
     }
 
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+
     function give_user_name(){
 
         if(isset($_SESSION['userName'])){

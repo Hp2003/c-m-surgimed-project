@@ -43,7 +43,7 @@ function addData(data){
     });
 
 
-    console.log(db);
+    // console.log(db);
 
     let genButton = document.querySelectorAll(".transp-button");
     genButton.forEach(element => {
@@ -79,7 +79,7 @@ function getImage(){
           const imageUrl = URL.createObjectURL(imageData);
           let img = document.getElementById('preview-image')
           img.src = imageUrl;
-          console.log(imageUrl);
+        //   console.log(imageUrl);
     })
     .catch(error => {
         console.log(error);

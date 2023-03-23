@@ -16,19 +16,35 @@
     <link rel="stylesheet" href="../src/css/header.css">
     <link rel="stylesheet" href="../src/css/card.css">
     <link rel="stylesheet" href="../src/css/footer.css">
+    <link rel="stylesheet" href="../src/css/popup.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../src/css/style1.css">
 
 </head>
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
     body,html{
-
-        height: 100vh;
+        overflow:visible;
+        height: 100%;
         background-color: rgba(255, 255, 255, 0.099);
         font-family: "Baloo 2", cursive;
 
     }
+	.side-bar{
+		/* position: absolute; */
+		z-index: 10;
+	}
+	.side-bar:active{
+		height:100vh;
+
+	}
+    .change{
+        position:relative;
+    }
 </style>
 <body>
+
 <div class="header-dark py-2 ">
             <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search d-flex justify-content-between">
                 <div class="container-fluid"><a class="navbar-brand" href="#">C M Surgimed</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
@@ -48,3 +64,4 @@
                 </div>
             </nav>
         </div>
+

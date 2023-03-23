@@ -65,7 +65,7 @@ function reg_handler(){
                 $responseData = array(
                     'text' => 'missingVal'
                 );
-                echo json_decode($responseData);
+                echo json_encode($responseData);
                 exit();
 
             }else{
