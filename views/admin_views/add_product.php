@@ -1,10 +1,15 @@
 
-<div class="container  main-add-pro main-form">
+<div class="container  main-add-pro main-form" style="height:100vh">
 		<h1 class="text-center pt-4 pb-1">Add product</h1>
-		<form action="" method="post" id="addProductForm" style="background: #00000054;padding: 2em;border-radius: 14px;" class="mt-5">
-			<div class="form-outline w-75 mt-3 m-auto mb-4">
+		<form action="" method="post" id="addProductForm" style="background: #ffffff42;padding: 2em;border-radius: 14px; bbackdrop-filter: blur(13px);" class="mt-5 popupForm">
+			<div class="form-outline w-75 mt-3 m-auto mb-4" >
 				<label class="form-label">Product Title</label>
 				<input type="text" name="product_title" value="" class="form-control" id="product_title" required>
+			</div>
+			<div class="form-outline  w-75 pt-3 m-auto mb-4">
+				<label class="form-label">Product Description</label>
+				<!-- <input type="text"  required> -->
+				<textarea name="product_desc" value="" class="form-control desc" id="product_desc"cols="30" rows="10"></textarea>
 			</div>
 			<div class="form-outline  w-75 pt-3 m-auto mb-4">
 				<label class="form-label">Product Description</label>
@@ -19,8 +24,8 @@
 			<div class="form-outline  w-75 pt-3 m-auto mb-4">
 				<label class="form-label">Product Categories</label>
 				<select name="select_category" class="form-select dropDown" >
-					<option value="chair" class="option">Chair</option>	
-					<option value="bed" class="option">bed</option>	
+					<option value="" disabled selected>Select Category</option>
+	
 				</select>
 			</div>
 			<div class=" w-75 pt-3 m-auto mb-4">

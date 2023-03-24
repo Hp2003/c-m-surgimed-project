@@ -53,6 +53,12 @@ else if($request == '/profile'){
 
     profile_handler();
 }
+
+else if($request == '/cart'){
+    
+    require_once('handlers/cart_handler.php');
+
+}
 else if($request == '/error'){
 
     include("views/Error_404.php");
@@ -83,11 +89,58 @@ else if($request == '/error'){
             get_user_image();
         }
     }
+    elseif (strpos($_SERVER['REQUEST_URI'], '/api/logout') === 0) {
+        if($_SERVER['REQUEST_METHOD'] === "POST"){
+            require_once('src/logout.php');
+            
+        }
+    }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/remove_product') === 0) {
+        if($_SESSION['IsAdmin'] == true){
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('src/deleteProduct.php');
+                delete_product();
+            }
+        }
+    }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/get_categorys') === 0) {
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('src/display_add_product.php');
+                header('Content-Type: application/json');
+                $res = array(
+                    'cats' => get_categorys()
+                );
+                echo json_encode($res);
+                return 0;
+        }
+    }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/add_to_cart') === 0) {
+        if($_SERVER['REQUEST_METHOD'] === "POST"){
+            require_once('src/manage_cart.php');
+            add_product_to_cart();
+        }
+    }
     if (strpos($_SERVER['REQUEST_URI'], '/api/edit_product') === 0) {
         if($_SESSION['IsAdmin'] == true){
             if($_SERVER['REQUEST_METHOD'] === "POST"){
                 require_once('src/display_edit_pro.php');
                 get_edit_pro();
+            }
+        }else{
+            header('Content-Type: application/json');
+            $resData = array(
+                'text' => "notAllowed"
+            );
+            echo json_encode($resData);
+            return;
+        }
+
+    }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/edit_category') === 0) {
+        if($_SESSION['IsAdmin'] == true){
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('handlers/category_handler.php');
+                get_category_table();
             }
         }else{
             header('Content-Type: application/json');
@@ -120,12 +173,12 @@ else if($request == '/error'){
             return;
         }
     }
-    if (strpos($_SERVER['REQUEST_URI'], '/api/getHomePageData') === 0) {
-        if($_SERVER['REQUEST_METHOD'] === "POST"){
-                require_once('src/home_page_data.php');
-                get_home_page_ui_data();
-        }
-    }
+    // if (strpos($_SERVER['REQUEST_URI'], '/api/getHomePageData') === 0) {
+    //     if($_SERVER['REQUEST_METHOD'] === "POST"){
+    //             require_once('src/home_page_data.php');
+    //             get_home_page_ui_data();
+    //     }
+    // }
     // if (strpos($_SERVER['REQUEST_URI'], '/api/email') === 0) {
     //     if($_SERVER['REQUEST_METHOD'] === "POST"){
     //         require_once('src/get_user_img.php');

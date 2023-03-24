@@ -11,28 +11,30 @@
     <title>Untitled</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="../src/css/header.css">
-    <link rel="stylesheet" href="../src/css/card.css">
+    <!-- <link rel="stylesheet" href="../src/css/card.css"> -->
     <link rel="stylesheet" href="../src/css/footer.css">
     <link rel="stylesheet" href="../src/css/popup.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" href="../src/css/styleD.css"> -->
 	<link rel="stylesheet" type="text/css" href="../src/css/style1.css">
+    	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="../src/css/homepageD.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
 </head>
 <style>
-    @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
-    body,html{
+    /* @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap"); */
+     body,html{
         overflow:visible;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.099);
-        font-family: "Baloo 2", cursive;
-
+        /* height: 100%; */
+ 
+        color:white;
+        
     }
 	.side-bar{
-		/* position: absolute; */
+		
 		z-index: 10;
 	}
 	.side-bar:active{
@@ -43,7 +45,7 @@
         position:relative;
     }
 </style>
-<body>
+<body class="change">
 
 <div class="header-dark py-2 ">
             <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search d-flex justify-content-between">
@@ -51,17 +53,31 @@
                     <div class="collapse navbar-collapse"
                         id="navcol-1">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item " role="presentation"><a class="nav-link " href="#">home</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="#contactUs">Contact</a></li>
+                            <li class="nav-item " role="presentation"><a class="nav-link " href="/">home</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="#">Contact</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="#">About</a></li>
                             <li class="dropdown"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Category </a>
-                                <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">First Item</a><a class="dropdown-item" role="presentation" href="#">Second Item</a><a class="dropdown-item" role="presentation" href="#">Third Item</a></div>
+                                <div class="dropdown-menu" role="menu"></div>
                             </li>
                         </ul>
                         <form class="form-inline mr-auto" target="_self">
                             <div class="form-group"><label for="search-field"><i class="fa fa-search"></i></label><input class="form-control search-field" type="search" name="search" id="search-field"></div>
-                        </form><span class="navbar-text"><?php $log_link = give_user_name() === 'signUp'?  "<a href='/login' class='login'>Log In</a>":  ' '; echo $log_link  ?></span><?php $name =  give_user_name() === 'signUp'? "<a class='btn btn-light action-button' role='button' href='/reg'>signUp</a></div>":"<a class='btn btn-light action-button' role='button' href='/".'profile'."'>". give_user_name() ."</a></div>"; echo $name ?>
+                        </form>
+                        <?php
+                            $cnt=0;
+                            if(isset($_SESSION['cart'])){
+                                $cnt=count($_SESSION['cart']);
+                            }
+                        ?>
+                        <?php if(isset($_SESSION['loggedIn'])){if($_SESSION['loggedIn'] == true){ echo '<span class="navbar-text">  <a href="/" class="logout">Log Out</a> </span>'; }}?>
+                        <div class="d-flex">
+                            <a href="/cart">
+                                <button class="btn btn-outline-success mx-4">Cart(<?php echo $cnt; ?>)</button>
+                            </a>
+                        </div>
+                        <span class="navbar-text"><?php $log_link = give_user_name() === 'signUp'?  "<a href='/login' class='login'>Log In</a>":  ' '; echo $log_link  ?></span><?php $name =  give_user_name() === 'signUp'? "<a class='btn btn-light action-button' role='button' href='/reg'>signUp</a></div>":"<a class='btn btn-light action-button' role='button' href='/".'profile'."'>". give_user_name() ."</a></div>"; echo $name ?>
                 </div>
             </nav>
         </div>
+        <div id="content">
 

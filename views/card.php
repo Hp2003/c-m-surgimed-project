@@ -1,19 +1,4 @@
 
-<?php
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-    $IsAdmin = false ;
-    if(isset($_SESSION['IsAdmin'])){
-        if($_SESSION['IsAdmin'] == true){
-            $IsAdmin = $_SESSION['IsAdmin'];
-        }
-    }
-    if($IsAdmin == true){
-        require_once('admin_views/admin_dashboard.php');
-    }
-    // require_once('admin_views/admin_dashboard.php');
-?>
 
     <section class="dark change">
     
@@ -41,7 +26,7 @@
                             }
                         ?>
                         <li class="tag__item play blue">
-                            <a href="#">5 <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i></a>
+                            <!-- <a href="#">5 <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i></a> -->
                             <a href="#">cart</a>
                         </li>
                     </ul>
@@ -126,6 +111,9 @@
                             <a href="#">5 <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i></a>
                         </li>
                     </ul>
+                    <div>
+                        <input type="submit" name="addtocart" value="Add to Cart">
+                    </div>
                 </div>
             </article>
         </div>

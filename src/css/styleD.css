@@ -1,0 +1,126 @@
+*{
+	margin: 0;
+	transition: all 0.35s linear;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+	line-height: 24px;
+	color: white;
+}
+body{
+	/* background: black;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center; */
+    
+}
+.pro-main{
+    background: black;
+    height: 100vh;
+    width: 100vw;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.product{
+	max-width: 900px;
+	background-color: #ffffff35;
+	backdrop-filter: blur(5px);
+	padding: 32px;
+	display: grid;
+	grid-template-columns: 360px 1fr;
+	border-radius: 16px;
+	grid-gap: 24px;
+}
+.small-pic{
+	margin: 20px;
+	margin-left: 45px;
+}
+.small-img{
+	height: 100px;
+	width: 100px;
+	border: 1px solid white;
+	border-radius: 12px;
+	cursor: pointer;
+}
+.product .info{
+	padding-block: 32px;
+}
+.btn{
+	text-decoration: none;
+	border: 1px solid blue;
+	background: blue;
+	padding: 10px;
+	border-radius: 12px;
+	margin-left: 200px;
+}
+.name,.price,.qty{
+	font-size: 32px;
+	margin-bottom: 20px;
+}
+.info label{
+	font-size: 1rem;
+	display: block;
+	padding-bottom: 16px;
+}
+.info .grid{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+.info .colors{
+	padding-block: 32px;
+}
+.colors span{
+	width: 48px;
+	height: 48px;
+	display: inline-block;
+	margin-right: -16px;
+	border-radius: 50%;
+	background-color: var(--color);
+	border: 1px solid white;
+	cursor: pointer;
+}
+.button{
+	border: none;
+	height: auto;
+	weight: auto;
+	padding: 10px 20px;
+	font-size: 12px;	
+	font-size: 0.8rem;
+	border-radius: 24px;
+	letter-spacing: 2px;
+}
+.button + .button{
+	margin-left: 7px;
+}
+.outline{
+	background: transparent;
+	color: rgba(0, 212, 255, 0.9);
+	border: 1px solid rgba(0, 212, 255, 0.6);
+	transition: all 0.3s ease;
+}
+.outline:hover{
+	transform: scale(1.125);
+	color: rgba(255, 255, 255, 0.9);
+	border-color: rgba(255, 255, 255, 0.9);
+	transition: all 0.3s ease;
+}
+.fill{
+	background: rgba(0, 212, 255, 0.9);
+	color: rgba(255, 255, 255, 0.95);
+	filter: drop-shadow(0);
+	font-weight: bold;
+	transition: all 0.3s ease;
+}
+.fill:hover{
+	transform: scale(1.125);
+	border-color: rgba(255, 255, 255, 0.9);
+	filter: drop-shadow(0 10px 5px rgba(0, 0, 0, 0.125));
+	transition: all 0.3s ease;
+}

@@ -13,7 +13,7 @@
 				<a class="sub-btn"><i class="fas fa-table"></i>Product<i class="fas fa-angle-right dropdown"></i></a>
 				<div class="sub-menu">
 					<a href="" class="sub-item add-product">Add Product</a>
-					<a href="add_category.php" class="sub-item">Add Category</a>
+					<a href="" class="sub-item categoryedit">Edit Category</a>
 					<a href="add_brands.php" class="sub-item">Add Brands</a>
 				</div>
 			</div>

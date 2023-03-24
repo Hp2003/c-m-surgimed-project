@@ -1,7 +1,7 @@
 <?php 
-    require ('connection.php');
+    require_once ('connection.php');
     function get_home_page_ui_data(){
-        $productArray = get_product();
+        $productArray = get_product_data();
         // getting images
         $proimages = array_column(array_filter($productArray, function($product){
             return isset($product['ProductImg']);
@@ -10,13 +10,12 @@
         $images = get_product_images($proimages);
         $response = array(
             'Categorys' => get_categorys(),
-            'Products' => get_product(),
+            'Products' => get_product_data(),
             'Images' => $images
         );
         // header('Content-Type: image/*');
-        header('Content-Type: multipart/form-data');
-        echo json_encode($response);
-        return;
+        // header('Content-Type: multipart/form-data');
+        return ($response);
     }
     
     function get_categorys(){
@@ -35,7 +34,7 @@
         return $rows;
         
     }
-    function get_product(){
+    function get_product_data(){
         $conn = connect_to_db();
         $query = "SELECT ProductId, ProductTitle, ProductDesc, ProductPrice, QuantityOnHand, ProductImg FROM product LIMIT 10 ";
         $result = mysqli_query($conn, $query);

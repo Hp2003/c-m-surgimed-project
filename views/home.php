@@ -2,8 +2,7 @@
 <?php 
     include('header.php');
     
-    
-    include('card.php');
+    include('home2.php');
 
     include('footer.php');
 ?>

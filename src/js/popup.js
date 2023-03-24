@@ -12,10 +12,12 @@ const closeBtn = document.querySelector('.close-btn');
    //       }
    //    });
    // }
+   if(closeBtn != null){
+      closeBtn.addEventListener('click', function() {
+         // Popup.style.display = 'none';
+      });
+   }
 
-   closeBtn.addEventListener('click', function() {
-      // Popup.style.display = 'none';
-   });
    function showPopup(){
       MaincontainerPopup = document.querySelector('.container-popup');
 
