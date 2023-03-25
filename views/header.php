@@ -44,6 +44,9 @@
     .change{
         position:relative;
     }
+    .title{
+        cursor:pointer;
+    }
 </style>
 <body class="change">
 

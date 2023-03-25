@@ -74,7 +74,7 @@ function create_folder($depth = 0){
                 mkdir($path, 0777, true);
                 return $path;
             }else{
-                create_folder($depth + 1);
+                create_folder($depth += 1);
             }
         }catch(Exception $e){
             return 0;
@@ -101,7 +101,7 @@ function rename_file($old_file_name, $depth = 0){
             return 0;
         }
     }else{
-        return rename_file($old_file_name, $depth + 1);
+        return rename_file($old_file_name, $depth += 1);
     }
     
 }
@@ -132,7 +132,7 @@ function move_file($filetmpname, $new_folder, $filename, $depth = 0){
     }catch(Exception $e){
         if (strpos($e->getMessage(), "already exists") !== false) {
              $new_file_name =  rename_file($new_folder . '/' . $filename);
-            return move_file($new_file_name, $new_folder, $depth + 1);
+            return move_file($new_file_name, $new_folder, $depth += 1);
         }
     }
 }

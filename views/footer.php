@@ -1,3 +1,7 @@
+
+</div>
+<div class="container pagination-main d-flex justify-content-center">
+
 </div>
 	<footer class="footer " style="height:100%;">
 		<div class="container" style="background-color: #24262b; ">

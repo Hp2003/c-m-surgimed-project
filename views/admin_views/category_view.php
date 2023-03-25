@@ -14,4 +14,7 @@
 
 		</tbody>
 	</table>
+
+
+</nav>
 </div>

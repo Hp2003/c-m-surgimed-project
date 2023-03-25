@@ -1,4 +1,6 @@
 let addBtn = document.querySelector(".add-product")
+addNewCat();
+let  currentIndex = 0;
 addBtn.addEventListener("click", (e) => {
     document.querySelector('.side-bar').classList.remove('active');
     document.querySelector('.menu-btn').style.visibility = "visible";
@@ -23,7 +25,7 @@ addBtn.addEventListener("click", (e) => {
         
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   });
   function createScriptElem(path, name) {
@@ -58,7 +60,6 @@ addBtn.addEventListener("click", (e) => {
 
 // edit product
 let editProductBtn = document.querySelectorAll(".editProduct");
-
 let allForms = document.querySelectorAll('.cartForm');
 console.log(allForms)
 editProductBtn.forEach((element, index)=>{
@@ -111,64 +112,160 @@ function fillDataEditForm(data){
     }
   })
   let imgView = document.querySelectorAll('.img-name');
-  console.log(data.imgs);
+  // console.log(data.imgs);
   
   data.imgs.forEach((element, index)=>{
-    console.log('running');
+    // console.log('running');
     imgView[index].style.display = 'block';
     imgView[index].value = element;
   })
   let drop = document.querySelector('.dropDown');
   data.cats.forEach((element, index)=>{
-    console.log(element)
+    // console.log(element)
     drop.innerHTML += `
     <option value="${element.CategoryName}" class="option">${element.CategoryName}</option>`
   })
 
 }
+let dataBuffer = [];
+
+let paginationEditCategory ;
+// edit category
 let editCatBtn = document.querySelector('.categoryedit');
-console.log(editCatBtn);
+// console.log(editCatBtn);
 editCatBtn.addEventListener('click', (e)=>{
   e.preventDefault();
   let formData = new FormData();
   formData.append('process', 'getView');
   axios.post('/api/edit_category', formData).then(response =>{
-    // Assuming you have the HTML response stored in a variable called `htmlResponse`
+    dataBuffer = [...response.data.data];
 
-    // Get the parent element that contains the content to be replaced
-    const contentParent = document.getElementById("content").parentElement;
+    // console.log(response.data.data);
+    renderData(dataBuffer, response.data.html, 0, response.data.records);
+    // console.log(response.data.records)
+    createScriptElem('./src/js/edit_category.js','categoryJs');
+    // console.log(response.data);
+    paginationEditCategory = response.data.records;
+  })
+  
+})
 
-    // Create a temporary div element and set its innerHTML to the response HTML
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = response.data.html;
+function renderData(data, html, currentIndex,records){
+  const contentParent = document.getElementById("content").parentElement;
 
-    // Get the new content element from the temporary div
-    const newContent = tempDiv.firstChild;
+// Create a temporary div element and set its innerHTML to the response HTML
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = html;
 
-    // Replace the existing content with the new content
-    contentParent.replaceChild(newContent, document.getElementById("content"));
-    console.log(response.data.data);
-    let tableBody = document.querySelector('.table-body');
-    response.data.data.forEach((element, index)=>{
+  // Get the new content element from the temporary div
+  const newContent = tempDiv.firstChild;
+
+  // Replace the existing content with the new content
+  const contentElement = document.getElementById("content");
+  contentElement.innerHTML = '';
+  contentElement.appendChild(newContent);
+
+    // console.log(response.data.data);
+
+    createDataTable(data, currentIndex, records);
+
+    // console.log('here');
+ 
+}
+function createDataTable(data,currentIndex, records){
+  let tableBody = document.querySelector('.table-body');
+    data.forEach((element, index)=>{
+      currentIndex ++;
       tableBody.innerHTML += `
       <tr class="text-center table-data">
-        <td class="serNo">${index + 1}</td>
-        <td class="title">${element.CategoryName}</td>
-        <td><a href="" name="edit_category" class="text-light"><i class="fa-solid fa-pen-to-square"></i></a></td>
-        <td><form action=""><a href="" class="text-light"><i class="fa-solid fa-trash"></i></a> <input type="hidden" name="CatId" value=""></form></td>
-      <!-- <td><form action=""><input type="submit" value="" class="delCat fa-solid fa-trash" style=""></form></td> -->
+        <td class="serNo"><form class='catIdForm'>${currentIndex}<input type = 'hidden' name="CategoryId" value='${element.CategoryId}'></form></td>
+        <td class="title cat-title">${element.CategoryName}</td>
+        <td><a href="" name="edit_category" class="text-light edit_category"><i class="fa-solid fa-pen-to-square"></i></a></td>
+        <td><a href="#" class="text-light deleteCategory" onClick = "deleteCategory(event, this)" ><i class="fa-solid fa-trash " ></i></a></td>
+  
     </tr>
       `;
     })
-    tableBody.innerHTML+= `
-    <tr class="text-center">
-    <td></td>
-    <td><a href="" class="text-light addNewCategory">+</a></td>
-    <td></td>
-    <td><form action=""><input type="submit" value="save" class="addNewCat"> </form></td>
-  </tr>
-    `;
+      tableBody.innerHTML+= `
+      <tr class="text-center">
+      <td></td>
+      <td class="addBtn"><a href="" class="text-light addNewCategory" >+</a></td>
+      <td></td>
+      <td><button class="catNameBtn" name="catName" onClick='submitNewCat()'>save</button></td>
+      </tr>
+      `;
+      addNewCat();
+      editCategoryBtnHandler();
+      // clickListener();
+      
+}
+function displayPagination(records){
+  // console.log(Math.ceil(records/25));
+  // console.log(records);
+  let paginationMain = document.querySelector('.pagination-main');
+  paginationMain.innerHTML = `	<nav aria-label="Page navigation example container">
+  <ul class="pagination">
+    
+	
+    
+    
+  </ul>`
+  let pagingation = document.querySelector('.pagination');
+  pagingation.innerHTML += `<li class="page-item "><a class="page-link" href="#">Previous</a></li>`;
+  for(let i = 0 ; i<Math.ceil(records/25)  ; i++){
+    pagingation.innerHTML += `<li class="page-item"><a class="page-link" href="">${i +1}</a></li>`;
+  }
+  pagingation.innerHTML += `<li class="page-item "><a class="page-link" href="#">Next</a></li>`;
+}
+
+
+function addNewCat() {
+  // console.log("hel");
+  let newCatBtn = document.querySelector(".addNewCategory");
+  if(newCatBtn != undefined){
+    newCatBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      // adding text box same place where + button is
+      document.querySelector('.addBtn').innerHTML = '<form class="addCategoryForm"><input type="text" name="catName"></form>'
+  
+      // submitNewCat();
+    });
+  }
+}
+// function to open edit category page
+function editCategoryBtnHandler(){
+  let editProBtn = document.querySelectorAll('.edit_category')
+  editProBtn.forEach((element, index)=>{
+    element.addEventListener('click', (e)=>{
+      e.preventDefault();
+      // getting edit page
+      let reqMessage = new FormData(document.querySelectorAll('.catIdForm')[index]);
+      reqMessage.append('process_category_page', 'get_page');
+      axios.post('/api/Edit_products_category',reqMessage).then(response =>{
+        console.log(response.data.data)
+        renderEditCategoryPage(response.data.html);
+        // document.querySelector('.editProductScript').remove();
+        createScriptElem('../../src/js/admin_view_edit_category.js', 'admin_view_edit_category');
+        document.querySelector('.pagination-main').remove();
+        // console.log(response.data.html);
+        admin_view_edit(response.data.data);
+      })
+    })
   })
-})
+}
+function renderEditCategoryPage(html){
+  // console.log(html);
+  const contentParent = document.getElementById("content").parentElement;
 
-
+  // Create a temporary div element and set its innerHTML to the response HTML
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = html;
+  
+    // Get the new content element from the temporary div
+    const newContent = tempDiv.firstChild;
+  
+    // Replace the existing content with the new content
+    const contentElement = document.getElementById("content");
+    contentElement.innerHTML = '';
+    contentElement.appendChild(newContent);
+}

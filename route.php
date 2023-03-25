@@ -137,10 +137,29 @@ else if($request == '/error'){
 
     }
     if (strpos($_SERVER['REQUEST_URI'], '/api/edit_category') === 0) {
+        
         if($_SESSION['IsAdmin'] == true){
             if($_SERVER['REQUEST_METHOD'] === "POST"){
                 require_once('handlers/category_handler.php');
                 get_category_table();
+            }
+        }else{
+            header('Content-Type: application/json');
+            $resData = array(
+                'text' => "notAllowed"
+            );
+            echo json_encode($resData);
+            return;
+        }
+
+    }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/Edit_products_category') === 0) {
+
+        if($_SESSION['IsAdmin'] == true){
+           
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('handlers/category_product_handler.php');
+                category_product_handler();
             }
         }else{
             header('Content-Type: application/json');
