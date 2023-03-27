@@ -9,6 +9,7 @@ searchBtn.addEventListener('click', (e)=>{
     axios.post('/api/search_product', formData).then(Response =>{
         // console.log(Object.values(Response.data));
         renderProducts(Object.values(Response.data));
+        document.documentElement.scrollTop =  600;
     })
 })
 function renderProducts(data){
@@ -31,12 +32,12 @@ function renderProducts(data){
                 <div class='card-body'>
                     <h3 class='card-title'>${element.ProductTitle}</h3>
                     <p class='card-text'>Rs ${element.ProductPrice}</p>
-                        <a href=''><input type='submit' name='detail' value='Detail' class='button outline'></a>
+                        <a href='' onclick="get_details(event, this, ${index})"><input type='submit' name='detail' value='Detail' class='button outline' ></a>
                         <input type='button' name='addtocart' value='Buy Now' class='button fill  ' onClick='addToCart(event, this, ${index})'>
                     
                     <input type='hidden' name='Item_Name' value='${element.ProductTitle}'>
                     <input type='hidden' name='Item_Price' value='${element.ProductPrice}'>
-                    <input type='hidden' name='item_Id' value='${element.ProductId}'>
+                    <input type='hidden' name='item_Id' value='${element.ProductId}'class='item_id'>
                 </div>
             </div>
         </form>

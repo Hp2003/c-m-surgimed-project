@@ -38,7 +38,6 @@ a, a:hover {
   overflow: hidden;
   position: relative;
   color: #ffffff;
-
 }
 .postcard.dark {
   background-color: #18151f;
@@ -66,7 +65,8 @@ a, a:hover {
 .postcard .postcard__img {
   max-height: 180px;
   width: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   position: relative;
 }
 .postcard .postcard__img_link {
@@ -107,7 +107,9 @@ a, a:hover {
   padding: 2.5px 10px;
   margin: 0 5px 5px 0;
   cursor: default;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   transition: background-color 0.3s;
 }
 .postcard .postcard__tagbox .tag__item:hover {
@@ -301,6 +303,4 @@ a, a:hover {
   .yellow:nth-child(2n)::before {
     background-image: linear-gradient(80deg, rgba(189, 187, 73, 0.1), transparent 50%);
   }
-}
-
-/*# sourceMappingURL=card.css.map */
+}/*# sourceMappingURL=card.css.map */

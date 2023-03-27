@@ -43,7 +43,7 @@ if (session_status() == PHP_SESSION_NONE) {
 												<input type='submit' name='' value='Edit' class='button fill editProduct'>";
 											}
 										}else{
-											echo "<a href='details.php?product_id=]'><input type='submit' name='detail' value='Detail' class='button outline'></a>
+											echo "<a onclick='get_details(event, this, $count)'><input type='submit' name='detail' value='Detail' class='button outline'></a>
 											<input type='button' name='addtocart' value='Buy Now' class='button fill addToCart' onClick='addToCart(event, this, $count )'>";
 										}
 										
@@ -52,7 +52,7 @@ if (session_status() == PHP_SESSION_NONE) {
 										
 										<input type='hidden' name='Item_Name' value='$p_name'>
 										<input type='hidden' name='Item_Price' value='$p_price'>
-										<input type='hidden' name='item_Id' value='$p_id'>
+										<input type='hidden' name='item_Id' value='$p_id' class='item_id'>
 									</div>
 								</div>
 							</form>
