@@ -18,7 +18,6 @@
     if($IsAdmin == true){
         require_once('admin_views/admin_dashboard.php');
     }
-    // require_once('admin_views/admin_dashboard.php');
 ?>
 <div class="search-bar">
 	<div class="container">
@@ -28,15 +27,15 @@
 			}
 		</script>
 		<form action="search_product.php" method="post" class="searchbar">
-			<input type="search" placeholder="Search Product" name="search_data" id="search">
-			<button name="search_data_product" id="buttons"><i class="fa-solid fa-magnifying-glass"></i></button>
+			<input type="search" placeholder="Search Product" name="search_data" class="searchInput" id="search">
+			<button name="search_data_product" id="buttons" class="serachBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
 		</form>
 	</div>
 </div>	
 <div class="product">	
 	<div class="container">
 		<div class="wrapper">
-			<div class="row">
+			<div class="row card-main">
 		<?php
 			get_product();
 		?>

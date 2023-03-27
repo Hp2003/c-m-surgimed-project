@@ -94,10 +94,19 @@
                 $result = $stmt_c_id->get_result();
                 $id = $result->fetch_assoc();
 
+
+
                 // adding product
                 $query = $connection->prepare("INSERT INTO Product (ProductTitle, ProductImg, ProductDesc, ProductPrice, CateGoryId, QuantityOnHand) VALUES(?, ?, ?, ?, ?, ?) ");
                 $query->bind_param("ssssss", $title, $filePath, $disc, $price, $id['CategoryId'], $qoh);
                 $query->execute();
+                $query->close();
+                $analyze_query_product = $connection->prepare('ANALYZE TABLE product;');
+                $analyze_query_product->execute();
+                $analyze_query_product->store_result();
+                $analyze_query_product->close();
+                
+                $connection->close();
             }catch(Exception $e){
                 return 0;
             }
@@ -109,7 +118,6 @@
                 );
                 echo json_encode($response);
                 return;
-                $connection->close();
             }else{
                 return 0;
             }
@@ -120,6 +128,11 @@
             $query->bind_param("ssssss", $title, $filePath, $disc, $price, $_SESSION['categoryID'], $qoh );
             $query->execute();
             unset($_SESSION['categoryID']);
+
+            $analyze_query_product = $connection->prepare('ANALYZE TABLE product;');
+            $analyze_query_product->execute();
+            $analyze_query_product->store_result();
+            $analyze_query_product->close();
 
             $connection->close();
             if($query){

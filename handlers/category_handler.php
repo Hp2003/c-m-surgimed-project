@@ -15,12 +15,12 @@ require_once('./src/add_product.php');
 
                 unset($_POST['process'] );
                 $offset = 0;
-                $_SESSION['numofcategory'] = get_num_of_records();
+                $_SESSION['numofcategory'] = get_num_of_records('category');
                 header('Content-Type: application/json');
                 $res= array(
                     'html' => $html,
                     'data' => display_categorys_with_limit(25, $offset),
-                    'records' => get_num_of_records(),
+                    'records' => get_num_of_records('category'),
                     'offset' => $offset
                 );
                 echo json_encode($res);
@@ -114,12 +114,17 @@ require_once('./src/add_product.php');
         return $response;
 
     }
-    function get_num_of_records(){
+    function get_num_of_records($table_name){
         $con = connect_to_db();
 
         // $con = mysqli_connect('localhost', 'root', 'panchal4555', 'login');
 
-        $query = "SELECT TABLE_ROWS FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'c_m_surgimed' AND TABLE_NAME = 'category';";
+        $analyze_query = $con->prepare("ANALYZE TABLE $table_name;");
+        $analyze_query->execute();
+        $analyze_query->store_result();
+        $analyze_query->close();
+
+        $query = "SELECT TABLE_ROWS FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'c_m_surgimed' AND TABLE_NAME = '$table_name';";
 
         
         $res = mysqli_query($con, $query);

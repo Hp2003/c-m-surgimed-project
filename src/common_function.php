@@ -1,5 +1,9 @@
 <?php
 require_once('home_page_data.php');
+require_once('connection.php');
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
 	//get products
 	function get_product(){
 		if(!isset($_POST['category'])){
@@ -40,10 +44,10 @@ require_once('home_page_data.php');
 											}
 										}else{
 											echo "<a href='details.php?product_id=]'><input type='submit' name='detail' value='Detail' class='button outline'></a>
-											<input type='submit' name='addtocart' value='Buy Now' class='button fill addToCart'>";
+											<input type='button' name='addtocart' value='Buy Now' class='button fill addToCart' onClick='addToCart(event, this, $count )'>";
 										}
 										
-											 
+											$count += 1;
 										echo "
 										
 										<input type='hidden' name='Item_Name' value='$p_name'>
@@ -91,6 +95,52 @@ require_once('home_page_data.php');
 			}
 		}
 	}
+function search_product(){
+
+		$con= connect_to_db();
+		$search_data_value=$_POST['search_data'];
+
+		if(isset($_SESSION['IsAdmin'])){
+			if($_SESSION['IsAdmin'] == true && preg_match('/^#!:\d+$/', $search_data_value)){
+				$sql = $con->prepare("SELECT * FROM product WHERE ProductId =  ? LIMIT 1");
+
+				$id = str_replace( '#!:', '',$search_data_value );
+				$sql->bind_param('s', $id);
+
+				$sql->execute();
+				$result = $sql->get_result();
+				$con->close();
+				$sql->close();
+				$data = mysqli_fetch_assoc($result);
+				
+				return $data;
+			}
+		}
+
+		$input = '%'.$search_data_value.'%';
+		// $search_query="SELECT * FROM product WHERE ProductKeywords LIKE '%$search_data_value% ' LIMIT 12";
+		$search_query= $con->prepare("SELECT * FROM product WHERE ProductKeywords LIKE ? LIMIT 12;");
+
+		$search_query->bind_param('s',$input );
+
+		$search_query->execute();
+		$res = $search_query->get_result();
+
+		// $res=mysqli_query($con,$search_query);
+		$num_of_rows=mysqli_num_rows($res);
+		$data = array();
+
+		$con->close();
+		$search_query->close();
+		if($num_of_rows==0){
+			return 0;
+		}
+		while($row = mysqli_fetch_assoc($res)){
+			array_push($data, $row);
+		}
+
+		return $data;
+	}	
 	// 
 	// function get_unique_categories(){
 	// 	if(isset($_POST['category'])){
@@ -161,44 +211,44 @@ require_once('home_page_data.php');
 	// 	}
 	// }
 	//Searching products function
-	function search_product(){
-		$con=mysqli_connect('localhost','root','','c.m.surgimed');
-		if(isset($_POST['search_data_product'])){
-			$search_data_value=$_POST['search_data'];
-			$search_query="SELECT * FROM products WHERE product_keywords LIKE '%$search_data_value%' LIMIT 10";
-			$res=mysqli_query($con,$search_query);
-	 		$num_of_rows=mysqli_num_rows($res);
-			if($num_of_rows==0){
-	 			echo "<h2 class='text-center text-danger'>This brand is not available for service</h2>";
-	 		}
-			while($row=mysqli_fetch_assoc($res)){
-				$p_id=$row['product_id'];
-				$p_name=$row['product_name'];
-				$p_desc=$row['product_description'];
-				$p_image=$row['product_image1'];
-				$p_price=$row['product_price'];
-				$c_id=$row['category_id'];
-				$b_id=$row['brand_id'];
-				echo "
-					<form action='manage_cart.php' method='post'>
-						<div class='col-md-4 mb-2'>
-							<div class='card'>
-								<img src='../Admin panel/product_images/$p_image' class='card-img-top' id='banner-img'>
-								<div class='card-body'>
-									<h5 class='card-title'>$p_name</h5>
-									<p class='card-text'>$p_desc</p>
-									<input type='submit' name='detail' value='Detail' class='button outline'>
-									<input type='submit' name='addtocart' value='Buy Now' class='button fill'>
-									<input type='hidden' name='Item_Name' value='$p_name'>
-									<input type='hidden' name='Item_Price' value='$p_price'>
-								</div>
-							</div>
-						</div>
-					</form>	
-				";
-			}
-		}	
-	}
+	// function search_product(){
+	// 	$con=mysqli_connect('localhost','root','','c.m.surgimed');
+	// 	if(isset($_POST['search_data_product'])){
+	// 		$search_data_value=$_POST['search_data'];
+	// 		$search_query="SELECT * FROM products WHERE product_keywords LIKE '%$search_data_value%' LIMIT 10";
+	// 		$res=mysqli_query($con,$search_query);
+	//  		$num_of_rows=mysqli_num_rows($res);
+	// 		if($num_of_rows==0){
+	//  			echo "<h2 class='text-center text-danger'>This brand is not available for service</h2>";
+	//  		}
+	// 		while($row=mysqli_fetch_assoc($res)){
+	// 			$p_id=$row['product_id'];
+	// 			$p_name=$row['product_name'];
+	// 			$p_desc=$row['product_description'];
+	// 			$p_image=$row['product_image1'];
+	// 			$p_price=$row['product_price'];
+	// 			$c_id=$row['category_id'];
+	// 			$b_id=$row['brand_id'];
+	// 			echo "
+	// 				<form action='manage_cart.php' method='post'>
+	// 					<div class='col-md-4 mb-2'>
+	// 						<div class='card'>
+	// 							<img src='../Admin panel/product_images/$p_image' class='card-img-top' id='banner-img'>
+	// 							<div class='card-body'>
+	// 								<h5 class='card-title'>$p_name</h5>
+	// 								<p class='card-text'>$p_desc</p>
+	// 								<input type='submit' name='detail' value='Detail' class='button outline'>
+	// 								<input type='submit' name='addtocart' value='Buy Now' class='button fill'>
+	// 								<input type='hidden' name='Item_Name' value='$p_name'>
+	// 								<input type='hidden' name='Item_Price' value='$p_price'>
+	// 							</div>
+	// 						</div>
+	// 					</div>
+	// 				</form>	
+	// 			";
+	// 		}
+	// 	}	
+	// }
 	//Details of products
 	function details_of_product(){
 		if(isset($_POST['id'])){

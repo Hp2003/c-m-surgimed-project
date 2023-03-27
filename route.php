@@ -114,6 +114,13 @@ else if($request == '/error'){
                 return 0;
         }
     }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/search_product') === 0) {
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('handlers/search_product_handler.php');
+                header('Content-Type: application/json');
+                search();
+        }
+    }
     if (strpos($_SERVER['REQUEST_URI'], '/api/add_to_cart') === 0) {
         if($_SERVER['REQUEST_METHOD'] === "POST"){
             require_once('src/manage_cart.php');

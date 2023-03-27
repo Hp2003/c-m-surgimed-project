@@ -1,17 +1,19 @@
-let addToCartBtns = document.querySelectorAll('.addToCart');
-let cartData = document.querySelectorAll('.cartForm');
-let imgs = document.querySelectorAll('.banner-img');
-addToCartBtns.forEach((Element, Index) =>{
-    Element.addEventListener('click', (e)=>{
-        e.preventDefault();
+// let addToCartBtns = document.querySelectorAll('.addToCart');
+function addToCart(event, btn, Index){
+    event.preventDefault();
+    let cartData = document.querySelectorAll('.cartForm');
+    let imgs = document.querySelectorAll('.banner-img');
+    let data = document.querySelectorAll('.cartForm')[Index];
+    // let Index = btn.parentNode.parentNode.rowIndex;
+    console.log(Index);
         const formData = new FormData(cartData[Index]);
         formData.append('Item_Image', imgs[Index].src);
 
         axios.post('/api/add_to_cart', formData).then(Response =>{
             console.log(Response.data);
         })
-    })
-})
+}
+
 const alertMessage = localStorage.getItem('alertMessage');
 const alertType = localStorage.getItem('alertType');
 

@@ -1,3 +1,4 @@
+// import { admin_view_edit } from '../../src/js/admin_view_edit_category.js';
 let addBtn = document.querySelector(".add-product")
 addNewCat();
 let  currentIndex = 0;
@@ -28,14 +29,18 @@ addBtn.addEventListener("click", (e) => {
         // console.log(error);
       });
   });
-  function createScriptElem(path, name) {
+  function createScriptElem(path, name, elem = document.head, callback = undefined) {
     var scriptElement = document.createElement("script");
     scriptElement.src = path;
     scriptElement.className = name;
     // Append the script element to the body of the document
-    document.head.appendChild(scriptElement);
+    elem.appendChild(scriptElement);
+    if(callback){
+      scriptElement.onload = callback;
+    }
     // document.querySelector('.addProScript').remove();
-  }
+  } 
+  
   // render admin views from api call
   function DisplayAdminViews(Contetnt) {
     const container = document.querySelector(".change");
@@ -180,7 +185,7 @@ function createDataTable(data,currentIndex, records){
       <tr class="text-center table-data">
         <td class="serNo"><form class='catIdForm'>${currentIndex}<input type = 'hidden' name="CategoryId" value='${element.CategoryId}'></form></td>
         <td class="title cat-title">${element.CategoryName}</td>
-        <td><a href="" name="edit_category" class="text-light edit_category"><i class="fa-solid fa-pen-to-square"></i></a></td>
+        <td><a href="" name="edit_category" class="text-light edit_category" onClick="editCategoryBtnHandler(event, this)"><i class="fa-solid fa-pen-to-square"></i></a></td>
         <td><a href="#" class="text-light deleteCategory" onClick = "deleteCategory(event, this)" ><i class="fa-solid fa-trash " ></i></a></td>
   
     </tr>
@@ -195,7 +200,7 @@ function createDataTable(data,currentIndex, records){
       </tr>
       `;
       addNewCat();
-      editCategoryBtnHandler();
+      // editCategoryBtnHandler();
       // clickListener();
       
 }
@@ -232,27 +237,33 @@ function addNewCat() {
     });
   }
 }
+let indexOfProducts = 1;
 // function to open edit category page
-function editCategoryBtnHandler(){
-  let editProBtn = document.querySelectorAll('.edit_category')
-  editProBtn.forEach((element, index)=>{
-    element.addEventListener('click', (e)=>{
-      e.preventDefault();
+function editCategoryBtnHandler(event, button){
+  let index = button.parentNode.parentNode.rowIndex;
+      event.preventDefault();
       // getting edit page
-      let reqMessage = new FormData(document.querySelectorAll('.catIdForm')[index]);
+      let reqMessage = new FormData(document.querySelectorAll('.catIdForm')[index -1]);
       reqMessage.append('process_category_page', 'get_page');
       axios.post('/api/Edit_products_category',reqMessage).then(response =>{
-        console.log(response.data.data)
+        console.log(response.data.totalRecords)
+
         renderEditCategoryPage(response.data.html);
-        // document.querySelector('.editProductScript').remove();
-        createScriptElem('../../src/js/admin_view_edit_category.js', 'admin_view_edit_category');
+
+        renderProductsWithCat(response.data.data, response.data.totalRecords);
+
+        createScriptElem('../src/js/admin_view_edit_category.js', 'admin_view_edit_category',document.body);
+
         document.querySelector('.pagination-main').remove();
-        // console.log(response.data.html);
-        admin_view_edit(response.data.data);
+        
+        document.querySelector('.search_cat_input').value = response.data.data[0].CategoryName;
+
+          
+        // renderProductsWithCat(response.data.data);
+       
       })
-    })
-  })
-}
+  }
+
 function renderEditCategoryPage(html){
   // console.log(html);
   const contentParent = document.getElementById("content").parentElement;
@@ -268,4 +279,73 @@ function renderEditCategoryPage(html){
     const contentElement = document.getElementById("content");
     contentElement.innerHTML = '';
     contentElement.appendChild(newContent);
+}
+function renderProductsWithCat(data, records){
+  let container = document.querySelector('.tableBody')
+        data.forEach((element, index)=>{
+          if(element.ProductId == undefined){
+            return 0;
+          }
+          container.innerHTML += `<tbody class="text-center">
+
+					<tr class="dataRows">
+
+						<td>${indexOfProducts++}</td>
+
+						<td>${element.ProductId} <input type="hidden" name="proId" value="${element.ProductId}"></td>
+
+						<td>${element.ProductTitle}<input type='hidden' class='iprice' value='' > </td>
+
+						<td>
+
+
+								<input type='number' class='text-center iqty' name='mod_qty' onchange='' min='1'
+
+									max='' value='${element.ProductPrice}'>
+
+						</td>
+
+						<input type='hidden' name='Item_Name' value=''>
+
+
+						<td class='itotal'> <input type='number' class='text-center iqty' name='mod_qty' onchange='' min='0'
+
+            max='' value='${element.QuantityOnHand}'> </td>
+
+						<td>
+
+
+								<button name='Remove_Item' class='btn btn-sm btn-outline-danger' onClick="deltePro(event,this)"><i
+
+										class='fa-solid fa-trash' ></i></button>
+
+
+
+						</td>
+            <td>
+
+								<button name='Remove_Item' class='btn btn-sm btn-outline-danger' onclick="updateProductCategoryTable(event, this)">Save</button>
+
+
+
+						</td>
+
+					</tr>
+
+				</tbody>
+`
+})
+if(records > 20){
+  if(document.querySelector('.LoadMoreProduct') != undefined){
+    document.querySelector('.LoadMoreProduct').remove();
+  }
+    // document.getElementById('content').innerHTML += `<div class="container-fluid d-flex justify-content-center"><button name="Load more " onClick = "loadMore()" value="Load More.." class="btn btn-info px-3 mb-3 LoadMoreProduct "></button></div>`
+    const container = document.createElement('div');
+    container.innerHTML = `<button name="Load more " onClick = "loadMore()" value="Load More.." class="btn btn-info px-3 mb-3 LoadMoreProduct ">Load More..</button>`;
+    document.getElementById('content').appendChild(container);
+}else{
+  if(document.querySelector('.LoadMoreProduct') != undefined){
+    document.querySelector('.LoadMoreProduct').remove();
+  }
+}
 }

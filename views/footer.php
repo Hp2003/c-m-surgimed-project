@@ -57,8 +57,9 @@
 
 <!-- Custom js -->
 <script src="../src/js/Alert.js"></script>
-<script src="../src/js/popup.js"></script>
+<script src="../src/js/searchProduct.js"></script>
 <script src="../src/js/manageCart.js"></script>
+<script src="../src/js/popup.js"></script>
 <!-- <script src="../src/js/cart.js"></script> -->
 <!-- <script src="../src/js/homepage_contact.js"></script> -->
 <script src="../src/js/homepage_ui.js"></script>
@@ -67,6 +68,7 @@
 		if($IsAdmin == true){
 			echo '<script src="../src/js/include_admin_js_modules.js" defer></script>';
 			echo '<script src="../src/js/deletePro.js"></script>';
+			echo "<script src= '../src/js/adminToggleButton.js'></script>";
 		}
 	}
 
