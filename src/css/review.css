@@ -1,0 +1,156 @@
+*::before,*::after{
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+}
+body, html{
+    /* height: 100vh; */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.review-outer{
+    background-color: #ffffff35;
+	backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding-top: 3em;
+}
+.username{
+    padding-top: 12px;
+
+}
+.review-main{
+    height: 35em;
+    width: 70%;
+    background-color: #000000db;
+    position: relative;
+    backdrop-filter: blur(12px);
+}
+.review-row{
+    /* position: absolute; */
+    height: 203px;
+    width: 100%;
+    background-color: white;
+    border-top: 1px solid black;
+    position: relative;
+    overflow: hidden;
+    min-width: 300px;
+}
+.vote{
+    position: absolute;
+    right: 32px;
+    bottom: -19px;
+}
+
+
+.review-row > *{
+    padding-left: 4em;
+}
+.review-rows{
+    overflow-y: scroll;
+    scrollbar-width: none;
+    overflow: auto;
+    height: 28em;
+    margin-top: 1em;
+
+}
+.message-container input[type = 'text']{
+    width: 100%;
+    height: 40px;
+    background-color: #00000087;
+
+    color: #ffffff91;
+    font-size: 1.1em;
+    padding-left: 2em;
+    padding-right: 3em;
+    
+}
+.message-container{
+    margin-top: 44px;
+}
+.review-bar-main{
+    position: relative;
+}
+.icon{
+    position: absolute;
+    right: 10px;
+    font-size: 29px;
+    margin-bottom: 12px;
+    bottom: 2em;
+    top: -2px;
+    color: white;
+    cursor:pointer;
+}
+.review{
+    position: relative;
+    /* height: 150px; */
+    /* overflow: hidden; */
+}
+/* width and height of scrollbar track */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+  }
+  
+  /* background of scrollbar track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* scrollbar handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* scrollbar handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  .container-pencil{
+    padding-right: 12px;
+  }
+.container-profileimg{
+    padding-left: 0px;
+    height: 50px;
+    width: 50px;
+    /* background-image: url('https://source.unsplash.com/random/?sig=120&client_id=tInCwtmcm8Af8syT6Q-m-8CTw0lv2QMOhZoi_Y5Kk5A'); */
+    background-image: url('../Default_male.jpg');
+    background-size: contain;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 12px;
+    border-radius: 50%;
+    /* background-image: ; */
+}
+@media (max-width: 1014px) {
+    .review-main{
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    .review-rows{
+        width: 90%;
+
+    }
+    .review-row{
+        height: 310px;
+    }
+  }
+.back-btn{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: #0000007d;
+    width: 50px;
+    height: 50px;
+    /* text-align: center; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+}

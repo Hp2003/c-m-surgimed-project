@@ -3,6 +3,8 @@
 <div class="container pagination-main d-flex justify-content-center">
 
 </div>
+<button type="button" class="btn btn-primary rounded-circle back-to-top" style="display:none;"><i class="fa fa-arrow-up" aria-hidden="true" style="fontsize:2em; "></i>
+</button>
 	<footer class="footer " style="height:100%;">
 		<div class="container" style="background-color: #24262b; ">
 			<div class="row" >
@@ -60,6 +62,7 @@
 <script src="../src/js/searchProduct.js"></script>
 <script src="../src/js/manageCart.js"></script>
 <script src="../src/js/popup.js"></script>
+<script src="../src/js/display_product_page.js"></script>
 <!-- <script src="../src/js/cart.js"></script> -->
 <!-- <script src="../src/js/homepage_contact.js"></script> -->
 <script src="../src/js/homepage_ui.js"></script>
@@ -73,6 +76,12 @@
 	}
 
 ?>
+
+<script type="text/javascript">
+		function showimg(path){
+			document.querySelector('.biggerImg').src = path;
+		}
+	</script>
 
 <script type="text/javascript">
 
@@ -89,6 +98,15 @@
 				$('.side-bar').removeClass('active');
 				$('.menu-btn').css("visibility","visible");
 			});
+		});
+	</script>
+	<script>
+		window.addEventListener('scroll', function() {
+			if (window.scrollY >= 300) {
+				document.querySelector('.back-to-top').style.display = 'block';
+			}else{
+				document.querySelector('.back-to-top').style.display = 'none';
+			}
 		});
 	</script>
     <!-- Bootstrap -->

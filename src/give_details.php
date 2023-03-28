@@ -13,11 +13,12 @@ require_once('connection.php');
         echo json_encode($data);
         return;
     }
+    
     function get_product_details(){
         if(isset($_POST['productId'])){
             $con = connect_to_db();
 
-
+            
             $sql = $con->prepare("SELECT * FROM product WHERE ProductId = ? LIMIT 1");
 
             $sql->bind_param('s', $_POST['productId']);

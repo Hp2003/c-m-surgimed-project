@@ -121,6 +121,20 @@ else if($request == '/error'){
                 search();
         }
     }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/get_details_page') === 0) {
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('src/give_details.php');
+                show_details_page();
+                
+        }
+    }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/show_review') === 0) {
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('src/show_review.php');
+                show_review();
+                
+        }
+    }
     if (strpos($_SERVER['REQUEST_URI'], '/api/add_to_cart') === 0) {
         if($_SERVER['REQUEST_METHOD'] === "POST"){
             require_once('src/manage_cart.php');
