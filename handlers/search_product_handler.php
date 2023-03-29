@@ -4,7 +4,15 @@
     function search(){
         $data = search_product();
         
+        if(empty($data) ){
 
+            header('Content-Type: application/json');
+            $resData = array(
+                'text' => 'couldNotFind'
+            );
+            echo json_encode($data);
+            return;
+        }
         $imgs = array();
         
         // getting product  images

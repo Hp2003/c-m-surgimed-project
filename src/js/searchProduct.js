@@ -7,9 +7,13 @@ searchBtn.addEventListener('click', (e)=>{
 
     e.preventDefault();
     axios.post('/api/search_product', formData).then(Response =>{
-        // console.log(Object.values(Response.data));
-        renderProducts(Object.values(Response.data));
-        document.documentElement.scrollTop =  600;
+        if (Response.data.text == 'couldNotFind'){
+            createAlert('warning', 'Sorry Product Not available','');
+            return;
+        }else{
+            renderProducts(Object.values(Response.data));
+            document.documentElement.scrollTop =  600;
+        }
     })
 })
 function renderProducts(data){

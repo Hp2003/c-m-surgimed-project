@@ -24,7 +24,7 @@
             return 0;
         }
 
-        $delte_query = $connection->prepare("DELETE  FROM product WHERE ProductId = ?");
+        $delte_query = $connection->prepare("UPDATE  product  SET ProductStatus = 'Deleted' WHERE ProductId = ?");
 
         $delte_query->bind_param('s', $id);
 

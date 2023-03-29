@@ -164,7 +164,7 @@ require_once('./src/add_product.php');
 
         while($row = mysqli_fetch_assoc($res)){
             if(delte_files($row['ProductImg'])){
-                $sql = "DELETE FROM product WHERE ProductId = '{$row['ProductId']}'";
+                $sql = "UPDATE  product  SET ProductStatus = 'Deleted' WHERE ProductId = '{$row['ProductId']}'";
                 if(!mysqli_query($con, $sql)){
                     header('Content-Type: application/json');
                     $responseData = array(

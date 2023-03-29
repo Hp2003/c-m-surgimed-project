@@ -3,7 +3,7 @@
 <div class="container pagination-main d-flex justify-content-center">
 
 </div>
-<button type="button" class="btn btn-primary rounded-circle back-to-top" style="display:none;"><i class="fa fa-arrow-up" aria-hidden="true" style="fontsize:2em; "></i>
+<button type="button" class="btn btn-primary rounded-circle back-to-top" style="display:none;"><i class="fa fa-arrow-up" aria-hidden="true" style="fontsize:2em;  " onclick="takeToTop()"></i>
 </button>
 	<footer class="footer " style="height:100%;">
 		<div class="container" style="background-color: #24262b; ">
@@ -60,6 +60,8 @@
 <!-- Custom js -->
 <script src="../src/js/Alert.js"></script>
 <script src="../src/js/searchProduct.js"></script>
+<script src="../src/js/orderpage_ui.js"></script>
+<script src="../src/js/order_view.js"></script>
 <script src="../src/js/manageCart.js"></script>
 <script src="../src/js/popup.js"></script>
 <script src="../src/js/display_product_page.js"></script>
@@ -80,6 +82,10 @@
 <script type="text/javascript">
 		function showimg(path){
 			document.querySelector('.biggerImg').src = path;
+		}
+		function takeToTop(){
+			document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 		}
 	</script>
 

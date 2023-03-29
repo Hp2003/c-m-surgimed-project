@@ -107,7 +107,7 @@ require_once('./src/deleteProduct.php');
 
                 if(delte_files($result)){
 
-                    $delQuery = $con->prepare('DELETE FROM product WHERE ProductId = ? LIMIT 1');
+                    $delQuery = $con->prepare('UPDATE  product  SET ProductStatus = "Deleted" WHERE ProductId = ?');
 
                     $delQuery->bind_param('s', $_POST['productId']);
 

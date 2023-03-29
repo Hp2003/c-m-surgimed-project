@@ -62,7 +62,7 @@
         bottom: 10vh;
     }
 </style>
-<body class="change">
+<body class="change" id="top">
 
 <div class="header-dark py-2 ">
             <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search d-flex justify-content-between">
@@ -72,7 +72,7 @@
                         <ul class="nav navbar-nav">
                             <li class="nav-item " role="presentation"><a class="nav-link " href="/">home</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="#">Contact</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="#">About</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="#" onclick="showOrderPage(event, this)">Orders</a></li>
                             <li class="dropdown"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Category </a>
                                 <div class="dropdown-menu" role="menu"></div>
                             </li>

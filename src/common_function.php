@@ -17,8 +17,13 @@ if (session_status() == PHP_SESSION_NONE) {
 				$count = 0;
 				while($row=mysqli_fetch_assoc($res)){
 					// getting images form folder
-					array_push($img, $row['ProductImg']);
-					$imagesReal = get_product_images($img);
+					$imagesReal = 
+					$status=$row['ProductStatus'];
+					if($status == 'Available'){
+						array_push($img, $row['ProductImg']);
+						$imagesReal = get_product_images($img);
+					}
+
 
 					$p_id=$row['ProductId'];
 					$p_name=$row['ProductTitle'];
@@ -28,7 +33,8 @@ if (session_status() == PHP_SESSION_NONE) {
 					$c_id=$row['CateGoryId'];
 					// $images = get_product_images($p_image);
 					// $b_id=$row['brand_id'];
-					echo "
+					if($status == 'Available'){
+						echo "
 						<div class='col-md-4 mb-2 cards' style='height:431px;'>
 							<form action='manage_cart.php' method='post' class='cartForm'>
 								<div class='card'>
@@ -42,10 +48,9 @@ if (session_status() == PHP_SESSION_NONE) {
 												echo "<a href='details.php?product_id=]'><input type='submit' name='detail' value='Delete' class='button outline deleteProBtn'></a>
 												<input type='submit' name='' value='Edit' class='button fill editProduct'>";
 											}
-										}else{
+										}
 											echo "<a onclick='get_details(event, this, $count)'><input type='submit' name='detail' value='Detail' class='button outline'></a>
 											<input type='button' name='addtocart' value='Buy Now' class='button fill addToCart' onClick='addToCart(event, this, $count )'>";
-										}
 										
 											$count += 1;
 										echo "
@@ -58,6 +63,8 @@ if (session_status() == PHP_SESSION_NONE) {
 							</form>
 						</div>	
 					";
+					}
+					
 					array_pop($img);
 				}
 			}
@@ -78,6 +85,7 @@ if (session_status() == PHP_SESSION_NONE) {
 					$p_price=$row['product_price'];
 					$c_id=$row['category_id'];
 					$b_id=$row['brand_id'];
+					// $b_id=$row['Status'];
 					echo "
 						<div class='col-md-4 mb-2'>
 							<div class='card'>
@@ -119,7 +127,7 @@ function search_product(){
 
 		$input = '%'.$search_data_value.'%';
 		// $search_query="SELECT * FROM product WHERE ProductKeywords LIKE '%$search_data_value% ' LIMIT 12";
-		$search_query= $con->prepare("SELECT * FROM product WHERE ProductKeywords LIKE ? LIMIT 12;");
+		$search_query= $con->prepare("SELECT * FROM product WHERE ProductKeywords  LIKE ?  AND ProductStatus = 'Available' LIMIT 12 ;");
 
 		$search_query->bind_param('s',$input );
 
@@ -140,6 +148,8 @@ function search_product(){
 		}
 
 		return $data;
+		
+		
 	}	
 	// 
 	// function get_unique_categories(){

@@ -135,6 +135,18 @@ else if($request == '/error'){
                 
         }
     }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/place_order') === 0) {
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('src/place_order.php');
+                place_order();
+        }
+    }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/order_page') === 0) {
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('src/show_orders.php');
+                show_orders();
+        }
+    }
     if (strpos($_SERVER['REQUEST_URI'], '/api/add_to_cart') === 0) {
         if($_SERVER['REQUEST_METHOD'] === "POST"){
             require_once('src/manage_cart.php');
@@ -163,6 +175,23 @@ else if($request == '/error'){
             if($_SERVER['REQUEST_METHOD'] === "POST"){
                 require_once('handlers/category_handler.php');
                 get_category_table();
+            }
+        }else{
+            header('Content-Type: application/json');
+            $resData = array(
+                'text' => "notAllowed"
+            );
+            echo json_encode($resData);
+            return;
+        }
+
+    }
+    if (strpos($_SERVER['REQUEST_URI'], '/api/get_all_orders') === 0) {
+        
+        if($_SESSION['IsAdmin'] == true){
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('src/admin_list_all_order.php');
+                display_all_orders();
             }
         }else{
             header('Content-Type: application/json');

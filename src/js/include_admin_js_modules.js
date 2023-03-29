@@ -349,3 +349,41 @@ if(records > 20){
   }
 }
 }
+function getAllOrders(event){
+  event.preventDefault();
+  document.body.style.backgroundColor = "white";
+  event.preventDefault();
+  let formData = new FormData();
+  formData.append("admin_order_page_process", "get_order_page");
+
+  axios.post("/api/get_all_orders", formData).then((Response) => {
+    renderEditCategoryPage(Response.data.html)
+    renderOrders(Response.data.orderData);
+    console.log(Response.data.orderData);
+  }); 
+  
+}
+function renderOrders(data){
+  let container = document.querySelector('.tableBody')
+  data.forEach((element, index)=>[
+    container.innerHTML += `<tr>
+        <td>${index+1}</td>
+        <td>${element.OrderId}</td>
+        <td>${element.CustomerId}<input type='hidden' class='iprice' value='1'></td>
+        <td>
+        ${element.OrderId}
+        <td >${element.Quantity}</td>
+        <td >${element.TotalPrice}</td>
+        <td >${element.PlacedOn}</td>
+        <td >${element.OrderStatus}</td>
+        <td>
+          <form action='manage_cart.php' method='post'>
+            <button name='Remove_Item' class='btn btn-sm btn-outline-danger'><i
+                class='fa-solid fa-trash'></i></button>
+            <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
+          </form>
+
+        </td>
+      </tr>`
+  ])
+}
