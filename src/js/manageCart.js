@@ -5,12 +5,14 @@ function addToCart(event, btn, Index){
     let imgs = document.querySelectorAll('.banner-img');
     let data = document.querySelectorAll('.cartForm')[Index];
     // let Index = btn.parentNode.parentNode.rowIndex;
-    console.log(Index);
-        const formData = new FormData(cartData[Index]);
+    // console.log(Index);
+    const formData = new FormData(cartData[Index]);
+    console.log(formData)
+        
         formData.append('Item_Image', imgs[Index].src);
-
         axios.post('/api/add_to_cart', formData).then(Response =>{
-            console.log(Response.data);
+            console.log(Response)
+            createAlert('success', 'item added', '');
         })
 }
 

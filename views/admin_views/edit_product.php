@@ -26,30 +26,58 @@
 				<label class="form-label">Add Category</label>
 				<input type="checkbox" name="toggle" value="" class="check toggle" id=""  >
 			</div>
-			<div class="form-outline w-75 pt-3 m-auto mb-4">
+			<div class="form-outline w-75 pt-3 m-auto mb-4 ">
 				<label class="form-label">Add new Category</label>
 				<input type="text" name="new_category" value="" class="form-control new_cat" id="" required>
 			</div>
+			<input type="hidden" name="img_dir" class="img_dir" value="">
+			<!-- images -->
 			<div class="form-outline  w-75 pt-3 m-auto mb-4">
-				<label class="form-label">Product Image</label>
-				<input type="file" name="product_image" value="" class="form-control" id="product_image" required>
+			<p class="img-text mx-2"></p>
+					<label for="img1" class="btn btn-info ">Add image 1</label>
+					<input type="file"  style="display:none;"id="img1" class="pro-img">
+					<input type="checkbox" name="remove[]" class="remove" id="" value = 'remove1'> remove1
 			</div>
-			<div class="main-prev d-flex align-items-center justify-content-center flex-column pt-3 m-auto" >
-			
-				<input type="text" value = "" name="" id="" class="form-outline  w-75 pt-3 m-auto mb-4 text-white img-name" style="display:none" disabled>
-				<input type="text" value = "" name="" id="" class="form-outline  w-75 pt-3 m-auto mb-4 text-white img-name" style="display:none" disabled>
-				<input type="text" value = "" name="" id="" class="form-outline  w-75 pt-3 m-auto mb-4 text-white img-name" style="display:none" disabled>
-				<input type="text" value = "" name="" id="" class="form-outline  w-75 pt-3 m-auto mb-4 text-white img-name" style="display:none" disabled>
-				<input type="text" value = "" name="" id="" class="form-outline  w-75 pt-3 m-auto mb-4 text-white img-name" style="display:none" disabled> 
-			 <!-- Add your input text elements here -->
+			<div class="form-outline  w-75 pt-3 m-auto mb-4">
+			<p class="img-text mx-2"></p>
+					<label for="img2" class="btn btn-info ">Add image 2</label>
+					<input type="file"  style="display:none;"id="img2" class="pro-img">
+					<input type="checkbox" name="remove[]" class="remove" id="" value = 'remove2'> remove2
+
 			</div>
+			<div class="form-outline  w-75 pt-3 m-auto mb-4">
+			<p class="img-text mx-2"></p>
+					<label for="img3" class="btn btn-info ">Add image 3</label>
+					<input type="file"  style="display:none " id="img3"class="pro-img">
+					<input type="checkbox" name="remove[]"  class="remove" id="" value = 'remove3'> remove3
+
+			</div>
+			<div class="form-outline  w-75 pt-3 m-auto mb-4">
+			<p class="img-text mx-2"></p>
+					<label for="img4" class="btn btn-info ">Add image 4</label>
+					<input type="file"  style="display:none " id="img4" class="pro-img">
+					<input type="checkbox" name="remove[]" class="remove" id="" value = 'remove4'>remove4
+
+			</div>
+			<div class="form-outline  w-75 pt-3 m-auto mb-4">
+			<p class="img-text mx-2"></p>
+					<label for="img5" class="btn btn-info ">Add image 5</label>
+					<input type="file" class="pro-img"id="img5" style="display:none ">
+					<input type="checkbox" name="remove[]" class="remove" id="" value = 'remove5'> remove5
+
+			</div>
+
 			<div class="form-outline  w-75 pt-3 m-auto mb-4">
 				<label class="form-label">Product Price</label>
 				<input type="text" name="product_price" value="" class="form-control" id="product_price" required>
 			</div>
+			<div class="form-outline  w-75 pt-3 m-auto mb-4">
+				<label class="form-label">QOH</label>
+				<input type="text" name="QOH" value="" class="form-control" id="QOH" required>
+			</div>
 			<div class="container d-flex w-75 pt-3 justify-content-around">
 				<div class="    pt-3">
-					<input type="submit" name="edit_product" value="Update Product" class="btn btn-info px-3 mb-3">
+					<input type="submit" name="" value="Update Product" class="btn btn-info px-3 mb-3  " onClick="editProduct(event)">
 				</div>
 				<div class="    pt-3">
 					<input type="submit" name="" value="Close" class="btn btn-info px-3 mb-3 closeEditForm">

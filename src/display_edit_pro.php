@@ -3,14 +3,21 @@
     require_once('display_add_product.php');
 
     function get_edit_pro(){
+
         $file_path = './views/admin_views/edit_product.php';
 
         if (file_exists($file_path)) {
         // Set the content type to HTML
         header('Content-Type: application/json');
         
-        $html = file_get_contents($file_path);
+        $html = file_get_contents($file_path); 
         $data = get_product_info();
+        // header('Content-Type: application/json');
+        // $res = array(
+        //     'text' => $data['CateGoryId']
+        // );
+        // echo json_encode($res);
+        // return;
         $cats = getCatsWithId($data['CateGoryId']);
         $imgs = get_images($data['ProductImg']);
         $data['imgs'] = $imgs;
@@ -34,11 +41,11 @@
 
             $con = connect_to_db();
 
-            $query = $con->prepare('SELECT * FROM product WHERE ProductId = ? LIMIT 1');
+            $query = $con->prepare('SELECT * FROM product WHERE ProductId = ? AND ProductStatus = "Available" LIMIT 1 ');
 
             $query->bind_param('s', $id);
 
-            $query->execute();
+            $query->execute(); 
 
             $result = $query->get_result();
 
@@ -69,7 +76,7 @@
     function getCatsWithId($id){
         $res = array();
         $con = connect_to_db();
-        $query = "SELECT CategoryName FROM category ORDER BY CategoryId = '$id' DESC, CategoryId ASC;";
+        $query = "SELECT CategoryName FROM category ORDER BY CategoryId = '$id' DESC, CategoryId ASC; ";
         $result = mysqli_query($con, $query);
         $con->close();
         while($row = mysqli_fetch_assoc($result)){

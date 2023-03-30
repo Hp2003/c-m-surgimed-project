@@ -1,4 +1,5 @@
 <?php 
+    require_once('./src/connection.php');
     require_once('./src/send_email.php');
     require_once('./src/validation/Check_UserInput.php');
     if(session_status() !== PHP_SESSION_ACTIVE){
@@ -57,4 +58,18 @@
     //         return ;
     //     }
     // }
+    function get_categorys_with_id(){
+        $connection = connect_to_db();
+
+        $query = "SELECT CategoryName, CategoryId FROM category ";
+
+        $result = mysqli_query($connection, $query);
+
+        $data = array();
+        while($row = $result->fetch_assoc()){
+            array_push($data, $row);
+        };
+        $connection->close();
+        return $data;
+    }
 ?>

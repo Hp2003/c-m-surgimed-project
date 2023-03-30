@@ -12,9 +12,9 @@
 				<textarea name="product_desc" value="" class="form-control desc" id="product_desc"cols="30" rows="10"></textarea>
 			</div>
 			<div class="form-outline  w-75 pt-3 m-auto mb-4">
-				<label class="form-label">Product Description</label>
+				<label class="form-label">Product Keyword</label>
 				<!-- <input type="text"  required> -->
-				<textarea name="product_desc" value="" class="form-control desc" id="product_desc"cols="30" rows="10"></textarea>
+				<textarea name="product_keyword" value="" class="form-control desc" id="product_desc"cols="30" rows="10"></textarea>
 			</div>
 			<!-- <div class="form-outline  w-75  m-auto mb-4">
 				<label class="form-label">Product Keywords</label>

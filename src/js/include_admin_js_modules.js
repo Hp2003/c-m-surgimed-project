@@ -63,39 +63,40 @@ addBtn.addEventListener("click", (e) => {
     
   }
 
-// edit product
+// edit product page part
+let ProId;
 let editProductBtn = document.querySelectorAll(".editProduct");
 let allForms = document.querySelectorAll('.cartForm');
-console.log(allForms)
 editProductBtn.forEach((element, index)=>{
   element.addEventListener('click', (e)=>{
     e.preventDefault();
-    const cardData = new FormData(allForms[index]);
-    axios.post("/api/edit_product", cardData).then((Response) => {
-      // popup.innerHTML = Response.data;
-      DisplayAdminViews(Response.data.html);
-      createScriptElem('./src/js/edit_product_ui.js', "editProductScript");
-      // createScriptElem('./src/js/add_product_ui.js', "editProductScript");
-      
-      fillDataEditForm(Response.data.formData);
-  //     console.log(Response.data.formData);
-  // console.log(Response.data.catname);
+      const cardData = new FormData(allForms[index]);
+      axios.post("/api/edit_product", cardData).then((Response) => {
+        ProId = Response.data.formData.ProductId;
+        console.log(Response.data.formData)
+        DisplayAdminViews(Response.data.html);
+        // console.log(Response.data.formData);
+        fillDataEditForm(Response.data.formData);
+        createScriptElem('./src/js/edit_product_ui.js', "editProductScript");
+        createScriptElem('./src/js/edit_product.js', "editProductScript");
+        // createScriptElem('./src/js/add_product_ui.js', "editProductScript");
+      });      
 
-    });
     const formData = new FormData();
-    formData.append("type", "some type");
+    // formData.append("type", "some type");
     // append any other form data key-value pairs as needed
   
     axios
       .post("/api/edit_product", formData)
       .then((response) => {
-      //   console.log(response);
+        
       })
       .catch((error) => {
         console.error(error);
       });
   })
 })
+// console.log(ProId);
 // fill data in edit product form
 function fillDataEditForm(data){
   let editProForm = document.querySelectorAll('#editProduct input, #editProduct textarea');
@@ -114,15 +115,20 @@ function fillDataEditForm(data){
     } if(element.name == 'product_keywords'){
       element.value = data.ProductKeywords;
       return;
+    }if(element.name == 'QOH'){
+      element.value = data.QuantityOnHand;
+      return;
+    }if(element.name == 'img_dir'){
+      element.value = data.ProductImg;
     }
   })
-  let imgView = document.querySelectorAll('.img-name');
+  let imgView = document.querySelectorAll('.img-text');
   // console.log(data.imgs);
   
   data.imgs.forEach((element, index)=>{
     // console.log('running');
     imgView[index].style.display = 'block';
-    imgView[index].value = element;
+    imgView[index].innerHTML = element;
   })
   let drop = document.querySelector('.dropDown');
   data.cats.forEach((element, index)=>{
@@ -365,7 +371,7 @@ function getAllOrders(event){
 }
 function renderOrders(data){
   let container = document.querySelector('.tableBody')
-  data.forEach((element, index)=>[
+  data.forEach((element, index)=>{
     container.innerHTML += `<tr>
         <td>${index+1}</td>
         <td>${element.OrderId}</td>
@@ -385,5 +391,10 @@ function renderOrders(data){
 
         </td>
       </tr>`
-  ])
+})
+
 }
+
+
+// //////////////////////////////////////////////////////////////////////////
+// User section

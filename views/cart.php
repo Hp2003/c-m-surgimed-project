@@ -28,6 +28,7 @@
 					</thead>
 					<tbody class="text-center">
 						<?php
+						// print_r($_SESSION['cart']);
 							if(isset($_SESSION['cart'])){
 								// print_r($_SESSION['cart']);
 								foreach($_SESSION['cart'] as $key=>$value){
@@ -47,7 +48,7 @@
 												<form action='manage_cart.php' method='post' class='rmporduct' >
 													<button name='Remove_Item' class='btn btn-sm btn-outline-danger rmbtn' ><i class='fa-solid fa-trash'></i></button>
 													<input type='hidden' name='Item_Name' value='$value[Item_Name]'> 
-													<input type='hidden' name='Item_Id' class='Item_Id' value='$value[ItemId]'> 
+													<input type='hidden' name='Item_Id' class='Item_Id' value='{$value['ItemId']}'> 
 												</form>
 											</td>
 										</tr>

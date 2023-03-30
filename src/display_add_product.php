@@ -41,7 +41,7 @@ header('cache-control: no-cache');
     function get_categorys(){
         $connection = connect_to_db();
 
-        $query = "SELECT CategoryName FROM category ";
+        $query = "SELECT CategoryName, CategoryId FROM category ";
 
         $result = mysqli_query($connection, $query);
 

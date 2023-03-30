@@ -27,14 +27,15 @@
 					// </script>";	
 					header('Content-Type: application/json');
 					$res = array(
-						'text' => 'itemAdded'
+						'text' => 'itemAdded',
+						'id' => $_POST['item_Id']
 					);
 					echo json_encode($res);
 					return 0;
 				}
 			}
 			else{
-				$_SESSION['cart'][0]=array('Item_Name'=>$_POST['Item_Name'],'Item_Price'=>$_POST['Item_Price'],'Item_Image'=>$_POST['Item_Image'],'Item_Quantity'=>1, $_POST['item_Id'],'Id'=>1);
+				$_SESSION['cart'][0]=array('Item_Name'=>$_POST['Item_Name'],'Item_Price'=>$_POST['Item_Price'],'Item_Image'=>$_POST['Item_Image'],'Item_Quantity'=>1, 'ItemId' => $_POST['item_Id']);
 					// echo "<script>
 					// 	alert('Item Added...');
 					// 	window.location.href='index1.php';

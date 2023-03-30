@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="../src/css/login.css">
     <link rel="stylesheet" href="../src/css/popover.css">
+    <link rel="stylesheet" href="../src/css/confirmbox.css">
+
 </head>
 <body>
     <section>
@@ -62,6 +64,7 @@
     <!-- <script src="../src/js/input_validation_user_data.js"></script> -->
     <script src="../src/js/popover.js"></script>
     <script src="../src/js/Alert.js"></script>
+    <script src="../src/js/confirmbox.js"></script>
     <script src="../src/js/login_page.js"></script>
 
     <!-- Bootstrap js -->

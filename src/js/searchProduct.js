@@ -11,28 +11,33 @@ searchBtn.addEventListener('click', (e)=>{
             createAlert('warning', 'Sorry Product Not available','');
             return;
         }else{
-            renderProducts(Object.values(Response.data));
+            renderProducts(Object.values(Response.data), 0,true);
             document.documentElement.scrollTop =  600;
         }
     })
 })
-function renderProducts(data){
+
+function renderProducts(data, customIndex = 0 , remove = true){
+    // console.log(data[2][1])
     let container = document.querySelector('.card-main');
     document.querySelectorAll('.addToCart').forEach((element, index)=>{
         element.removeEventListener('click', addToCart);
         element.remove();
     })
-    container.innerHTML = '';
-    data.forEach((element, index) => {
+    if(remove == true){
+        container.innerHTML = '';
+    }
+    console.log(data);
+    index = customIndex;
+    data.forEach((element) => {
         // console.log(element)
         if(element.ProductTitle == undefined){
             return 0;
         }
-
         container.innerHTML += `<div class='col-md-4 mb-2 cards' style='height:431px;'>
         <form action='manage_cart.php' method='post' class='cartForm'>
             <div class='card'>
-                <img src='.${data[6][index]}' class='card-img-top banner-img' style='height : 220px;'>
+                <img src='.${data[data.length-1][index]}' class='card-img-top banner-img' style='height : 220px;'>
                 <div class='card-body'>
                     <h3 class='card-title'>${element.ProductTitle}</h3>
                     <p class='card-text'>Rs ${element.ProductPrice}</p>
@@ -41,10 +46,11 @@ function renderProducts(data){
                     
                     <input type='hidden' name='Item_Name' value='${element.ProductTitle}'>
                     <input type='hidden' name='Item_Price' value='${element.ProductPrice}'>
-                    <input type='hidden' name='item_Id' value='${element.ProductId}'class='item_id'>
+                    <input type='hidden' name='item_Id' value='${element.ProductId}'class='Item_id'>
                 </div>
             </div>
         </form>
     </div>	`
+    index++;
     });
 }

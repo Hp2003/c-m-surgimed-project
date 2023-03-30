@@ -11,6 +11,7 @@
         @$new_category = $_POST['new_category'];
         $price = $_POST['product_price'];
         $qoh = $_POST['qoh'];
+        $keyword = $_POST['product_keyword'];
         
         // checking if file is uploaded successfully
         foreach($_FILES["product_image"]['error'] as $key => $error){
@@ -39,7 +40,7 @@
                 if( $file_path != 0){
                     // handle error if any of the required fields are empty
                     if(!empty($category)){
-                        $isProAdded = add_product_in_db($title, $disc, $file_path, $price, $qoh,  'DEFAULT_CATEGORY');
+                        $isProAdded = add_product_in_db($title, $disc, $file_path, $price, $qoh,'DEFAULT_CATEGORY',$keyword);
                         if($isProAdded == 0){
                             header('Content-Type: application/json');
                             $res = array(
@@ -51,7 +52,7 @@
                     }elseif(!empty($new_category)){
                         $isCreated = create_category($new_category);
                         if( $isCreated== 1){
-                            $added = add_product_in_db($title, $disc, $file_path, $price, $qoh, 'NEW_CATEGORY');
+                            $added = add_product_in_db($title, $disc, $file_path, $price, $qoh, 'NEW_CATEGORY',$keyword);
                             if($added === 0){
                                 delte_files($file_path);
                                 header('Content-Type: application/json');
@@ -82,7 +83,7 @@
             }
             
         }
-    function add_product_in_db($title, $disc, $filePath, $price, $qoh, $type){
+    function add_product_in_db($title, $disc, $filePath, $price, $qoh, $type, $keyword){
         $connection = connect_to_db();
         $query;
         if($type === "DEFAULT_CATEGORY"){
@@ -97,8 +98,8 @@
 
 
                 // adding product
-                $query = $connection->prepare("INSERT INTO Product (ProductTitle, ProductImg, ProductDesc, ProductPrice, CateGoryId, QuantityOnHand) VALUES(?, ?, ?, ?, ?, ?) ");
-                $query->bind_param("ssssss", $title, $filePath, $disc, $price, $id['CategoryId'], $qoh);
+                $query = $connection->prepare("INSERT INTO Product (ProductTitle, ProductImg, ProductDesc, ProductPrice, CateGoryId, QuantityOnHand, ProductKeywords) VALUES(?, ?, ?, ?, ?, ?, ?) ");
+                $query->bind_param("sssssss", $title, $filePath, $disc, $price, $id['CategoryId'], $qoh, $keyword);
                 $query->execute();
                 $query->close();
                 $analyze_query_product = $connection->prepare('ANALYZE TABLE product;');
@@ -124,8 +125,8 @@
         }
         if($type === "NEW_CATEGORY"){
 
-            $query = $connection->prepare("INSERT INTO Product (ProductTitle, ProductImg, ProductDesc, ProductPrice, CateGoryId, QuantityOnHand) VALUES(?, ?, ?, ?, ?, ?) ");
-            $query->bind_param("ssssss", $title, $filePath, $disc, $price, $_SESSION['categoryID'], $qoh );
+            $query = $connection->prepare("INSERT INTO Product (ProductTitle, ProductImg, ProductDesc, ProductPrice, CateGoryId, QuantityOnHand, ProductKeywords) VALUES(?, ?, ?, ?, ?, ?, ?) ");
+            $query->bind_param("sssssss", $title, $filePath, $disc, $price, $_SESSION['categoryID'], $qoh ,$keyword);
             $query->execute();
             unset($_SESSION['categoryID']);
 

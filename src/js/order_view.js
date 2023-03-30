@@ -30,9 +30,11 @@ function placeOrder(e,btn){
         }
         if(Response.data.text == 'placed'){
             createAlert('success', 'order placed..','');
+            window.location.reload()
         }
         if(Response.data.text == 'quantityIsNotAvilable'){
-            createAlert('success', `Quantity not available for ${document.querySelectorAll('.itemName')[Response.data.index].value}..`,'');
+            console.log(document.querySelectorAll('.itemName')[Response.data.index].childNodes[0]);
+            createAlert('success', `Quantity not available for `,'');
         }
     })
 }

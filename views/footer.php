@@ -59,6 +59,7 @@
 
 <!-- Custom js -->
 <script src="../src/js/Alert.js"></script>
+<script src="../src/js/confirmbox.js"></script>
 <script src="../src/js/searchProduct.js"></script>
 <script src="../src/js/orderpage_ui.js"></script>
 <script src="../src/js/order_view.js"></script>
@@ -74,12 +75,15 @@
 			echo '<script src="../src/js/include_admin_js_modules.js" defer></script>';
 			echo '<script src="../src/js/deletePro.js"></script>';
 			echo "<script src= '../src/js/adminToggleButton.js'></script>";
+			echo "<script src='../src/js/list_all_user_ui.js'></script>";
 		}
 	}
 
 ?>
 
 <script type="text/javascript">
+
+
 		function showimg(path){
 			document.querySelector('.biggerImg').src = path;
 		}

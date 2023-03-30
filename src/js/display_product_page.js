@@ -11,7 +11,7 @@ function get_details(event, btn, index) {
   let formData = new FormData();
   formData.append(
     "productId",
-    document.querySelectorAll(".item_id")[index].value
+    document.querySelectorAll(".Item_id")[index].value
   );
   axios.post("/api/get_details_page", formData).then((Response) => {
     detailPagehtml = Response.data.html;

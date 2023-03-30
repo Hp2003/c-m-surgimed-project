@@ -1,4 +1,5 @@
 <?php 
+
 if(session_status() != PHP_SESSION_ACTIVE){
     session_start();
 }
@@ -46,7 +47,7 @@ function move_image($type ){
                     
                     // Do something with the file here
                     // For example, move it to a folder on your server
-                    if(!move_file($filetmpname, $new_folder, $filename )){
+                    if(!move_file($filetmpname, $new_folder, $filename , $i+1)){
                       return 0;  
                     }
                 }
@@ -112,10 +113,7 @@ function remove_dir($dir_name){
         return 1;
     }
 }
-function move_file($filetmpname, $new_folder, $filename, $depth = 0){
-    if($depth > 10){
-        return 0;
-    }
+function move_file($filetmpname, $new_folder, $filename, $index=0){
     try{
         if(!preg_match('/\.png$|\.jpe?g$/', $filename)){
             header('Content-Type: application/json');
@@ -125,15 +123,13 @@ function move_file($filetmpname, $new_folder, $filename, $depth = 0){
             echo json_encode($res);
             return;
         }else{
-            if(move_uploaded_file($filetmpname, $new_folder . '/' . $filename)){
+            $file_ext = pathinfo($filename, PATHINFO_EXTENSION);
+            if(move_uploaded_file($filetmpname, $new_folder . '/' . "$index". "_" . 'file.' . $file_ext)){
                 return 1;
             }
         }
     }catch(Exception $e){
-        if (strpos($e->getMessage(), "already exists") !== false) {
-             $new_file_name =  rename_file($new_folder . '/' . $filename);
-            return move_file($new_file_name, $new_folder, $depth += 1);
-        }
+        return 0;
     }
 }
 ?>

@@ -85,9 +85,10 @@ function updateUserProfile(formDataProfile){
             formDataProfile.append('UserImg', file);
         }
     }
-    
-    
+if(window.confirm('do you really want to make changes')){
+    console.log('in');
     axios.post('', formDataProfile).then(Response =>{
+       
         if(Response.data.text != ""){
             const message = Response.data.text;
             if(message == "Updated"){
@@ -96,7 +97,9 @@ function updateUserProfile(formDataProfile){
             // console.log(message)
         }
         console.log(Response.data)
+        
     })
+}
     // console.log('here');
 
 }

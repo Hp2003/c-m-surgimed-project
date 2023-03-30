@@ -39,7 +39,7 @@
             Element.value.toUpperCase().trim() === pair[1].toUpperCase().trim()
           ) {
             createAlert("warning", `Please Enter <b>New category </b>`, "");
-            return 0;
+
             if (pair[1].length > 100) {
               createAlert(
                 "warning",
@@ -57,10 +57,10 @@
           ""
         );
         return 0;
-      } else if (pair[0] === "product_desc" && pair[1].length > 1000) {
+      } else if (pair[0] === "product_desc" && pair[1].length > 500) {
         createAlert(
           "warning",
-          `Please Enter small title  max length <b>1000</b> charcters on <b>description </b>`,
+          `Please Enter small title  max length <b>500</b> charcters on <b>description </b>`,
           ""
         );
         return 0;

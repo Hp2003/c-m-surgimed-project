@@ -8,7 +8,7 @@
 			<i class="fas fa-times"></i>
 		</div>
 		<div class="menu">
-			<div class="item"><a href=""><i class="fas fa-desktop"></i>Dashboard</a></div>
+			<div class="item"><a href="" class="getUserBtn"><i class="fas fa-user"></i>User List</a></div>
 			<div class="item">
 				<a class="sub-btn"><i class="fas fa-table"></i>Product<i class="fas fa-angle-right dropdown"></i></a>
 				<div class="sub-menu">

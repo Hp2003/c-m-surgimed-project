@@ -34,6 +34,8 @@ if (session_status() === PHP_SESSION_NONE) {
                     $total = $prices[$i] * $itm_quantity[$i] ;
                     array_push($total_price,  $total);
                 }
+                
+
                 insert_in_order_table($item_ids , $itm_quantity, $address, 'cod' , $PhoneNumber , $total_price );
                 unset($_SESSION['cart']);
                 header('Content-Type: application/json');
@@ -64,18 +66,18 @@ if (session_status() === PHP_SESSION_NONE) {
             $result = mysqli_fetch_assoc($res);
             $qoh = $result['QuantityOnHand'];
             $price = $result['ProductPrice'];
-
-            return array($quantity <= $qoh, $price);
+            $avialable = $quantity <= $qoh;
+            return array($avialable, $price);
         }
     }
     function insert_in_order_table($item_ids, $itm_quantity, $address, $paymentMethod, $PhoneNumber, $total_price){
         $date = date("Y/m/d");
         $con = connect_to_db();
-        for($i = 0 ; $i<count($total_price) ; $i ++){
+        for($i = 0 ; $i<count($total_price) ; $i++){
             $sql = "INSERT INTO corder (CustomerId, TotalPrice , PlacedOn, OrderStatus, ProductId, Quantity, DeliveryAddress, PhoneNumber )
             VALUES('{$_SESSION['userId']}', '$total_price[$i]','$date', 'Placed','$item_ids[$i]' , '$itm_quantity[$i]' , '$address' , '$PhoneNumber' )";
 
-            decrease_quantity($item_ids[$i], $itm_quantity[$i]);
+            // decrease_quantity($item_ids[$i], $itm_quantity[$i]);
             mysqli_query($con, $sql );
         }
         $con->close();

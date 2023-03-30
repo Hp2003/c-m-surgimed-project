@@ -48,16 +48,15 @@ if (session_status() == PHP_SESSION_NONE) {
 												echo "<a href='details.php?product_id=]'><input type='submit' name='detail' value='Delete' class='button outline deleteProBtn'></a>
 												<input type='submit' name='' value='Edit' class='button fill editProduct'>";
 											}
-										}
-											echo "<a onclick='get_details(event, this, $count)'><input type='submit' name='detail' value='Detail' class='button outline'></a>
+										}else{echo "<a onclick='get_details(event, this, $count)'><input type='submit' name='detail' value='Detail' class='button outline'></a>
 											<input type='button' name='addtocart' value='Buy Now' class='button fill addToCart' onClick='addToCart(event, this, $count )'>";
-										
+										}
 											$count += 1;
 										echo "
 										
 										<input type='hidden' name='Item_Name' value='$p_name'>
 										<input type='hidden' name='Item_Price' value='$p_price'>
-										<input type='hidden' name='item_Id' value='$p_id' class='item_id'>
+										<input type='hidden' name='item_Id' value='$p_id' class='Item_id'>
 									</div>
 								</div>
 							</form>
@@ -108,8 +107,7 @@ function search_product(){
 		$con= connect_to_db();
 		$search_data_value=$_POST['search_data'];
 
-		if(isset($_SESSION['IsAdmin'])){
-			if($_SESSION['IsAdmin'] == true && preg_match('/^#!:\d+$/', $search_data_value)){
+			if( preg_match('/^#!:\d+$/', $search_data_value)){
 				$sql = $con->prepare("SELECT * FROM product WHERE ProductId =  ? LIMIT 1");
 
 				$id = str_replace( '#!:', '',$search_data_value );
@@ -120,16 +118,15 @@ function search_product(){
 				$con->close();
 				$sql->close();
 				$data = mysqli_fetch_assoc($result);
-				
+
 				return $data;
 			}
-		}
-
 		$input = '%'.$search_data_value.'%';
+		$offset = $_POST['offset_search'];
 		// $search_query="SELECT * FROM product WHERE ProductKeywords LIKE '%$search_data_value% ' LIMIT 12";
-		$search_query= $con->prepare("SELECT * FROM product WHERE ProductKeywords  LIKE ?  AND ProductStatus = 'Available' LIMIT 12 ;");
+		$search_query= $con->prepare("SELECT * FROM product WHERE ProductKeywords  LIKE ?  AND ProductStatus = 'Available' LIMIT 16 OFFSET = ? ;");
 
-		$search_query->bind_param('s',$input );
+		$search_query->bind_param('ss',$input , $offset);
 
 		$search_query->execute();
 		$res = $search_query->get_result();

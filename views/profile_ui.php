@@ -12,6 +12,7 @@
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <!-- Cusom css -->
   <link rel="stylesheet" href="../src/css/login.css">
+  <link rel="stylesheet" href="../src/css/confirmbox.css">
   <link rel="stylesheet" href="../src/css/reg.css">
   <link rel="stylesheet" href="../src/css/create_profile.css">
   <link rel="stylesheet" href="../src/css/profile.css">
@@ -113,10 +114,14 @@ body{
   <!-- Moment -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
+  <!-- Jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <!-- Axios -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <!-- Custom js -->
   <script src="../src/js/Alert.js"></script>
+  <script src="../src/js/confirmbox.js"></script>
   <script src="../src/js/profile_ui.js"></script>
   <script src="../src/js/input_validation_user_data.js"></script>
   <script src="../src/js/complete_profile.js"></script>   
