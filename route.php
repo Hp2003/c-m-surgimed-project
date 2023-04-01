@@ -5,9 +5,12 @@ header("Expires: 0"); // Proxies
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+date_default_timezone_set('Asia/Kolkata');
 $url = $_SERVER['REQUEST_URI'];
 $request = str_replace("route.php" , '' , $url );
-
+// echo $url;
+// $request = str_replace("/C_M_surgimed/" , '' , $url );
+// $url = str_replace(, '', $request);
 // echo "$request <br>";
 
 if($request == '/' || $request == '/home'){
@@ -57,6 +60,15 @@ else if($request == '/profile'){
 else if($request == '/cart'){
     
     require_once('handlers/cart_handler.php');
+
+}
+else if ($request ===  '/report') {
+        
+    if($_SESSION['IsAdmin'] == true){
+        if($_SERVER['REQUEST_METHOD'] === "GET"){
+            include('views/admin_views/report_page_views/reportpage.php');
+        }
+    }
 
 }
 else if($request == '/error'){
@@ -209,6 +221,7 @@ else if($request == '/error'){
         }
 
     }
+
     if (strpos($_SERVER['REQUEST_URI'], '/api/get_all_orders') === 0) {
         
         if($_SESSION['IsAdmin'] == true){

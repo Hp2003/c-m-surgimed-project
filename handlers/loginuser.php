@@ -7,7 +7,7 @@ function get_user($email , $password){
 
     $con = connect_to_db();
 
-    $sql = "SELECT UserName, UserId, Email, IsAdmin FROM Users WHERE Email = ? AND AccountPassword = ? LIMIT 1";
+    $sql = "SELECT UserName, UserId, Email, IsAdmin FROM Users WHERE Email = ? AND AccountPassword = ? AND IsDeleted = false LIMIT 1";
 
     $stmt = $con->prepare($sql);
     $stmt->bind_param("ss", $email, $password);

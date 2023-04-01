@@ -17,7 +17,8 @@
     <link rel="stylesheet" href="../src/css/footer.css">
     <link rel="stylesheet" href="../src/css/popup.css">
     <link rel="stylesheet" href="../src/css/review.css">
-    <link rel="stylesheet" href="../src/css/confirmbox.css">
+    <!-- <link rel="stylesheet" href="../src/css/confirmbox.css"> -->
+    <!-- <link rel="stylesheet" href="../src/css/new_dopdown.css"> -->
     <!-- <link rel="stylesheet" href="../src/css/styleD.css"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -73,13 +74,20 @@
                         <ul class="nav navbar-nav">
                             <li class="nav-item " role="presentation"><a class="nav-link " href="/">home</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="#">Contact</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="#" onclick="showOrderPage(event, this)">Orders</a></li>
+                            <?php 
+                                if(!empty($_SESSION['loggedIn'])){
+                                    echo '
+                                    <li class="nav-item" role="presentation"><a class="nav-link" href="#" onclick="showOrderPage(event, this)">Orders</a></li>
+                                    ';
+                                }
+                            ?>
                             <li class="dropdown"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Category </a>
                                 <div class="dropdown-menu" role="menu"></div>
                             </li>
                         </ul>
                         <form class="form-inline mr-auto" target="_self">
-                            <div class="form-group"><label for="search-field"><i class="fa fa-search"></i></label><input class="form-control search-field" type="search" name="search" id="search-field"></div>
+                            <!-- <div class="form-group"><label for="search-field"><i class="fa fa-search"></i></label><input class="form-control search-field" type="search" name="search" id="search-field"></div> -->
+                            <div class="container-fluid"></div>
                         </form>
                         <?php
                             $cnt=0;

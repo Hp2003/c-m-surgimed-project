@@ -40,17 +40,17 @@ if (session_status() == PHP_SESSION_NONE) {
 								<div class='card'>
 									<img src='../{$row['ProductImg']}/$imagesReal[0]' class='card-img-top banner-img' style='height : 220px;'>
 									<div class='card-body'>
-										<h3 class='card-title'>$p_name</h3>
+										<p class='card-title text-white' style='font-size:1em'>$p_name</p>
 										<p class='card-text'>Rs $p_price</p>
 										";
-										if(isset($_SESSION['IsAdmin'])){
-											if ($_SESSION['IsAdmin']  == true){
+										// if(isset($_SESSION['IsAdmin'])){
+											if (!empty($_SESSION['IsAdmin'])){
 												echo "<a href='details.php?product_id=]'><input type='submit' name='detail' value='Delete' class='button outline deleteProBtn'></a>
-												<input type='submit' name='' value='Edit' class='button fill editProduct'>";
+													  <input type='submit' name='' value='Edit' class='button fill editProduct'>";
 											}
-										}else{echo "<a onclick='get_details(event, this, $count)'><input type='submit' name='detail' value='Detail' class='button outline'></a>
-											<input type='button' name='addtocart' value='Buy Now' class='button fill addToCart' onClick='addToCart(event, this, $count )'>";
-										}
+										 else{
+											echo "<a onclick='get_details(event, this, $count)'><input type='submit' name='detail' value='Detail' class='button outline'></a>
+												  <input type='button' name='addtocart' value='Buy Now' class='button fill addToCart' onClick='addToCart(event, this, $count )'>";}
 											$count += 1;
 										echo "
 										
@@ -107,43 +107,49 @@ function search_product(){
 		$con= connect_to_db();
 		$search_data_value=$_POST['search_data'];
 
-			if( preg_match('/^#!:\d+$/', $search_data_value)){
-				$sql = $con->prepare("SELECT * FROM product WHERE ProductId =  ? LIMIT 1");
-
-				$id = str_replace( '#!:', '',$search_data_value );
-				$sql->bind_param('s', $id);
-
-				$sql->execute();
-				$result = $sql->get_result();
-				$con->close();
-				$sql->close();
-				$data = mysqli_fetch_assoc($result);
-
-				return $data;
+		if((preg_match('/^#!:\d+$/', $search_data_value))){
+		if(isset($_SESSION['IsAdmin'])){
+			if($_SESSION['IsAdmin'] == true){
+				if( preg_match('/^#!:\d+$/', $search_data_value)){
+					$sql = $con->prepare("SELECT * FROM product WHERE ProductId =  ? LIMIT 1");
+	
+					$id = str_replace( '#!:', '',$search_data_value );
+					$sql->bind_param('s', $id);
+	
+					$sql->execute();
+					$result = $sql->get_result();
+					$con->close();
+					$sql->close();
+					$data = mysqli_fetch_assoc($result);
+	
+					return $data;
+				}
 			}
-		$input = '%'.$search_data_value.'%';
-		$offset = $_POST['offset_search'];
-		// $search_query="SELECT * FROM product WHERE ProductKeywords LIKE '%$search_data_value% ' LIMIT 12";
-		$search_query= $con->prepare("SELECT * FROM product WHERE ProductKeywords  LIKE ?  AND ProductStatus = 'Available' LIMIT 16 OFFSET = ? ;");
+		}
+	}
+			$input = '%'.$search_data_value.'%';
+			$offset = $_POST['offset_search'];
+			// $search_query="SELECT * FROM product WHERE ProductKeywords LIKE '%$search_data_value% ' LIMIT 12";
+			$search_query= $con->prepare("SELECT * FROM product WHERE ProductKeywords  LIKE ?  AND ProductStatus = 'Available' LIMIT 16 OFFSET  ? ;");
+			
+			$search_query->bind_param('ss',$input , $offset);
+			
+			$search_query->execute();
+			$res = $search_query->get_result();
+			
+			// $res=mysqli_query($con,$search_query);
+			$num_of_rows=mysqli_num_rows($res);
+			$data = array();
 
-		$search_query->bind_param('ss',$input , $offset);
-
-		$search_query->execute();
-		$res = $search_query->get_result();
-
-		// $res=mysqli_query($con,$search_query);
-		$num_of_rows=mysqli_num_rows($res);
-		$data = array();
-
-		$con->close();
-		$search_query->close();
+			$con->close();
+			$search_query->close();
 		if($num_of_rows==0){
 			return 0;
 		}
 		while($row = mysqli_fetch_assoc($res)){
 			array_push($data, $row);
 		}
-
+		
 		return $data;
 		
 		

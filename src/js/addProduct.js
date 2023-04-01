@@ -1,4 +1,4 @@
-{
+
   document.querySelector(".add_product").addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -109,6 +109,9 @@
         }
         if (Response.data.text == "ProductAddedWithNewCategory") {
           createAlert("success", "Added With New Category", "");
+          var form = document.getElementById("addProductForm");
+          resetInputs(form)
+          document.querySelector('.toggle').disabled = false;
         }
       }
       // console.log('here');
@@ -143,4 +146,3 @@
       }
     }
   }
-}

@@ -7,19 +7,25 @@ require_once('connection.php');
                 // Read the contents of the HTML file
                 $html = file_get_contents('./views/admin_views/list_all_user_view.php');
                 $offset = $_POST['offset'];
+                if(isset($_POST['order'])){
+                    $order = $_POST['order'];
+                }else{
+                    $order = 'old';
+                }
                 // $
                 $resData = array(
                     'html' => $html,
-                    'userData' => get_all_use_data( $offset)
+                    'userData' => get_all_use_data( $offset, $order)
                 );
                 echo json_encode($resData);
                 return;
             }if($_POST['process_for_all_user_page'] ==  'loadMoreUser'){
                 header('Content-Type: application/json');
                 $offset = $_POST['offset'];
+                $order = $_POST['order'];
 
                 $resData = array(
-                    'userData' => get_all_use_data( $offset)
+                    'userData' => get_all_use_data( $offset, $order)
                 );
                 echo json_encode($resData);
                 return;
@@ -35,13 +41,39 @@ require_once('connection.php');
                         return;
                 }
 
+            }if($_POST['process_for_all_user_page'] ==  'searchWithUserName'){
+                if(isset($_POST['id'])){
+                    
+                    header('Content-Type: application/json');
+                    $resData = array(
+                        'userData' => search_with_name($_POST['id'], $_POST['offset'])
+                    );
+                    echo json_encode($resData);
+                    return;
+                }
+            }if($_POST['process_for_all_user_page'] ==  'DeleteUser'){
+                if(isset($_POST['uid'])){
+                    
+                    header('Content-Type: application/json');
+                    $resData = array(
+                        'userData' => removeUser($_POST['uid'])
+                    );
+                    echo json_encode($resData);
+                    return;
+                }
             }
         }
     }
-    function get_all_use_data( $offset){
+    function get_all_use_data( $offset, $order = 'old'){
         $con = connect_to_db();
+        if($order == 'new'){
+            $sql = $con->prepare("SELECT users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, corder.*, (SELECT COUNT(*) FROM corder WHERE CustomerId = users.UserId AND OrderStatus = 'Placed') AS order_count  FROM users LEFT JOIN corder ON users.UserId = corder.CustomerId ORDER BY UserId DESC LIMIT 25 OFFSET ?;");
+        }if($order == 'old'){
+            $sql = $con->prepare("SELECT users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, corder.*, (SELECT COUNT(*) FROM corder WHERE CustomerId = users.UserId AND OrderStatus = 'Placed') AS order_count   FROM users LEFT JOIN corder ON users.UserId = corder.CustomerId LIMIT 25 OFFSET ?;");
+        }if($order == 'deleted'){
+            $sql = $sql = $con->prepare("SELECT users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, corder.*, (SELECT COUNT(*) FROM corder WHERE CustomerId = users.UserId AND OrderStatus = 'Placed') AS order_count  FROM users LEFT JOIN corder ON users.UserId = corder.CustomerId WHERE IsDeleted = true LIMIT 25 OFFSET ? ;");
 
-        $sql = $con->prepare("SELECT users.UserName, FirstName, UserId, LastName, Gender, Email, corder.*, (SELECT COUNT(*) FROM corder WHERE CustomerId = users.UserId AND OrderStatus = 'Placed') AS order_count , (SELECT COUNT(*) FROM corder) AS total_order_count FROM users LEFT JOIN corder ON users.UserId = corder.CustomerId LIMIT 25 OFFSET ? ;");
+        }
 
         $sql->bind_param('s', $offset);
 
@@ -67,28 +99,95 @@ require_once('connection.php');
         array_push($res, $end);
         return $res;
     }
+
     function search_user( $user_id){
+        if(preg_match('/^#!:\d+$/', $user_id)){
+            $con = connect_to_db();
+            $id = str_replace( '#!:', '',$user_id );
+            
+            $sql = $con->prepare("SELECT users.UserName, FirstName, UserId, LastName, Gender, Email,IsDeleted, corder.*, 
+            (SELECT COUNT(*) FROM corder WHERE CustomerId = users.UserId AND OrderStatus = 'Placed') AS order_count , 
+            (SELECT COUNT(*) FROM corder) AS total_order_count 
+            FROM users 
+            LEFT JOIN corder ON users.UserId = corder.CustomerId 
+            WHERE users.UserId = ? ");
+            
+            $sql->bind_param('s', $id);
+            
+            $sql->execute();
+            
+            $result = $sql->get_result();
+            
+            $sql->close();
+            
+            $con->close();
+            $affected_rows = mysqli_num_rows($result);
+            if($affected_rows <= 0 ){
+                return 'UserNotFound';
+            }
+            return mysqli_fetch_assoc($result);   
+        }
         
+        
+    }
+    function search_with_name($user_name, $offset){
         $con = connect_to_db();
-        $id = str_replace( '#!:', '',$user_id );
-
-    $sql = $con->prepare("SELECT users.UserName, FirstName, UserId, LastName, Gender, Email, corder.*, 
-    (SELECT COUNT(*) FROM corder WHERE CustomerId = users.UserId AND OrderStatus = 'Placed') AS order_count , 
-    (SELECT COUNT(*) FROM corder) AS total_order_count 
-    FROM users 
-    LEFT JOIN corder ON users.UserId = corder.CustomerId 
-    WHERE users.UserId = ? ");
-
-    $sql->bind_param('s', $id);
-
-    $sql->execute();
-
-    $result = $sql->get_result();
-
-    $sql->close();
-
-    $con->close();
-    return mysqli_fetch_assoc($result);
+        $input = '%'.$user_name.'%';
+        
+        $sql = $con->prepare("SELECT users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, corder.*, 
+        (SELECT COUNT(*) FROM corder WHERE CustomerId = users.UserId AND OrderStatus = 'Placed') AS order_count , 
+        (SELECT COUNT(*) FROM corder) AS total_order_count 
+        FROM users 
+        LEFT JOIN corder ON users.UserId = corder.CustomerId 
+        WHERE users.UserName LIKE ? LIMIT 25 OFFSET ? ");
+        
+        $sql->bind_param('ss', $input, $offset);
+        
+        $sql->execute();
+        
+        $result = $sql->get_result();
+        
+        $sql->close();
+        
+        $con->close();
+        $affected_rows = mysqli_num_rows($result);
+        if($affected_rows <= 0 ){
+            return "UserNotFound";
+        }
+        if($affected_rows >= 25){
+            $end = true;
+        }else{
+            $end = false;
+        }
+        $res = array();
+        while($row = mysqli_fetch_assoc($result)){
+            array_push($res, $row);
+        }
+        array_push($res, $end);
+        return $res;
     }
 
+
+    function removeUser($uid){
+        $con = connect_to_db();
+
+        $sql = $con->prepare("UPDATE users SET IsDeleted = 1 WHERE UserId = ? ;");
+        $delorders = $con->prepare("UPDATE corder SET OrderStatus = 'Cancelled' WHERE CustomerId = ? LIMIT 1");
+
+        $delorders->bind_param('s', $uid);
+        $delorders->execute();
+        $res = $delorders->close();
+
+        $sql->bind_param('s', $uid);
+        $sql->execute();
+        $res1 = $sql->close();
+
+        $con->close();
+
+        if($res1 && $res){
+            return true;
+        }else{
+            return false;
+        }
+    }
 ?>

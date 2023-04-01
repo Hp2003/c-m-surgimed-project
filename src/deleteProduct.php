@@ -17,14 +17,15 @@
         $data = mysqli_fetch_assoc($result);
         
         $stmt->close();
-        if(!delte_files($data['ProductImg'])){
+        if(!delte_files_cat($data['ProductImg'])){
             header('Content-Type: text/plain');
             $connection->close();
             echo "can't remove";
             return 0;
         }
+        $date_time = date("Y-m-d H:i:s");
 
-        $delte_query = $connection->prepare("UPDATE  product  SET ProductStatus = 'Deleted' WHERE ProductId = ?");
+        $delte_query = $connection->prepare("UPDATE  product  SET ProductStatus = 'Deleted' AND UpdateAt = '$date_time' WHERE ProductId = ?");
 
         $delte_query->bind_param('s', $id);
 
@@ -48,8 +49,9 @@
         return 0;
 
     }
-    function delte_files($path){
-        foreach(scandir($path) as $item){
+    function delte_files_cat($path){
+
+        foreach(scandir($path . '/' ) as $item){
             if($item == '.' || $item == '..'){
                 continue;
             }

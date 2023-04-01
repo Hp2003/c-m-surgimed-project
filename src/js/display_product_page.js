@@ -1,7 +1,11 @@
+
 let detailPagehtml;
 let proData;
 let currentOffset = 0;
+
+let currentIndexproduct ;
 function get_details(event, btn, index) {
+  currentIndexproduct = index;
   event.preventDefault();
   // getting page and details
   // console.log(document.querySelectorAll('.item_id')[index].value)
@@ -46,10 +50,14 @@ function closeContainer(event) {
 }
 
 function addDataInProductPage(data) {
+  console.log(data);
   document.querySelector(".title").textContent = data.ProductTitle;
   document.querySelector(".price").textContent = data.ProductPrice;
   document.querySelector(".stock").textContent = data.QuantityOnHand;
   document.querySelector(".desc").textContent = data.ProductDesc;
+  document.querySelector(".productId").textContent = data.ProductId;
+  document.querySelector(".addToCartBtn").setAttribute('onclick', `addToCart(event, this, ${currentIndexproduct} )`);
+  currentIndexproduct = 0;
 
   // console.log(document.querySelector('.productId').value);
   document.querySelector(".biggerImg").src = data.imgs[0];

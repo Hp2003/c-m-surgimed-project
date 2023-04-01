@@ -1,9 +1,10 @@
 let searchBtn = document.querySelector('.serachBtn')
 let searchInput = document.querySelector('.searchInput')
-
+let currentoffset  = 0;
 searchBtn.addEventListener('click', (e)=>{
     let form = document.querySelector('.searchbar');
     let formData = new FormData(form);
+    formData.append('offset_search', 0);
 
     e.preventDefault();
     axios.post('/api/search_product', formData).then(Response =>{
@@ -11,6 +12,7 @@ searchBtn.addEventListener('click', (e)=>{
             createAlert('warning', 'Sorry Product Not available','');
             return;
         }else{
+            console.log(Response); 
             renderProducts(Object.values(Response.data), 0,true);
             document.documentElement.scrollTop =  600;
         }
@@ -39,10 +41,10 @@ function renderProducts(data, customIndex = 0 , remove = true){
             <div class='card'>
                 <img src='.${data[data.length-1][index]}' class='card-img-top banner-img' style='height : 220px;'>
                 <div class='card-body'>
-                    <h3 class='card-title'>${element.ProductTitle}</h3>
+                    <p class='card-title text-white' style='font-size:1em'>${element.ProductTitle}</p>
                     <p class='card-text'>Rs ${element.ProductPrice}</p>
                         <a href='' onclick="get_details(event, this, ${index})"><input type='submit' name='detail' value='Detail' class='button outline' ></a>
-                        <input type='button' name='addtocart' value='Buy Now' class='button fill  ' onClick='addToCart(event, this, ${index})'>
+                        <input type='button' name='addtocart' value='Buy Now' class='button fill  ' onClick='addToCart(event, this, ${currentoffset})'>
                     
                     <input type='hidden' name='Item_Name' value='${element.ProductTitle}'>
                     <input type='hidden' name='Item_Price' value='${element.ProductPrice}'>
@@ -52,5 +54,6 @@ function renderProducts(data, customIndex = 0 , remove = true){
         </form>
     </div>	`
     index++;
+    currentoffset ++;
     });
 }

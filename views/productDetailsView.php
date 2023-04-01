@@ -46,8 +46,9 @@
 						
 					</div>
 					<div class='action'>
-						<input type='submit' name='detail' value='check Review' class='button outline' onclick="showReview(event)" >
-						<input type='submit' name='addtocart' value='Add to Cart' class='button fill'>
+						<input type="hidden" name="proid" value="" class="productId">
+						<!-- <input type='submit' name='detail' value='check Review' class='button outline' onclick="showReview(event)" > -->
+						<input type='submit' name='addtocart' value='Add to Cart' class='button fill addToCartBtn' >
 					</div>
 				</div>
 			</div>

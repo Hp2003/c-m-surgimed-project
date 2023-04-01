@@ -80,12 +80,12 @@
 							<label>Address</label>
 							<input type="text" name="add" class="form-control add" required>
 						</div>
-					<div>
+					<!-- <div>
 						<input type="radio" name="payment" value="cod" required>
 						<label>Cash On Delivery</label><br>
 						<input type="radio" name="payment" value="online" required>
 						<label>Online Payment</label>
-					</div>
+					</div> -->
 					<input type="submit" class="btn btn-primary btn-block my-2" name="purchase" value="Make Purchase" onclick="placeOrder(event,this)">
 					</form>
 					<?php } ?>

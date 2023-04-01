@@ -9,6 +9,11 @@
 				<input type="submit" name="edit_category" value="Search" class="btn btn-info px-3 mb-3 searchCategory">
 			</form>
 		</div>
+		<select name="order" id="" class="orderBy" onChange="orderBy(event, this)">
+			<option value="old" id="old" name="selectOder">Old First</option>
+			<option value="new" id="new" name="selectOder">New First</option>
+			<option value="deleted" id="new" name="selectOder">deleted</option>
+		</select>
 		<div class="col-lg-9 container-fluid m-0" style="width:100%">
 			<table class="table">
 				<thead>
@@ -20,8 +25,9 @@
 						<th scope="col">Last Name</th>
 						<th scope="col">Email</th>
 						<th scope="col">Orders Placed</th>
-						<th scope="col">Total Orders</th>
+						<!-- <th scope="col">Total Orders</th> -->
 						<th scope="col">Gender</th>
+						<!-- <th scope="col">Deleted</th> -->
 						<th scope="col">Remove</th>
 					</tr>
 				</thead>

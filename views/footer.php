@@ -76,6 +76,7 @@
 			echo '<script src="../src/js/deletePro.js"></script>';
 			echo "<script src= '../src/js/adminToggleButton.js'></script>";
 			echo "<script src='../src/js/list_all_user_ui.js'></script>";
+			echo "<script src='../src/js/edit_category.js'></script>";
 		}
 	}
 

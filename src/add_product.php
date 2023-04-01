@@ -100,7 +100,9 @@
                 // adding product
                 $query = $connection->prepare("INSERT INTO Product (ProductTitle, ProductImg, ProductDesc, ProductPrice, CateGoryId, QuantityOnHand, ProductKeywords) VALUES(?, ?, ?, ?, ?, ?, ?) ");
                 $query->bind_param("sssssss", $title, $filePath, $disc, $price, $id['CategoryId'], $qoh, $keyword);
+                
                 $query->execute();
+                $id = $connection->insert_id;
                 $query->close();
                 $analyze_query_product = $connection->prepare('ANALYZE TABLE product;');
                 $analyze_query_product->execute();
@@ -115,7 +117,8 @@
             if($query){
                 header('Content-Type: application/json');
                 $response = array(
-                    'text' => 'ProductAdded'
+                    'text' => 'ProductAdded',
+                    'id' => $id
                 );
                 echo json_encode($response);
                 return;

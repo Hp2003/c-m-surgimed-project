@@ -1,4 +1,4 @@
-// console.log('hello world');
+// import * as homeBtn from "./edit_category";
 document.body.style.backgroundColor = 'white';
 
 // let loadMoreBtn = document.querySelector('.LoadMoreProduct')
@@ -11,7 +11,6 @@ function loadMore(){
         renderProductsWithCat(Response.data.data, Response.data.rowsRecived);
     })
   }
-
 
 document.querySelector('.searchCategory').addEventListener('click', (e)=>{
     e.preventDefault();

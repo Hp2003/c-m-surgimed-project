@@ -142,24 +142,24 @@ let dataBuffer = [];
 
 let paginationEditCategory ;
 // edit category
-let editCatBtn = document.querySelector('.categoryedit');
-// console.log(editCatBtn);
-editCatBtn.addEventListener('click', (e)=>{
-  e.preventDefault();
-  let formData = new FormData();
-  formData.append('process', 'getView');
-  axios.post('/api/edit_category', formData).then(response =>{
-    dataBuffer = [...response.data.data];
+// let editCatBtn = document.querySelector('.categoryedit');
+// // console.log(editCatBtn);
+// editCatBtn.addEventListener('click', (e)=>{
+//   e.preventDefault();
+//   let formData = new FormData();
+//   formData.append('process', 'getView');
+//   axios.post('/api/edit_category', formData).then(response =>{
+//     dataBuffer = [...response.data.data];
 
-    // console.log(response.data.data);
-    renderData(dataBuffer, response.data.html, 0, response.data.records);
-    // console.log(response.data.records)
-    createScriptElem('./src/js/edit_category.js','categoryJs');
-    // console.log(response.data);
-    paginationEditCategory = response.data.records;
-  })
+//     // console.log(response.data.data);
+//     renderData(dataBuffer, response.data.html, 0, response.data.records);
+//     // console.log(response.data.records)
+//     createScriptElem('./src/js/edit_category.js','categoryJs');
+//     // console.log(response.data);
+//     paginationEditCategory = response.data.records;
+//   })
   
-})
+// })
 
 function renderData(data, html, currentIndex,records){
   const contentParent = document.getElementById("content").parentElement;
@@ -183,33 +183,33 @@ function renderData(data, html, currentIndex,records){
     // console.log('here');
  
 }
-function createDataTable(data,currentIndex, records){
-  let tableBody = document.querySelector('.table-body');
-    data.forEach((element, index)=>{
-      currentIndex ++;
-      tableBody.innerHTML += `
-      <tr class="text-center table-data">
-        <td class="serNo"><form class='catIdForm'>${currentIndex}<input type = 'hidden' name="CategoryId" value='${element.CategoryId}'></form></td>
-        <td class="title cat-title">${element.CategoryName}</td>
-        <td><a href="" name="edit_category" class="text-light edit_category" onClick="editCategoryBtnHandler(event, this)"><i class="fa-solid fa-pen-to-square"></i></a></td>
-        <td><a href="#" class="text-light deleteCategory" onClick = "deleteCategory(event, this)" ><i class="fa-solid fa-trash " ></i></a></td>
+// function createDataTable(data,currentIndex, records){
+//   let tableBody = document.querySelector('.table-body');
+//     data.forEach((element, index)=>{
+//       currentIndex ++;
+//       tableBody.innerHTML += `
+//       <tr class="text-center table-data">
+//         <td class="serNo"><form class='catIdForm'>${currentIndex}<input type = 'hidden' name="CategoryId" value='${element.CategoryId}'></form></td>
+//         <td class="title cat-title">${element.CategoryName}</td>
+//         <td><a href="" name="edit_category" class="text-light edit_category" onClick="editCategoryBtnHandler(event, this)"><i class="fa-solid fa-pen-to-square"></i></a></td>
+//         <td><a href="#" class="text-light deleteCategory" onClick = "deleteCategory(event, this)" ><i class="fa-solid fa-trash " ></i></a></td>
   
-    </tr>
-      `;
-    })
-      tableBody.innerHTML+= `
-      <tr class="text-center">
-      <td></td>
-      <td class="addBtn"><a href="" class="text-light addNewCategory" >+</a></td>
-      <td></td>
-      <td><button class="catNameBtn" name="catName" onClick='submitNewCat()'>save</button></td>
-      </tr>
-      `;
-      addNewCat();
-      // editCategoryBtnHandler();
-      // clickListener();
+//     </tr>
+//       `;
+//     })
+//       tableBody.innerHTML+= `
+//       <tr class="text-center">
+//       <td></td>
+//       <td class="addBtn"><a href="" class="text-light addNewCategory" >+</a></td>
+//       <td></td>
+//       <td><button class="catNameBtn" name="catName" onClick='submitNewCat()'>save</button></td>
+//       </tr>
+//       `;
+//       addNewCat();
+//       // editCategoryBtnHandler();
+//       // clickListener();
       
-}
+// }
 function displayPagination(records){
   // console.log(Math.ceil(records/25));
   // console.log(records);
@@ -245,11 +245,13 @@ function addNewCat() {
 }
 let indexOfProducts = 1;
 // function to open edit category page
-function editCategoryBtnHandler(event, button){
-  let index = button.parentNode.parentNode.rowIndex;
+function editCategoryBtnHandler(event, button, index){
+  // let index = button.parentNode.parentNode.rowIndex;
+  console.log(document.querySelectorAll('.catIdForm')[index ].value);
       event.preventDefault();
       // getting edit page
-      let reqMessage = new FormData(document.querySelectorAll('.catIdForm')[index -1]);
+      let reqMessage = new FormData();
+      reqMessage.append('CategoryId', document.querySelectorAll('.catIdForm')[index ].value)
       reqMessage.append('process_category_page', 'get_page');
       axios.post('/api/Edit_products_category',reqMessage).then(response =>{
         console.log(response.data.totalRecords)
@@ -287,6 +289,7 @@ function renderEditCategoryPage(html){
     contentElement.appendChild(newContent);
 }
 function renderProductsWithCat(data, records){
+  
   let container = document.querySelector('.tableBody')
         data.forEach((element, index)=>{
           if(element.ProductId == undefined){
@@ -318,30 +321,44 @@ function renderProductsWithCat(data, records){
 
             max='' value='${element.QuantityOnHand}'> </td>
 
-						<td>
+            <td>${
+              element.ProductStatus != 'Available'? `<form action='manage_cart.php' method='post'>
+              <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled' onclick = 'deltePro(event,this)'><i
+                      class='fa-solid fa-trash'></i></button>
+              <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
+          </form>
 
+      </td>`:`<form action='manage_cart.php' method='post'>
+              <button name='Remove_Item' class='btn btn-sm btn-outline-danger' ><i
+                      class='fa-solid fa-trash'></i></button>
+              <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
+          </form>
 
-								<button name='Remove_Item' class='btn btn-sm btn-outline-danger' onClick="deltePro(event,this)"><i
+      </td>`
+          }
 
-										class='fa-solid fa-trash' ></i></button>
-
-
-
-						</td>
-            <td>
-
-								<button name='Remove_Item' class='btn btn-sm btn-outline-danger' onclick="updateProductCategoryTable(event, this)">Save</button>
-
-
-
-						</td>
-
+            <td>${
+              element.ProductStatus != 'Available'? `<form action='manage_cart.php' method='post'>
+              <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled' onclick = "updateProductCategoryTable(event, this)">Save</button>
+              <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
+              </form>
+              
+              </td>`:`<form action='manage_cart.php' method='post'>
+              <button name='Remove_Item' class='btn btn-sm btn-outline-danger ' >Save</button>
+              <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
+              </form>
+              
+              </td>`
+            }
+            
+            
 					</tr>
 
-				</tbody>
-`
-})
-if(records > 20){
+          </tbody>
+          `
+        })
+        if(records > 20){
+  // <button name='Remove_Item' class='btn btn-sm btn-outline-danger' onclick="">Save</button>
   if(document.querySelector('.LoadMoreProduct') != undefined){
     document.querySelector('.LoadMoreProduct').remove();
   }

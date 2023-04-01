@@ -1,0 +1,48 @@
+    Seating:
+        Exam chairs
+        Procedure stools
+        Waiting room chairs
+        Lounge chairs
+        Blood-draw chairs
+
+    Tables:
+        Exam tables
+        Instrument tables
+        Overbed tables
+        Mobile computer tables
+        Procedure tables
+
+    Carts:
+        Crash carts
+        Anesthesia carts
+        Procedure carts
+        Isolation carts
+        Medication carts
+
+    Storage:
+        Cabinets
+        Shelves
+        Medical supply carts
+        Patient room storage
+        Central supply storage
+
+    Beds:
+        Hospital beds
+        Long-term care beds
+        Pediatric beds
+        Bariatric beds
+        Specialty beds
+
+    Lighting:
+        Exam lighting
+        Procedure lighting
+        Task lighting
+        Surgical lighting
+        Diagnostic lighting
+
+    Accessories:
+        Footstools
+        IV poles
+        Step stools
+        Privacy screens
+        Waste receptacles

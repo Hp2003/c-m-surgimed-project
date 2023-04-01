@@ -1,4 +1,5 @@
 // let addToCartBtns = document.querySelectorAll('.addToCart');
+let currentIndexToAddProInCart = 0;
 function addToCart(event, btn, Index){
     event.preventDefault();
     let cartData = document.querySelectorAll('.cartForm');
