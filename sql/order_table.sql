@@ -12,3 +12,4 @@ create table Corder (
 ALTER TABLE Corder ADD Quantity INT NOT NULL check (Quantity > 0 );
 ALTER TABLE Corder ADD DeliveryAddress VARCHAR(300) NOT NULL  ;
 ALTER TABLE Corder ADD PhoneNumber VARCHAR(15) NOT NULL  ;
+ALTER TABLE Corder ADD TotalPrice INT CHECK (TotalPrice >= 0) NOT NULL;

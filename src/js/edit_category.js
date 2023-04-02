@@ -32,6 +32,7 @@
 // });
 // // for work after re rendering
 
+let mainCategoryId = 0;
 let currentPlace = 'mainPage';
 
 
@@ -147,6 +148,7 @@ function listCategorys(event, btn, index){
   let formData = new FormData();
   formData.append('process', 'openCategory');
   // alert(document.querySelectorAll('.MainCategoryId')[index].value)
+  mainCategoryId = document.querySelectorAll('.MainCategoryId')[index].value
   formData.append('id', document.querySelectorAll('.MainCategoryId')[index].value);
   axios.post("/api/edit_category", formData).then(response =>{
     renderCategory(response.data.data);
@@ -157,9 +159,9 @@ function listCategorys(event, btn, index){
 
 function renderCategory(data){
   console.log(data);
-  if(data == 0 || data == undefined){
-    return 0;
-  }
+  // if(data == 0 || data == undefined){
+  //   return 0;
+  // }
   document.querySelector('.add_category').value = 'subCategory';
 
   document.querySelector('.subCatCount').textContent = 'Product Count';
@@ -245,7 +247,7 @@ function renderCategory(data){
         }
         if(Response.data.text == 'categoryCreated'){
           createAlert('success', 'Category Created !', '');
-          return 0;
+          return 1;
         }
       })
     }else if(btn.getAttribute('value') == 'subCategory'){
@@ -253,8 +255,9 @@ function renderCategory(data){
       formData.append('process', 'add_cat');
       formData.append('type', 'sub_category');
       formData.append('catName', NewName);
-      formData.append('main_cat_id', document.querySelectorAll('.mainCatId')[0].value);
-      
+      if(document.querySelectorAll('.mainCatId')[0] != undefined){
+        formData.append('main_cat_id', document.querySelectorAll('.mainCatId')[0].value);
+      }
       axios.post('/api/edit_category', formData).then(Response =>{
         console.log(Response);
         if(Response.data.text == 'alreadyAvilabel'){
@@ -263,6 +266,10 @@ function renderCategory(data){
         }
         if(Response.data.text == 'categoryCreated'){
           createAlert('success', 'Category Created !', '');
+          return 0;
+        }
+        if(Response.data.text == 'mainLocked'){
+          createAlert('warning', 'Please Unlock Main Category !', '');
           return 0;
         }
       })
@@ -372,6 +379,11 @@ function moveCategory(event , btn, index){
           document.querySelectorAll('.subcatRows')[index].remove();
           return 1;
         }
+        if(Response.data.data == 0){
+          createAlert('warning', `Can't move to ${newName}`,'');
+          // document.querySelectorAll('.subcatRows')[index].remove();
+          return 0;
+        }
         console.log(Response);
       })
     }
@@ -442,7 +454,4 @@ function openMainCategory(event, button, index){
 function refreshChart(){
   console.log('here');
   displayEditCat();
-}
-function searchCategory(){
-
 }

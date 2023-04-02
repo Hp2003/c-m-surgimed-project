@@ -77,6 +77,8 @@
 			echo "<script src= '../src/js/adminToggleButton.js'></script>";
 			echo "<script src='../src/js/list_all_user_ui.js'></script>";
 			echo "<script src='../src/js/edit_category.js'></script>";
+			echo "<script src='../src/js/edit_brands.js'></script>";
+
 		}
 	}
 

@@ -16,25 +16,33 @@
 				<!-- <input type="text"  required> -->
 				<textarea name="product_keyword" value="" class="form-control desc" id="product_desc"cols="30" rows="10"></textarea>
 			</div>
-			<!-- <div class="form-outline  w-75  m-auto mb-4">
-				<label class="form-label">Product Keywords</label>
-				
-				<textarea name="product_keywords" value="" class="form-control" id="product_keywords"cols="30" rows="10"></textarea>
-			</div> -->
 			<div class="form-outline  w-75 pt-3 m-auto mb-4">
-				<label class="form-label">Product Categories</label>
-				<select name="select_category" class="form-select dropDown" >
-					<option value="" disabled selected>Select Category</option>
+				<label class="form-label">Main Categorys</label>
+				<select name="selected_mainCategory" onchange = "getSubCategory(event, this)" class="form-select dropDown mainCategorys" >
+					<option value="" disabled selected>Select Main Category</option>
 	
 				</select>
 			</div>
-			<div class=" w-75 pt-3 m-auto mb-4">
+			<div class="form-outline  w-75 pt-3 m-auto mb-4">
+				<label class="form-label">Sub Category</label>
+				<select name="selected_subCategory" class="form-select dropDown sub_category" >
+					<option value="" disabled selected>Select sub Category</option>
+	
+				</select>
+			</div>
+			<div class="form-outline  w-75 pt-3 m-auto mb-4">
+				<label class="form-label">Brand</label>
+				<select name="selectd_brand" class="form-select dropDown" >
+					<option value="" disabled selected>Select Brand Category</option>
+				</select>
+			</div>
+			<!-- <div class=" w-75 pt-3 m-auto mb-4">
 				<label class="form-label">Add Category</label>
 				<input type="checkbox" name="toggle" value="" class="check toggle" id=""  >
 			</div>
 			<div class="form-outline w-75 pt-3 m-auto mb-4">
 				<input type="text" name="new_category" value="" class="form-control new_cat" id=""  disabled required>
-			</div>
+			</div> -->
 			<div class="form-outline  w-75 pt-3 m-auto mb-4">
 				<label class="form-label">Product Image</label>
 				<input type="file" name="product_image[]" value="" class="form-control productImg" multiple="multiple" required>

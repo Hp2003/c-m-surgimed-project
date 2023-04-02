@@ -32,19 +32,19 @@ function displayImgs(imgObj){
 	}
 }
 
-let productImgName;
-let checkInput = document.querySelector('.check')
-checkInput.addEventListener('click', ()=>{
-    if( checkInput.checked == true ){
-        document.querySelector('.new_cat').disabled = false;
-        document.querySelector('.dropDown').disabled = true;
+// let productImgName;
+// let checkInput = document.querySelector('.check')
+// checkInput.addEventListener('click', ()=>{
+//     if( checkInput.checked == true ){
+//         document.querySelector('.new_cat').disabled = false;
+//         document.querySelector('.dropDown').disabled = true;
         
-    }else if(checkInput.checked == false){
-        document.querySelector('.new_cat').disabled = true;
-        document.querySelector('.dropDown').disabled = false;
-        document.querySelector('.new_cat').value = "";
-    }
-})
+//     }else if(checkInput.checked == false){
+//         document.querySelector('.new_cat').disabled = true;
+//         document.querySelector('.dropDown').disabled = false;
+//         document.querySelector('.new_cat').value = "";
+//     }
+// })
 
 
 // checking how many images selected
@@ -89,4 +89,37 @@ function removeElems(imgObj){
 	}
 }
 
+// console.log('here');
+function getMainCategorys(){
+    let formData = new FormData();
+    
+    let container = document.querySelector('.mainCategorys');
+    formData.append('process_forProPage',`getMainCategory`);
+    axios.post('/api/get_categorys_brands_and_sub_categorys', formData,  { responseType: 'json' }).then(Response =>{
+        console.log(Response.data);
+        Response.data.text.forEach(element => {
+                container.innerHTML += `<option value="${element.MainCategoryId}"  selected>${element.MainCategoryName}</option>`;
+            });
+        })
+    }
+    getMainCategorys();
 }
+function getSubCategory(event, selectedElement){
+    let formData = new FormData();
+    
+    let container = document.querySelector('.sub_category');
+    container.innerHTML = '';
+    formData.append('process_forProPage',`getSubCategory`);
+    formData.append('mainCategoryId',selectedElement.value);
+
+    axios.post('/api/get_categorys_brands_and_sub_categorys', formData,  { responseType: 'json' }).then(Response =>{
+        console.log(Response.data);
+        Response.data.text.forEach(element => {
+            container.innerHTML += `<option value="${element.CategoryId}"  selected>${element.CategoryName}</option>`;
+        });
+    })
+}
+
+// function getBrands(){
+    
+// }

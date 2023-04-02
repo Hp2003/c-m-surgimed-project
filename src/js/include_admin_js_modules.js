@@ -14,11 +14,6 @@ addBtn.addEventListener("click", (e) => {
         // console.log(Response.data)
         // console.log('here')
         let isAdded = DisplayAdminViews(Response.data.html);
-        
-        Response.data.categorys.forEach((element,index) => {
-          document.querySelector('.dropDown').innerHTML += `
-					<option value="${element}" class="option" style="color:black">${element}</option>`
-        });
         // console.log(Response);
         createScriptElem("./src/js/add_product_ui.js", 'addProScript');
         createScriptElem("./src/js/addProduct.js", 'addProScript');

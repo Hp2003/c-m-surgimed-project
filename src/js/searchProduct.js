@@ -1,23 +1,26 @@
 let searchBtn = document.querySelector('.serachBtn')
 let searchInput = document.querySelector('.searchInput')
 let currentoffset  = 0;
-searchBtn.addEventListener('click', (e)=>{
-    let form = document.querySelector('.searchbar');
-    let formData = new FormData(form);
-    formData.append('offset_search', 0);
-
-    e.preventDefault();
-    axios.post('/api/search_product', formData).then(Response =>{
-        if (Response.data.text == 'couldNotFind'){
-            createAlert('warning', 'Sorry Product Not available','');
-            return;
-        }else{
-            console.log(Response); 
-            renderProducts(Object.values(Response.data), 0,true);
-            document.documentElement.scrollTop =  600;
-        }
+if(searchBtn != undefined){
+    searchBtn.addEventListener('click', (e)=>{
+        let form = document.querySelector('.searchbar');
+        let formData = new FormData(form);
+        formData.append('offset_search', 0);
+    
+        e.preventDefault();
+        axios.post('/api/search_product', formData).then(Response =>{
+            if (Response.data.text == 'couldNotFind'){
+                createAlert('warning', 'Sorry Product Not available','');
+                return;
+            }else{
+                console.log(Response); 
+                renderProducts(Object.values(Response.data), 0,true);
+                document.documentElement.scrollTop =  600;
+            }
+        })
     })
-})
+}
+
 
 function renderProducts(data, customIndex = 0 , remove = true){
     // console.log(data[2][1])

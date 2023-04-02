@@ -33,7 +33,7 @@ require_once('./src/deleteProduct.php');
 
             if($_POST['process'] == 'openCategory'){
                 $id = $_POST['id'];
-
+                $_SESSION['MainCategoryId'] = $id;
                 $data = get_category_data($id);
 
                 $count_product = array();
@@ -151,7 +151,15 @@ require_once('./src/deleteProduct.php');
                             );
                             echo json_encode($res);
                             return;
-                        }else{
+                        }elseif($response == 3){
+                            header('Content-Type: application/json');
+                            $res= array(
+                                'text' => 'mainLocked'
+                            );
+                            echo json_encode($res);
+                            return;
+                        }
+                        else{
                             header('Content-Type: application/json');
                             $res= array(
                                 'text' => 'failedCreatingCategory'
@@ -269,15 +277,33 @@ require_once('./src/deleteProduct.php');
 
             $sql->bind_param('sss', $name, $inserted_date, $updated_at);
         }if($type == 'sub_category'){
-            $sql = $con->prepare('INSERT INTO category (CategoryName, CreateAt, UpdateAt, MainCategoryId ) VALUES(?,?,?,?)');
+            $mainCatId = $_SESSION['MainCategoryId'];
 
-            $sql->bind_param('ssss', $name, $inserted_date, $updated_at, $_POST['main_cat_id']);
+            // if(isset($_POST['main_cat_id'])){
+
+            //     $mainCatId = $_POST['main_cat_id'];
+            // }else{
+            //     $mainCatId = $_SESSION['MainCategoryId'];
+            // }
+            $sql = $con->prepare('INSERT INTO category (CategoryName, CreateAt, UpdateAt, MainCategoryId)
+            SELECT ?, ?, ?, ?
+            FROM MainCategory
+            WHERE MainCategoryId = ? AND IsDeleted = 0
+            ');
+
+            $sql->bind_param('sssss', $name, $inserted_date, $updated_at, $mainCatId, $mainCatId);
         }
         try{
             $res = $sql->execute();
-            $sql->close();
-            $con->close();
-            return 1;
+            if($res && $sql->affected_rows > 0){
+                $sql->close();
+                $con->close();
+                return 1;
+            }else{
+                $sql->close();
+                $con->close();
+                return 3;
+            }
         }catch(mysqli_sql_exception $e){
             if ($e->getCode() == 1062) {
                 $sql->close();

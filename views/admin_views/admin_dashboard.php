@@ -14,7 +14,7 @@
 				<div class="sub-menu">
 					<a href="" class="sub-item add-product">Add Product</a>
 					<a href="" class="sub-item categoryedit">Edit Category</a>
-					<!-- <a href="add_brands.php" class="sub-item">Add Brands</a> -->
+					<a href="/edit_brand" class="sub-item" onclick="openBrandPage(event,this)">Edit Brands</a>
 				</div>
 			</div>
 			<div class="item"><a href="" onclick="getAllOrders(event)"><i class="fas fa-th" ></i>All Orders</a></div>

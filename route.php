@@ -57,6 +57,7 @@ else if($request == '/profile'){
     profile_handler();
 }
 
+
 else if($request == '/cart'){
     
     require_once('handlers/cart_handler.php');
@@ -101,6 +102,12 @@ else if($request == '/error'){
             get_user_image();
         }
     }
+    if ($_SERVER['REQUEST_URI'] ===  '/api/get_categorys_brands_and_sub_categorys') {
+        if($_SERVER['REQUEST_METHOD'] === "POST"){
+            require_once('src/get_categorys_brands_and_sub_categorys.php');
+            get_categorys_brands_and_sub_categorys();
+        }
+    }
     if ($_SERVER['REQUEST_URI'] ===  '/api/search_by_category') {
         if($_SERVER['REQUEST_METHOD'] === "POST"){
             require_once('src/search_by_category.php');
@@ -121,7 +128,7 @@ else if($request == '/error'){
             }
         }
     }
-    if (strpos($_SERVER['REQUEST_URI'], '/api/get_categorys') === 0) {
+    if ($_SERVER['REQUEST_URI'] === '/api/get_categorys' ) {
             if($_SERVER['REQUEST_METHOD'] === "POST"){
                 require_once('handlers/homepage_handler.php');
                 header('Content-Type: application/json');
@@ -187,6 +194,22 @@ else if($request == '/error'){
         }
 
     }
+    if ($_SERVER['REQUEST_URI'] === '/api/edit_brand' ) {
+        if($_SESSION['IsAdmin'] == true){
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('handlers/brand_handler.php');
+                brand_handler_main();
+            }
+        }else{
+            header('Content-Type: application/json');
+            $resData = array(
+                'text' => "notAllowed"
+            );
+            echo json_encode($resData);
+            return;
+        }
+
+    }
     if ($_SERVER['REQUEST_URI'] === '/api/edit_product_data') {
 
         if($_SESSION['IsAdmin'] == true){
@@ -204,6 +227,23 @@ else if($request == '/error'){
         }
 
     }
+    // if ($_SERVER['REQUEST_URI'] === '/api/edit_brands') {
+
+    //     if($_SESSION['IsAdmin'] == true){
+    //         if($_SERVER['REQUEST_METHOD'] === "POST"){
+    //             require_once('src/edit_product_data.php');
+    //             edit_pro_data();
+    //         }
+    //     }else{
+    //         header('Content-Type: application/json');
+    //         $resData = array(
+    //             'text' => "notAllowed"
+    //         );
+    //         echo json_encode($resData);
+    //         return;
+    //     }
+
+    // }
     if (strpos($_SERVER['REQUEST_URI'], '/api/edit_category') === 0) {
         
         if($_SESSION['IsAdmin'] == true){

@@ -7,8 +7,9 @@
     function add_product(){
         $title = $_POST['product_title'];
         $disc = $_POST['product_desc'];
-        @$category = $_POST['select_category'];
-        @$new_category = $_POST['new_category'];
+        $Maincategory = $_POST['selected_mainCategory'];
+        $SubCategory = $_POST['selected_subCategory'];
+        $Brand = $_POST['selectd_brand'];
         $price = $_POST['product_price'];
         $qoh = $_POST['qoh'];
         $keyword = $_POST['product_keyword'];
@@ -24,20 +25,21 @@
                 return 0;
             }
         }
-            // moving img to diractory
-            if(empty($category) && empty($new_category)){
-                // handle error if both categories are empty
-                header("Content-Type: application/json");
-                $responseData = array(
-                    'text' => 'missingCategory'
-                );
-                echo json_encode($responseData);
-                return;
-            }
+        if(empty($category) && empty($new_category)){
+            // handle error if both categories are empty
+            header("Content-Type: application/json");
+            $responseData = array(
+                'text' => 'missingCategory'
+            );
+            echo json_encode($responseData);
+            return;
+        }
+        // moving img to diractory
             
-            if(!(empty($title) && empty($disc) && empty($price))){
+            if(!(empty($title) && empty($disc) && empty($price) && empty($Maincategory) && empty($SubCategory) && empty($Brand))){
                 $file_path = move_image("PRODUCT_IMAGE");
                 if( $file_path != 0){
+                    
                     // handle error if any of the required fields are empty
                     if(!empty($category)){
                         $isProAdded = add_product_in_db($title, $disc, $file_path, $price, $qoh,'DEFAULT_CATEGORY',$keyword);
@@ -126,30 +128,30 @@
                 return 0;
             }
         }
-        if($type === "NEW_CATEGORY"){
+        // if($type === "NEW_CATEGORY"){
 
-            $query = $connection->prepare("INSERT INTO Product (ProductTitle, ProductImg, ProductDesc, ProductPrice, CateGoryId, QuantityOnHand, ProductKeywords) VALUES(?, ?, ?, ?, ?, ?, ?) ");
-            $query->bind_param("sssssss", $title, $filePath, $disc, $price, $_SESSION['categoryID'], $qoh ,$keyword);
-            $query->execute();
-            unset($_SESSION['categoryID']);
+        //     $query = $connection->prepare("INSERT INTO Product (ProductTitle, ProductImg, ProductDesc, ProductPrice, CateGoryId, QuantityOnHand, ProductKeywords) VALUES(?, ?, ?, ?, ?, ?, ?) ");
+        //     $query->bind_param("sssssss", $title, $filePath, $disc, $price, $_SESSION['categoryID'], $qoh ,$keyword);
+        //     $query->execute();
+        //     unset($_SESSION['categoryID']);
 
-            $analyze_query_product = $connection->prepare('ANALYZE TABLE product;');
-            $analyze_query_product->execute();
-            $analyze_query_product->store_result();
-            $analyze_query_product->close();
+        //     $analyze_query_product = $connection->prepare('ANALYZE TABLE product;');
+        //     $analyze_query_product->execute();
+        //     $analyze_query_product->store_result();
+        //     $analyze_query_product->close();
 
-            $connection->close();
-            if($query){
-                header('Content-Type: application/json');
-                $response = array(
-                    'text' => 'ProductAddedWithNewCategory'
-                );
-                echo json_encode($response);
-                return;
-            }else{
-                return 0;
-            }
-        }
+        //     $connection->close();
+        //     if($query){
+        //         header('Content-Type: application/json');
+        //         $response = array(
+        //             'text' => 'ProductAddedWithNewCategory'
+        //         );
+        //         echo json_encode($response);
+        //         return;
+        //     }else{
+        //         return 0;
+        //     }
+        // }
     }
     // check and creaet category
     function create_category($category){

@@ -1,9 +1,10 @@
+document.querySelector(".add_product").addEventListener("click", (e) => {
+  e.preventDefault();
+  
+  const form = document.getElementById("addProductForm");
 
-  document.querySelector(".add_product").addEventListener("click", (e) => {
-    e.preventDefault();
 
-    const form = document.getElementById("addProductForm");
-    form.querySelector(".toggle").disabled = true;
+    // form.querySelector(".toggle").disabled = true;
     let formData = new FormData(form);
     // console.log(formData);
     if (checkInput(formData)) {
@@ -32,25 +33,30 @@
           createAlert("warning", `Please Enter <b>Valid Price </b>`, "");
           return 0;
         }
-      } else if (pair[0] === "new_category") {
-        const options = document.querySelectorAll(".option");
-        options.forEach((Element) => {
-          if (
-            Element.value.toUpperCase().trim() === pair[1].toUpperCase().trim()
-          ) {
-            createAlert("warning", `Please Enter <b>New category </b>`, "");
+      }
+      else if(pair[0] == 'selected_subCategory'){
 
-            if (pair[1].length > 100) {
-              createAlert(
-                "warning",
-                `Please Enter small name  max length <b>100</b> charcters on <b>New category </b>`,
-                ""
-              );
-              return 0;
-            }
-          }
-        });
-      } else if (pair[0] === "product_title" && pair[1].length > 255) {
+      }
+      //  else if (pair[0] === "new_category") {
+      //   const options = document.querySelectorAll(".option");
+      //   options.forEach((Element) => {
+      //     if (
+      //       Element.value.toUpperCase().trim() === pair[1].toUpperCase().trim()
+      //     ) {
+      //       createAlert("warning", `Please Enter <b>New category </b>`, "");
+
+      //       if (pair[1].length > 100) {
+      //         createAlert(
+      //           "warning",
+      //           `Please Enter small name  max length <b>100</b> charcters on <b>New category </b>`,
+      //           ""
+      //         );
+      //         return 0;
+      //       }
+      //     }
+      //   });
+      // }
+       else if (pair[0] === "product_title" && pair[1].length > 255) {
         createAlert(
           "warning",
           `Please Enter small title  max length <b>255</b> charcters on <b>Title </b>`,
