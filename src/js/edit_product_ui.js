@@ -13,20 +13,7 @@
         })
         
       });
-      document.querySelector('.new_cat').disabled = true;
-      let checkInput = document.querySelector('.check')
-    checkInput.addEventListener('click', ()=>{
-      console.log('in')
-    if( checkInput.checked == true ){
-        document.querySelector('.new_cat').disabled = false;
-        document.querySelector('.dropDown').disabled = true;
-        
-    }else if(checkInput.checked == false){
-        document.querySelector('.new_cat').disabled = true;
-        document.querySelector('.dropDown').disabled = false;
-        document.querySelector('.new_cat').value = "";
-    }
-})
+      
     }
     let imgView = document.querySelectorAll('.img-name');
     imgView.forEach((element, index)=>{

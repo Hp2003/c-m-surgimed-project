@@ -31,7 +31,7 @@
 //   });
 // });
 // // for work after re rendering
-
+let buttonChangeIndex = 1;
 let mainCategoryId = 0;
 let currentPlace = 'mainPage';
 
@@ -91,7 +91,7 @@ function createMainCategoryTable(data ){
           <td>${index + 1}</td>
           <td>${Element.MainCategoryId}</td>
           <input type="hidden" class='MainCategoryId' name="MainCatId" value="${Element.MainCategoryId}">
-          <td onclick="listCategorys(event, this, ${index})" class="mainCatName" style="cursor:pointer;">${Element.MainCategoryName}</td>
+          <td ondblclick="listCategorys(event, this, ${index})" class="mainCatName" style="cursor:pointer;">${Element.MainCategoryName}</td>
           <td >${Element.CreatedTime}</td>
           <td >${Element.UpdatedOn}</td>
           <td class="" >${data[data.length -1][index]}</td>
@@ -217,7 +217,7 @@ function renderCategory(data){
               }
               <td>
               <form action='manage_cart.php' method='post'>
-              <button name='Remove_Item' class='btn btn-sm btn-outline-danger '  onclick = "moveCategory(event, this, ${index})"><i class="fas fa-dolly"></i>  </button>
+              <button name='Remove_Item' class='btn btn-sm btn-outline-danger changeCategory'  onclick = "moveCategory(event, this, ${index})"><i class="fas fa-dolly"></i>  </button>
               <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
           </form>
               </td>
@@ -357,15 +357,17 @@ function re_nameSubCategory(e,btn,index){
   }
   }
 }
-let buttonChangeIndex = 0;
+
 function moveCategory(event , btn, index){
   event.preventDefault();
-  index -= buttonChangeIndex;
-  buttonChangeIndex ++;
   const newName = window.prompt('Enter New Category Name : ');
   let formData = new FormData();
+  // if((index - buttonChangeIndex) > 0){
+  //   index -= buttonChangeIndex;
+  // }
+  console.log(index);
     formData.append('process', 'move_category') ;
-    console.log(index);
+    // console.log(index);
     formData.append('CategoryId' , document.querySelectorAll('.catIdForm')[index].value);
     formData.append('newCatName', newName);
     if(newName != null && newName.trim() != ""){
@@ -375,8 +377,11 @@ function moveCategory(event , btn, index){
           return  1;
         }
         if(Response.data.data == 1){
+          
+          buttonChangeIndex ++;
+
           createAlert('success', `Successfully moved to ${newName} !`,'');
-          document.querySelectorAll('.subcatRows')[index].remove();
+          document.querySelectorAll('.subcatRows')[index].style.display = 'none';
           return 1;
         }
         if(Response.data.data == 0){
@@ -387,7 +392,6 @@ function moveCategory(event , btn, index){
         console.log(Response);
       })
     }
-
 }
 function re_nameMainCategory(e, btn, index){
   const newName = window.prompt('Enter New Name for Categroy : ');
@@ -453,5 +457,6 @@ function openMainCategory(event, button, index){
 
 function refreshChart(){
   console.log('here');
+  buttonChangeIndex = 0;
   displayEditCat();
 }

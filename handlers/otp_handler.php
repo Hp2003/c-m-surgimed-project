@@ -1,7 +1,8 @@
 <?php 
-    if(!isset($_SESSION)){
-        session_start();
-    }
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+} 
+
 function Otp_handler(){
     if($_SERVER['REQUEST_METHOD'] === 'GET'){
         
@@ -30,7 +31,7 @@ function Otp_handler(){
         }
         $otp = $_POST['otp'];
         if(strlen($otp) === 7){
-          $otp  = substr_replace($otp, '', 3, 1);
+          $otp  = substr_rep;lace($otp, '', 3, 1);
           if(!(preg_match('/^(\d{6}|\d{3}-\d{3})$/', $otp))){
               header('Content-Type: application/json');
               $resonseData = array(
@@ -43,7 +44,18 @@ function Otp_handler(){
 
         if((int)$_SESSION['OTP'] === (int)$otp){
 
-          call_user_func_array("Insert_user", $_SESSION['userdata']);
+          if($_SESSION['type'] == 'changePassword'){
+            unset($_SESSION['type']);
+            unset($_SESSION['OTP']);
+            $_SESSION['changePassword'] = true;
+            header('Content-Type: application/json');
+            $res = array(
+              'url' => '/change_password'
+            );
+            echo json_encode($res);
+            return;
+          }
+            call_user_func_array("Insert_user", $_SESSION['userdata']);
         }else{
           header('Content-Type: application/json');
 

@@ -98,7 +98,7 @@ function getMainCategorys(){
     axios.post('/api/get_categorys_brands_and_sub_categorys', formData,  { responseType: 'json' }).then(Response =>{
         console.log(Response.data);
         Response.data.text.forEach(element => {
-                container.innerHTML += `<option value="${element.MainCategoryId}"  selected>${element.MainCategoryName}</option>`;
+                container.innerHTML += `<option value="${element.MainCategoryId}"  >${element.MainCategoryName}</option>`;
             });
         })
     }
@@ -115,11 +115,28 @@ function getSubCategory(event, selectedElement){
     axios.post('/api/get_categorys_brands_and_sub_categorys', formData,  { responseType: 'json' }).then(Response =>{
         console.log(Response.data);
         Response.data.text.forEach(element => {
-            container.innerHTML += `<option value="${element.CategoryId}"  selected>${element.CategoryName}</option>`;
+            
+            container.innerHTML += `<option value="${element.CategoryId}"  >${element.CategoryName}</option>`;
         });
     })
 }
 
-// function getBrands(){
+
+
+function getBrands(){
+    let formData = new FormData();
     
-// }
+    let container = document.querySelector('.brand');
+
+    formData.append('process_forProPage',`getbrands`);
+    // formData.append('mainCategoryId',selectedElement.value);
+
+    axios.post('/api/get_categorys_brands_and_sub_categorys', formData,  { responseType: 'json' }).then(Response =>{
+        console.log(Response.data);
+        Response.data.text.forEach(element => {
+            
+            container.innerHTML += `<option value="${element.BrandId}"  >${element.BrandName}</option>`;
+        });
+    })
+}
+getBrands();

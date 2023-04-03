@@ -26,14 +26,13 @@
 			<div class="form-outline  w-75 pt-3 m-auto mb-4">
 				<label class="form-label">Sub Category</label>
 				<select name="selected_subCategory" class="form-select dropDown sub_category" >
-					<option value="" disabled selected>Select sub Category</option>
-	
+					<option value="" disabled selected>Select subCategory</option>
 				</select>
 			</div>
 			<div class="form-outline  w-75 pt-3 m-auto mb-4">
 				<label class="form-label">Brand</label>
-				<select name="selectd_brand" class="form-select dropDown" >
-					<option value="" disabled selected>Select Brand Category</option>
+				<select name="selectd_brand" class="form-select dropDown brand" >
+					<option value="" disabled selected>Select Brand</option>
 				</select>
 			</div>
 			<!-- <div class=" w-75 pt-3 m-auto mb-4">

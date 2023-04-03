@@ -23,9 +23,9 @@
             echo "can't remove";
             return 0;
         }
-        $date_time = date("Y-m-d H:i:s");
+        // $date_time = date("Y-m-d H:i:s");
 
-        $delte_query = $connection->prepare("UPDATE  product  SET ProductStatus = 'Deleted' AND UpdateAt = '$date_time' WHERE ProductId = ?");
+        $delte_query = $connection->prepare("UPDATE  product  SET ProductStatus = 'Deleted' WHERE ProductId = ?");
 
         $delte_query->bind_param('s', $id);
 

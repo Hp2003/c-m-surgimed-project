@@ -15,6 +15,7 @@ document.querySelector(".add_product").addEventListener("click", (e) => {
   function checkInput(form) {
     const img = document.querySelector(".productImg");
     for (let pair of form) {
+      
       // console.log(pair[0] , pair[1]);
       if (img.files.length < 1) {
         createAlert("warning", `Please Select an <b>Image</b>`, "");
@@ -33,9 +34,6 @@ document.querySelector(".add_product").addEventListener("click", (e) => {
           createAlert("warning", `Please Enter <b>Valid Price </b>`, "");
           return 0;
         }
-      }
-      else if(pair[0] == 'selected_subCategory'){
-
       }
       //  else if (pair[0] === "new_category") {
       //   const options = document.querySelectorAll(".option");
@@ -63,7 +61,7 @@ document.querySelector(".add_product").addEventListener("click", (e) => {
           ""
         );
         return 0;
-      } else if (pair[0] === "product_desc" && pair[1].length > 500) {
+      } else if (pair[0] === "product_desc" && pair[1].length > 1000) {
         createAlert(
           "warning",
           `Please Enter small title  max length <b>500</b> charcters on <b>description </b>`,
@@ -75,6 +73,19 @@ document.querySelector(".add_product").addEventListener("click", (e) => {
         return 0;
       }
     }
+    if(document.querySelector('.sub_category ').value == ""){
+      createAlert("warning", `Please Select a <b>Category </b>`, "");
+        return 0;
+    }
+    if(document.querySelector('.mainCategorys ').value == ""){
+      createAlert("warning", `Please Select a <b> Main Category </b>`, "");
+        return 0;
+    }
+    if(document.querySelector('.brand ').value == ""){
+      createAlert("warning", `Please Select a <b>brand </b>`, "");
+        return 0;
+    }
+    // document.querySelector('')
     // if(imgsCount <= 1){
     //     createAlert('warning', '', 'Please Select An <b>Image</b>')
     //     return 0;
@@ -95,7 +106,7 @@ document.querySelector(".add_product").addEventListener("click", (e) => {
     // });
     data.append("type", "AddProduct");
     axios.post("/api/add_product", data).then((Response) => {
-      console.log(Response.data);
+      console.log(Response);
 
       if (Response.data.text != "" || Response.data.text != undefined) {
         if (Response.data.text == "noImg") {
@@ -108,7 +119,7 @@ document.querySelector(".add_product").addEventListener("click", (e) => {
           createAlert("success", "Product Has Been Added Successfully!", "");
           var form = document.getElementById("addProductForm");
           resetInputs(form)
-          document.querySelector('.toggle').disabled = false;
+          // document.querySelector('.toggle').disabled = false;
         }
         if (Response.data.text == "DuplicateKey") {
           createAlert("success", "Category Already Avilable", "");

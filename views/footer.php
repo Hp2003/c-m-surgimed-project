@@ -5,10 +5,10 @@
 </div>
 <button type="button" class="btn btn-primary rounded-circle back-to-top" style="display:none;"><i class="fa fa-arrow-up" aria-hidden="true" style="fontsize:2em;  " onclick="takeToTop()"></i>
 </button>
-	<footer class="footer " style="height:100%;">
+	<footer class="footer d-flex " style="height:100%;">
 		<div class="container" style="background-color: #24262b; ">
 			<div class="row" >
-				<div class="footer-col">
+				<!-- <div class="footer-col">
 					<h4>Company</h4>
 					<ul>
 						<li><a href="#">about us</a></li>
@@ -16,14 +16,14 @@
 						<li><a href="#">privacy policy</a></li>
 						<li><a href="#">contacts</a></li>
 					</ul>
-				</div>
+				</div> -->
 				<div class="footer-col">
 					<h4>Get Help</h4>
 					<ul>
-						<li><a href="#">FAQ</a></li>
-						<li><a href="#">shipping</a></li>
-						<li><a href="#">returns</a></li>
-						<li><a href="#">order status</a></li>
+						<!-- <li><a href="#">FAQ</a></li> -->
+						<li><a href="#">Payment</a></li>
+						<li><a href="#">Returns</a></li>
+						<!-- <li><a href="#"></a></li> -->
 						<li><a href="#">payment option</a></li>
 					</ul>
 				</div>
@@ -42,12 +42,26 @@
 						<a href="#"><i class="fab fa-facebook-f"></i></a>
 						<a href="#"><i class="fab fa-twitter"></i></a>
 						<a href="#"><i class="fab fa-instagram"></i></a>
-						<a href="#"><i class="fab fa-linkedin-in"></i></a>
+						<!-- <a href="#"><i class="fab fa-linkedin-in"></i></a> -->
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="col-md-5">
+                <form id="contactUs_form">
+                    <fieldset class="form-group">
+                        <input type="email" class="form-control" id="ehc" name="Email" placeholder="Enter email">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <textarea class="form-control" id="mhc" placeholder="Message" name="message"></textarea>
+                    </fieldset>
+                    <fieldset class="form-group text-xs-right">
+                        <button type="button" class="btn btn-secondary-outline btn-lg" id="hcb">Send</button>
+                    </fieldset>
+                </form>
+            </div>
 	</footer>
+
 	<!-- Axios -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -60,7 +74,12 @@
 <!-- Custom js -->
 <script src="../src/js/Alert.js"></script>
 <script src="../src/js/confirmbox.js"></script>
-<script src="../src/js/searchProduct.js"></script>
+<?php 
+	if($IsAdmin == false){
+		echo '<script src="../src/js/searchProduct.js"></script>';
+	}
+?>
+
 <script src="../src/js/orderpage_ui.js"></script>
 <script src="../src/js/order_view.js"></script>
 <script src="../src/js/manageCart.js"></script>
@@ -78,6 +97,7 @@
 			echo "<script src='../src/js/list_all_user_ui.js'></script>";
 			echo "<script src='../src/js/edit_category.js'></script>";
 			echo "<script src='../src/js/edit_brands.js'></script>";
+			echo "<script src='../src/js/admin_search_product.js'></script>";
 
 		}
 	}

@@ -20,6 +20,8 @@
 						<th scope="col">Brand Name</th>
 						<th scope="col">Added On</th>
 						<th scope="col">Updated On</th>
+						<th scope="col">Total Products</th>
+						<th scope="col">Edit name</th>
 						<th scope="col">Delete</th>
 						<th scope="col">Re-Open</th>
 					</tr>

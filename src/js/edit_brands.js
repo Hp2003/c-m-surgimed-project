@@ -19,17 +19,22 @@ function DisplayBrand(data, removeAll = false){
             container.innerHTML = '';
             removeAll = false;
         }
+        console.log(data);
         data.forEach((Element , index) => {
 
             container.innerHTML += `
         <tr>
                             <td>${index + 1}</td>
                             <td>${Element.BrandId}</td>
-                            <td>${Element.BrandName}<input type='hidden' class='iprice' value='1'></td>
+                            <td class="brandName">${Element.BrandName}<input type='hidden' class='iprice' value='1'></td>
                             <input type="hidden" class='brandId' name="UserId" value="${Element.BrandId}">
                             <td >${Element.CreatedAt}</td>
                             <td >${Element.UpdatedAt}</td>
+                            <td >${Element.ProductCount}</td>
+                            <td ><a onclick = 'editBrandName(event, this , ${index})'><i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer"></i></a>
+                            </td>
                             
+                           
                             <td>${
                                 Element.IsDeleted == true? `<form action='manage_cart.php' method='post'>
                                 <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled removeBrand' onclick="removeBrand(event, this ${index})"><i
@@ -165,4 +170,30 @@ function searchBrand(e,btn,index){
 
     return 1;
     })
+}
+
+function editBrandName(event, btn , index){
+    event.preventDefault();
+    let newName = window.prompt('Enter new Name ');
+    let form = new FormData();
+    form.append('process', 'changeBrandName')
+    form.append('name', newName)
+    form.append('id', document.querySelectorAll('.brandId')[index].value);
+    
+    if(newName != null && newName.trim() != ""){
+        console.log(newName.length)
+        if(newName.length <= 140){
+            axios.post('/api/edit_brand', form).then(Response =>{
+                if(Response.data.data == 1){
+                    createAlert('success', 'Brand Name changed ', '');
+                    document.querySelectorAll('.brandName')[index].textContent = newName;
+                    return 1;
+                }
+            })
+        }else{
+            createAlert('warning', 'please enter small brand name ','');
+            return 0;
+        }
+
+    }
 }

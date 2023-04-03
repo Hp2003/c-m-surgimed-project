@@ -9,7 +9,12 @@ if (session_status() == PHP_SESSION_NONE) {
 		if(!isset($_POST['category'])){
 			if(!isset($_POST['brand'])){
 				$con=mysqli_connect('localhost','root','panchal4555','C_M_surgimed');
-				$sql="SELECT * FROM product ORDER BY rand() LIMIT 12";
+				// $sql="SELECT * FROM product ORDER BY rand() LIMIT 16";
+				$sql = "SELECT * FROM product
+				ORDER BY RAND(DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'))
+				LIMIT 16
+				";
+				
 				$res=mysqli_query($con,$sql);
 
 				$img = array();
@@ -68,6 +73,7 @@ if (session_status() == PHP_SESSION_NONE) {
 				}
 			}
 		}		
+		echo $count;
 	}	
 	//All Products are get
 	function get_all_products(){
@@ -121,7 +127,7 @@ function search_product(){
 					$con->close();
 					$sql->close();
 					$data = mysqli_fetch_assoc($result);
-	
+					
 					return $data;
 				}
 			}
@@ -140,16 +146,18 @@ function search_product(){
 			// $res=mysqli_query($con,$search_query);
 			$num_of_rows=mysqli_num_rows($res);
 			$data = array();
-
 			$con->close();
 			$search_query->close();
+			$_SESSION["rowsAffected"] = $num_of_rows;
 		if($num_of_rows==0){
 			return 0;
 		}
+		// $count = 0;
 		while($row = mysqli_fetch_assoc($res)){
 			array_push($data, $row);
+			// $count ++;
 		}
-		
+		array_push($data);
 		return $data;
 		
 		

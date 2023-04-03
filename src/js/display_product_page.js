@@ -50,18 +50,22 @@ function closeContainer(event) {
 }
 
 function addDataInProductPage(data) {
-  console.log(data);
+  console.log(data.ProductDesc);
   document.querySelector(".title").textContent = data.ProductTitle;
   document.querySelector(".price").textContent = data.ProductPrice;
   document.querySelector(".stock").textContent = data.QuantityOnHand;
-  document.querySelector(".desc").textContent = data.ProductDesc;
+  // let desc = data.ProductDesc.replace(/\t/g, "&#9;").replace(/\n/g, "&#10;");
+  // console.log(desc);
+  let contianer = document.querySelector(".desc");
+  contianer.style.whiteSpace = "pre-wrap";
+  contianer.innerHTML =   data.ProductDesc ;
+
   document.querySelector(".productId").textContent = data.ProductId;
   document.querySelector(".addToCartBtn").setAttribute('onclick', `addToCart(event, this, ${currentIndexproduct} )`);
   currentIndexproduct = 0;
 
   // console.log(document.querySelector('.productId').value);
   document.querySelector(".biggerImg").src = data.imgs[0];
-
   let imgs = document.querySelectorAll(".small-img");
   imgs.forEach((Element, index) => {
     if (data.imgs[index] != null || data.imgs[index] != undefined) {

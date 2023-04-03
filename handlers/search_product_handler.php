@@ -21,6 +21,7 @@
         }
         
         $data['imgs'] = $imgs;
+        unset($_SESSION['rowsAffected']);
         header('Content-Type: application/json');
         echo json_encode($data);
         return;

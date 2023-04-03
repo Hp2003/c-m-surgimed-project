@@ -47,6 +47,14 @@ require_once('./src/deleteProduct.php');
                 echo json_encode($resData);
                 return;
             }
+            if($_POST['process'] == 'changeBrandName'){
+                header('Content-Type: application/json');
+                $resData = array(
+                    'data' => editNameOfBrand($_POST['id'], $_POST['name'])
+                );
+                echo json_encode($resData);
+                return;
+            }
         }
     }
     function addNewbrand($nameOfBrand){
@@ -127,5 +135,16 @@ require_once('./src/deleteProduct.php');
             return $resarray;
         }
         return false;
+    }
+    function editNameOfBrand($id, $newName){
+        $con = connect_to_db();
+
+        $sql = "UPDATE brand SET BrandName = '$newName' WHERE BrandId = '$id' LIMIT 1";
+
+        $res = mysqli_query($con, $sql);
+
+        $con->close();
+
+        return 1;
     }
 ?>

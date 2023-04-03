@@ -17,18 +17,21 @@
 				<textarea name="product_keywords" value="" class="form-control" id=""cols="30" rows="10"></textarea>
 			</div>
 			<div class="form-outline  w-75 pt-3 m-auto mb-4">
-				<label class="form-label ">Product Categories</label>
-				<select name="product_category" class="form-select dropDown">
+				<label class="form-label ">Main Category</label>
+				<select name="main_category" class="form-select MainCategory">
+				</select>
+			</div>
+			<div class="form-outline  w-75 pt-3 m-auto mb-4">
+				<label class="form-label ">Subcategory</label>
+				<select name="product_category" class="form-select Subcategory">
 					
 				</select>
 			</div>
-			<div class=" w-75 pt-3 m-auto mb-4">
-				<label class="form-label">Add Category</label>
-				<input type="checkbox" name="toggle" value="" class="check toggle" id=""  >
-			</div>
-			<div class="form-outline w-75 pt-3 m-auto mb-4 ">
-				<label class="form-label">Add new Category</label>
-				<input type="text" name="new_category" value="" class="form-control new_cat" id="" required>
+			<div class="form-outline  w-75 pt-3 m-auto mb-4">
+				<label class="form-label ">Brand</label>
+				<select name="brand" class="form-select Brand">
+					
+				</select>
 			</div>
 			<input type="hidden" name="img_dir" class="img_dir" value="">
 			<!-- images -->

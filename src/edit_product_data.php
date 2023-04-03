@@ -12,6 +12,8 @@ require_once('insertIMG.php');
         $pid = $_POST['product_id'];
         $qoh = $_POST['QOH'];
         $img_dir = $_POST['img_dir'];
+        $brand_id = $_POST['brand'];
+        $main_category_id = $_POST['main_category'];
         // Checking if all feilds are filled
 
         $fields = array( $title, $desc, $keywords, $pric, $qoh, $pid);
@@ -27,7 +29,6 @@ require_once('insertIMG.php');
             exit();
 
         }
-
 
         for($i = 0 ; $i<= 5 ; $i++){
             if(isset($_FILES["file_$i"]) && filesize($_FILES["file_$i"]['tmp_name']) > 0){
@@ -62,7 +63,7 @@ require_once('insertIMG.php');
             $categoryId = get_category_id();
 
 
-            if(Update_product_main($categoryId, $title, $desc, $keywords, $pric, $qoh, $pid )){
+            if(Update_product_main($categoryId, $title, $desc, $keywords, $pric, $qoh, $pid , $brand_id)){
                 header('Content-Type: application/json');
                 $res = array(
                     'text'=> 'ProductUpdatedSuccessfully'
@@ -77,39 +78,39 @@ require_once('insertIMG.php');
                 echo json_encode($res);
                 return;
             }
-        }else if(isset($_POST['new_category'])){
-            $createdCategroyId = create_category($_POST['new_category']);
+        // }else if(isset($_POST['new_category'])){
+        //     $createdCategroyId = create_category($_POST['new_category']);
 
-            if($createdCategroyId == 0 ){
-                header('Content-Type: application/json');
-                $res = array(
-                    'text'=> 'CategoryAlreadyAvailable'
-                );
-                echo json_encode($res);
-                return;
-            }else if($createdCategroyId == 2){
-                header('Content-Type: application/json');
-                $res = array(
-                    'text'=> 'FailedCreatingCategory'
-                );
-                echo json_encode($res);
-                return;
-            }
-            if(Update_product_main($createdCategroyId, $title, $desc, $keywords, $pric, $qoh, $pid)){
-                header('Content-Type: application/json');
-                $res = array(
-                    'text'=> 'ProductUpdatedSuccessfully'
-                );
-                echo json_encode($res);
-                return;
-            }else{
-                header('Content-Type: application/json');
-                $res = array(
-                    'text'=> 'FailedUpdatingProduct'
-                );
-                echo json_encode($res);
-                return;
-            }
+        //     if($createdCategroyId == 0 ){
+        //         header('Content-Type: application/json');
+        //         $res = array(
+        //             'text'=> 'CategoryAlreadyAvailable'
+        //         );
+        //         echo json_encode($res);
+        //         return;
+        //     }else if($createdCategroyId == 2){
+        //         header('Content-Type: application/json');
+        //         $res = array(
+        //             'text'=> 'FailedCreatingCategory'
+        //         );
+        //         echo json_encode($res);
+        //         return;
+        //     }
+        //     if(Update_product_main($createdCategroyId, $title, $desc, $keywords, $pric, $qoh, $pid)){
+        //         header('Content-Type: application/json');
+        //         $res = array(
+        //             'text'=> 'ProductUpdatedSuccessfully'
+        //         );
+        //         echo json_encode($res);
+        //         return;
+        //     }else{
+        //         header('Content-Type: application/json');
+        //         $res = array(
+        //             'text'=> 'FailedUpdatingProduct'
+        //         );
+        //         echo json_encode($res);
+        //         return;
+        //     }
         }
     }
     function get_category_id(){
@@ -130,19 +131,21 @@ require_once('insertIMG.php');
 
         return mysqli_fetch_assoc($res)['CategoryId'];
     }
-    function Update_product_main($categoryId, $title, $desc, $keywords, $pric, $qoh, $pid ){
+    function Update_product_main($categoryId, $title, $desc, $keywords, $pric, $qoh, $pid , $brand_id){
         $con = connect_to_db();
 
 
-        $sql = $con->prepare("UPDATE product SET ProductTitle = ? , ProductDesc = ? , ProductPrice = ? , CateGoryId = ? , QuantityOnHand = ? , ProductKeywords = ?  WHERE ProductId = ? ");
+        $sql = $con->prepare("UPDATE product SET ProductTitle = ? , ProductDesc = ? , ProductPrice = ? , CateGoryId = ? , QuantityOnHand = ? , ProductKeywords = ? , BrandId = ? WHERE ProductId = ? ");
 
-        $sql->bind_param('sssssss', $title, $desc, $pric, $categoryId, $qoh, $keywords, $pid);
+        $sql->bind_param('ssssssss', $title, $desc, $pric, $categoryId, $qoh, $keywords, $brand_id, $pid);
 
         $sql->execute();
 
-        $sql->close();
-        $con->close();
+        
 
+        $sql->close();
+
+        $con->close();
         return 1;
         
     }

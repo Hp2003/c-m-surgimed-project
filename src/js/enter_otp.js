@@ -21,7 +21,6 @@ function varifyOtp(){
     const formData = new FormData(form);
     axios.post("",formData)
     .then(Response =>{
-        console.log(Response.data);
         // console.log(Response.data)
         if(Response.data.text !== ""){
             if(Response.data.text === "otpDidNotMatch"){
@@ -34,6 +33,7 @@ function varifyOtp(){
         if(Response.data.url !== undefined && Response.data.url !== ""){
             window.location.href = Response.data.url;
         }
+
     })
     .catch(err =>{
         console.log(err.error);

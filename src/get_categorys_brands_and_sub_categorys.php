@@ -18,6 +18,14 @@
                 echo json_encode($res);
                 return ;
             }
+            elseif($_POST['process_forProPage'] == 'getbrands'){
+                header('Content-Type: application/json; charset=utf-8');
+                $res = array(
+                    'text' => get_brands()
+                );
+                echo json_encode($res);
+                return ;
+            }
         }
     }
 
@@ -57,9 +65,16 @@
         $con = connect_to_db();
         $sql = '';
         if($rmdelted){
-            $sql = "SELECT * FROM brand WHERE IsDeleted = 0  ";
+            $sql = "SELECT b.BrandId, b.BrandName,b.CreatedAt, b.UpdatedAt, COUNT(p.ProductId) AS ProductCount
+            FROM brand b
+            LEFT JOIN product p ON b.BrandId = p.BrandId AND p.ProductStatus = 'Available'
+            WHERE b.IsDeleted = 0
+            GROUP BY b.BrandId ";
         }else{
-            $sql = "SELECT * FROM brand ";
+            $sql = "SELECT b.BrandId, b.BrandName,b.CreatedAt, b.UpdatedAt, COUNT(p.ProductId) AS ProductCount
+            FROM brand b
+            LEFT JOIN product p ON b.BrandId = p.BrandId AND p.ProductStatus = 'Available'
+            GROUP BY b.BrandId ";
         }
 
         $res = mysqli_query($con, $sql);

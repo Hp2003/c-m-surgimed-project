@@ -46,7 +46,7 @@
                                 <input type="submit" value="Login" class="login_user"/>
                             </div>
                             <p class="forget">
-                                Forgot Password? <a href="#" class="link">Click Here</a>
+                                Forgot Password? <a href="/forgot_password" class="link">Click Here</a>
                             </p>
                             <p class="forget">
                                 Don't have an account? <a href="/reg" class="link">Sign Up</a>

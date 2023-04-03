@@ -67,8 +67,8 @@ editProductBtn.forEach((element, index)=>{
     e.preventDefault();
       const cardData = new FormData(allForms[index]);
       axios.post("/api/edit_product", cardData).then((Response) => {
-        ProId = Response.data.formData.ProductId;
         console.log(Response.data.formData)
+        ProId = Response.data.formData.ProductId;
         DisplayAdminViews(Response.data.html);
         // console.log(Response.data.formData);
         fillDataEditForm(Response.data.formData);
@@ -78,8 +78,6 @@ editProductBtn.forEach((element, index)=>{
       });      
 
     const formData = new FormData();
-    // formData.append("type", "some type");
-    // append any other form data key-value pairs as needed
   
     axios
       .post("/api/edit_product", formData)
@@ -91,8 +89,48 @@ editProductBtn.forEach((element, index)=>{
       });
   })
 })
-// console.log(ProId);
-// fill data in edit product form
+
+
+
+
+
+function openEditFormWrapper(event, element, index) {
+  openEditForm(index);
+}
+
+
+function openEditForm(event,element , index){
+  event.preventDefault();
+  let editProductBtn = document.querySelectorAll(".editProduct");
+  let allForms = document.querySelectorAll('.cartForm');
+  const cardData = new FormData(allForms[index]);
+  axios.post("/api/edit_product", cardData).then((Response) => {
+    ProId = Response.data.formData.ProductId;
+    console.log(Response.data.formData)
+    DisplayAdminViews(Response.data.html);
+    // console.log(Response.data.formData);
+    fillDataEditForm(Response.data.formData);
+    createScriptElem('./src/js/edit_product_ui.js', "editProductScript");
+    createScriptElem('./src/js/edit_product.js', "editProductScript");
+    // createScriptElem('./src/js/add_product_ui.js', "editProductScript");
+  });      
+
+const formData = new FormData();
+
+axios
+  .post("/api/edit_product", formData)
+  .then((response) => {
+    
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
+
+
+
+
+
 function fillDataEditForm(data){
   let editProForm = document.querySelectorAll('#editProduct input, #editProduct textarea');
   // console.log(editProForm);
@@ -125,13 +163,22 @@ function fillDataEditForm(data){
     imgView[index].style.display = 'block';
     imgView[index].innerHTML = element;
   })
-  let drop = document.querySelector('.dropDown');
+  let drop = document.querySelector('.Subcategory');
   data.cats.forEach((element, index)=>{
     // console.log(element)
     drop.innerHTML += `
     <option value="${element.CategoryName}" class="option">${element.CategoryName}</option>`
   })
+  let mainCats = document.querySelector('.MainCategory');
 
+  data.mainCats.forEach((element, index)=>{
+    mainCats.innerHTML +=  `<option value="${element.MainCategoryId}" class="option">${element.MainCategoryName}</option>`;
+  })
+  let brands = document.querySelector('.Brand');
+  data.brands.forEach(element => {
+    brands.innerHTML += `<option value="${element.BrandId}" class="option">${element.BrandName}</option>`;
+  });
+  
 }
 let dataBuffer = [];
 

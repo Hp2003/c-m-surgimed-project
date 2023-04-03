@@ -7,4 +7,5 @@
     // include('admin_views/admin_view_product.php');
 
     include('footer.php');
+    // include('footer_old.php');
 ?>

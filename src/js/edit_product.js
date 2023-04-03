@@ -61,12 +61,6 @@ function checkInputEditPro(data){
         return;
     }
     data.forEach((element, index) => {
-        if(index == "new_category"){
-          return 0;
-        }
-        if(index == 'toggle'){
-            return 0;
-        }
         if(index == 'img_dir'){
           return 0;
         }
@@ -96,10 +90,10 @@ function checkInputEditPro(data){
               ""
             );
             return 0;
-          } else if (index === "product_desc" && element.length > 500) {
+          } else if (index === "product_desc" && element.length > 1000) {
             createAlert(
               "warning",
-              `Please Enter small title  max length <b>500</b> charcters on <b>description </b>`,
+              `Please Enter small title  max length <b>1000</b> charcters on <b>description </b>`,
               ""
             );
             return 0;
@@ -108,36 +102,37 @@ function checkInputEditPro(data){
             return 0;
           }
     });
-    return checkCategory();
-}
-function checkCategory(){
-  let new_category = document.querySelector('.new_cat');
-  console.log(new_category.disabled);
-    if (new_category.disabled == false) {
-      const options = document.querySelectorAll(".option");
-      for(let Element of options){
-        console.log(Element.value);
-        if(new_category.value == ""){
-          createAlert("warning", `Please Enter Value In <b>New category </b>`, "");
-          return 0;
-        }
-        if (Element.value.toUpperCase().trim() === new_category.value.toUpperCase().trim()) {
-          createAlert("warning", ` <b>Category </b> already Available`, "");
-          return 0;
-        }
-        if (new_category.value.trim().length > 100) {
-          createAlert(
-            "warning",
-            `Please Enter small name  max length <b>100</b> charcters on <b>New category </b>`,
-            ""
-          );
-          return 0;
-        }
-      }
-    }
-    console.log('from here');
+    // return checkCategory();
     return 1;
 }
+// function checkCategory(){
+//   let new_category = document.querySelector('.new_cat');
+//   console.log(new_category.disabled);
+//     if (new_category.disabled == false) {
+//       const options = document.querySelectorAll(".option");
+//       for(let Element of options){
+//         console.log(Element.value);
+//         if(new_category.value == ""){
+//           createAlert("warning", `Please Enter Value In <b>New category </b>`, "");
+//           return 0;
+//         }
+//         if (Element.value.toUpperCase().trim() === new_category.value.toUpperCase().trim()) {
+//           createAlert("warning", ` <b>Category </b> already Available`, "");
+//           return 0;
+//         }
+//         if (new_category.value.trim().length > 100) {
+//           createAlert(
+//             "warning",
+//             `Please Enter small name  max length <b>100</b> charcters on <b>New category </b>`,
+//             ""
+//           );
+//           return 0;
+//         }
+//       }
+//     }
+//     console.log('from here');
+//     return 1;
+// }
 function checkImgs(){
     let count = 0;
     let labl = document.querySelectorAll('.img-text');

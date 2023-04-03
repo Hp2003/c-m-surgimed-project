@@ -1,6 +1,7 @@
 <?php 
     require_once('connection.php');
     require_once('display_add_product.php');
+    require_once('get_categorys_brands_and_sub_categorys.php');
 
     function get_edit_pro(){
 
@@ -19,9 +20,19 @@
         // echo json_encode($res);
         // return;
         $cats = getCatsWithId($data['CateGoryId']);
+        // header('Content-Type: text/plain');
+        // print_r($data);
+        // return;
         $imgs = get_images($data['ProductImg']);
         $data['imgs'] = $imgs;
         $data['cats'] = $cats;
+        // header('Content-Type: application/json');
+        // echo json_encode($data);
+        // return;
+        $maincats = get_maincat_with_id($data['cats'][0]['MainCategoryId']);
+        $brands = get_brands_with_id($data['BrandId']);
+        $data['mainCats'] = $maincats;
+        $data['brands'] = $brands;
 
         $res = array(
             'html' => $html,
@@ -76,12 +87,44 @@
     function getCatsWithId($id){
         $res = array();
         $con = connect_to_db();
-        $query = "SELECT CategoryName FROM category ORDER BY CategoryId = '$id' DESC, CategoryId ASC; ";
+        $query = "SELECT * FROM category where IsDeleted = 0 ORDER BY CategoryId = '$id'  DESC, CategoryId ASC   ;";
         $result = mysqli_query($con, $query);
         $con->close();
         while($row = mysqli_fetch_assoc($result)){
             array_push($res, $row);
         }
         return $res;
+    }
+    function get_maincat_with_id($id){
+        $con = connect_to_db();
+
+        $query = "SELECT * FROM maincategory WHERE IsDeleted = 0 ORDER BY MainCategoryId = '$id' DESC, MainCategoryId ASC; ";
+
+        $res = mysqli_query($con, $query );
+
+        $cats = array();
+        $con->close();
+        if($res){
+            while($row = mysqli_fetch_assoc($res)){
+                array_push($cats, $row);
+            }
+        }
+        return $cats;
+    }
+    function get_brands_with_id($id){
+        $con = connect_to_db();
+
+        $query = "SELECT * FROM brand WHERE IsDeleted = 0 ORDER BY BrandId = '$id' DESC, BrandId ASC; ";
+
+        $res = mysqli_query($con, $query );
+
+        $cats = array();
+        $con->close();
+        if($res){
+            while($row = mysqli_fetch_assoc($res)){
+                array_push($cats, $row);
+            }
+        }
+        return $cats;
     }
 ?>

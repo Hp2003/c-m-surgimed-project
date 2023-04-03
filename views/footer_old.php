@@ -50,8 +50,8 @@
         </div>
     </div>
 </footer>
-<!-- Axios -->
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <!-- Jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -60,18 +60,32 @@
 <!-- <section class="dark"></section> -->
 
 <!-- Custom js -->
-<script src="../src/js/popup.js"></script>
 <script src="../src/js/Alert.js"></script>
-<script src="../src/js/homepage_contact.js"></script>
+<script src="../src/js/confirmbox.js"></script>
+<script src="../src/js/searchProduct.js"></script>
+<script src="../src/js/orderpage_ui.js"></script>
+<script src="../src/js/order_view.js"></script>
+<script src="../src/js/manageCart.js"></script>
+<script src="../src/js/popup.js"></script>
+<script src="../src/js/display_product_page.js"></script>
+<!-- <script src="../src/js/cart.js"></script> -->
+<!-- <script src="../src/js/homepage_contact.js"></script> -->
 <script src="../src/js/homepage_ui.js"></script>
 <?php 
-    if($IsAdmin == true){
-        echo '<script src="../src/js/include_admin_js_modules.js"></script>';
-    }
+	if(isset($IsAdmin) ){
+		if($IsAdmin == true){
+			echo '<script src="../src/js/include_admin_js_modules.js" defer></script>';
+			echo '<script src="../src/js/deletePro.js"></script>';
+			echo "<script src= '../src/js/adminToggleButton.js'></script>";
+			echo "<script src='../src/js/list_all_user_ui.js'></script>";
+			echo "<script src='../src/js/edit_category.js'></script>";
+			echo "<script src='../src/js/edit_brands.js'></script>";
+
+		}
+	}
+
 ?>
-
-<script type="text/javascript">
-
+<script>
 		$(document).ready(function(){
 			$('.sub-btn').click(function(){
 				$(this).next('.sub-menu').slideToggle();

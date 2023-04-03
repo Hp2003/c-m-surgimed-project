@@ -35,8 +35,13 @@ if($request == '/' || $request == '/home'){
 else if($request == '/enterotp'){
     
     require_once 'handlers/otp_handler.php';
-
+    
     Otp_handler();
+}
+else if($request == '/change_password'){
+    
+    require_once 'handlers/change_password_handler.php';
+
 }
 
 else if($request == '/test'){
@@ -71,6 +76,9 @@ else if ($request ===  '/report') {
         }
     }
 
+}
+else if ($_SERVER['REQUEST_URI'] === '/forgot_password' ) {
+        include ('handlers/forgot_password_handler.php');
 }
 else if($request == '/error'){
 
@@ -139,6 +147,7 @@ else if($request == '/error'){
                 return 0;
         }
     }
+
     if ($_SERVER['REQUEST_URI'] === '/api/search_product') {
             if($_SERVER['REQUEST_METHOD'] === "POST"){
                 require_once('handlers/search_product_handler.php');
