@@ -38,7 +38,7 @@ if(session_status() !== PHP_SESSION_ACTIVE){
         $con = connect_to_db();
 
 
-        $sql = $con -> prepare("SELECT * FROM product WHERE CategoryId = ? LIMIT 16  OFFSET ? ");
+        $sql = $con -> prepare("SELECT * FROM product WHERE CategoryId = ? AND ProductStatus = 'Available' LIMIT 16 OFFSET ?");
 
         $sql->bind_param('ss', $catId, $offset);
 
@@ -55,11 +55,7 @@ if(session_status() !== PHP_SESSION_ACTIVE){
         }
 
         array_push($res, $imgs);
-        if(count($res) < 16){
-            array_push($res, 'end');
-        }else{
-            array_push($res, 'notend');
-        }
+
         return $res;
     }
 ?>

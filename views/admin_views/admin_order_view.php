@@ -1,14 +1,20 @@
 <div class="container" style="min-height: 300px;">
 	<div class="row">
 		<div class="col-lg-12 text-center border rounded bg-light my-5">
-			<!-- <form action="" method="post" class="text-center searchCatForm">
+			<form action="" method="post" class="text-center searchCatForm">
 				<div class="form-outline mb-4 w-50 m-auto">
-					<label class="form-label">Category Title</label>
-					<input type="text" name="category_name" value="" id="category_name" class="form-control search_cat_input" required>
+					<label class="form-label">Customer id</label>
+					<input type="text" name="category_name" value="" id="CusId" class="form-control search_cat_input" required>
 				</div>
-				<input type="submit" name="edit_category" value="Search" class="btn btn-info px-3 mb-3 searchCategory">
-			</form> -->
+				<input type="submit" name="search_order" value="Search" onClick = "serachOrder(event)"class="btn btn-info px-3 mb-3 searchCategory SubmitCusId">
+			</form>
 		</div>
+		<select name="orderStatus" class="orderStatus"id="" onchange="filterOrders(event,this)">
+			<option value="Default">Default</option>
+			<option value="Cancelled">Cancelled</option>
+			<option value="Pending">Pending</option>
+			<option value="Placed">Placed</option>
+		</select>
 		<div class="col-lg-9 container-fluid m-0" style="width:100%">
 			<table class="table">
 				<thead>
@@ -17,12 +23,12 @@
 						<th scope="col">Product Id</th>
 						<th scope="col">Customer Id</th>
 						<th scope="col">Order Id</th>
-						<!-- <th scope="col">Product Name</th> -->
 						<th scope="col">Quantity</th>
 						<th scope="col">Total Price</th>
 						<th scope="col">Placed On</th>
 						<th scope="col">status</th>
 						<th scope="col">Cancel</th>
+						<th scope="col">Place</th>
 					</tr>
 				</thead>
 				<tbody class="text-center tableBody">

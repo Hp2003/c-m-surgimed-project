@@ -50,6 +50,7 @@ rmbtn.forEach((element , index)=> {
         let formData = new FormData(rmform[index]);
         formData.append('process', 'remove');
         axios.post('/cart', formData).then(Response =>{
+            console.log(Response);
             if(Response.data.text != undefined && Response.data.text != ''){
                 if(Response.data.text === 'removed'){
                     justRemoved = true;
@@ -59,7 +60,7 @@ rmbtn.forEach((element , index)=> {
                     localStorage.setItem('alertMessage', alertMessage);
                     localStorage.setItem('alertType', alertType);
 
-                    // createAlert('success', 'Product removed from cart!!','');
+                    createAlert('success', 'Product removed from cart!!','');
                 }
             }
         })

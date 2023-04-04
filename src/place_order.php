@@ -1,5 +1,7 @@
 <?php 
 require_once('connection.php');
+require_once('genrate_email.php');
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -7,10 +9,11 @@ if (session_status() === PHP_SESSION_NONE) {
         if(isset($_SESSION['loggedIn'])){
                 $item_ids = explode(',',$_POST['item_ids']);
                 $itm_quantity = explode(',',$_POST['item_quentity']);
-                // $grand_total = $_POST['grand_total'];
                 $address = $_POST['address'];
-                // $paymentMethod = $_POST['method'];
                 $PhoneNumber = $_POST['phone_number'];
+                $_SESSION['call_time'] = $_POST['time'];
+                $_SESSION['fname'] = $_POST['fname'];
+                $_SESSION['phno'] = $PhoneNumber;
 
                 
 
@@ -37,13 +40,23 @@ if (session_status() === PHP_SESSION_NONE) {
                 
 
                 insert_in_order_table($item_ids , $itm_quantity, $address, 'cod' , $PhoneNumber , $total_price );
-                unset($_SESSION['cart']);
-                header('Content-Type: application/json');
-                $res = array(
-                    'text' => 'placed'
-                );
-                echo json_encode($res);
+                if(send_gen_order_email()){
+                    unset($_SESSION['cart']);
+                    header('Content-Type: application/json');
+                    $res = array(
+                        'text' => 'placed'
+                    );
+                    echo json_encode($res);
                 return;
+                }
+                
+
+                // header('Content-Type: application/json');
+                // $res = array(
+                //     'text' => 'placed'
+                // );
+                // echo json_encode($res);
+                // return;
                 
         }else{
             header('Content-Type: application/json');
@@ -75,14 +88,14 @@ if (session_status() === PHP_SESSION_NONE) {
         $con = connect_to_db();
         for($i = 0 ; $i<count($total_price) ; $i++){
             $sql = "INSERT INTO corder (CustomerId, TotalPrice , PlacedOn, OrderStatus, ProductId, Quantity, DeliveryAddress, PhoneNumber )
-            VALUES('{$_SESSION['userId']}', '$total_price[$i]','$date', 'Placed','$item_ids[$i]' , '$itm_quantity[$i]' , '$address' , '$PhoneNumber' )";
+            VALUES('{$_SESSION['userId']}', '$total_price[$i]','$date', 'Pending','$item_ids[$i]' , '$itm_quantity[$i]' , '$address' , '$PhoneNumber' )";
 
             // decrease_quantity($item_ids[$i], $itm_quantity[$i]);
             mysqli_query($con, $sql );
         }
         $con->close();
         
-
+        return 1;
     }   
     function decrease_quantity($proId, $quantity){
         $con = connect_to_db();

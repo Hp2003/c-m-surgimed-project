@@ -51,8 +51,6 @@ function renderProducts(data, customIndex = 0 , remove = true){
                     <p class='card-text'>Rs ${element.ProductPrice}</p>
                         <a href='' onclick="get_details(event, this, ${currentoffsetSearch})"><input type='submit' name='detail' value='Detail' class='button outline' ></a>
                         <input type='button' name='addtocart' value='Buy Now' class='button fill  ' onClick='addToCart(event, this, ${currentoffsetSearch})'>
-                        <a href='details.php?product_id=]'><input type='submit' name='detail' value='Delete' class='button outline deleteProBtn'></a>
-                        <input type='submit' name='' value='Edit' class='button fill editProduct'>
                     <input type='hidden' name='Item_Name' value='${element.ProductTitle}'>
                     <input type='hidden' name='Item_Price' value='${element.ProductPrice}'>
                     <input type='hidden' name='item_Id' value='${element.ProductId}'class='Item_id'>

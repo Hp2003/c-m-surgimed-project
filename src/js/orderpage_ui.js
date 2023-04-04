@@ -1,3 +1,4 @@
+
 function showOrderPage(event, btn) {
   document.body.style.backgroundColor = "white";
   event.preventDefault();
@@ -84,4 +85,8 @@ function cancelOrder(event, btn, index) {
       btn.disabled = true;
     }
   });
+}
+
+function filterProducts(event, btn){
+
 }

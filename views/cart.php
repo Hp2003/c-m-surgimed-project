@@ -67,25 +67,24 @@
 					<?php
 						if(isset($_SESSION['cart']) && count($_SESSION['cart'])>0){
 					?>
-					<form action="purchase.php" method="post">
+					<form action="purchase.php" method="post" id="purchaseForm">
 						<div class="form-group">
 							<label>Full Name</label>
 							<input type="text" name="fname" class="form-control fname" required>
 						</div>
 						<div class="form-group">
 							<label>Phone Number</label>
-							<input type="number" name="pno" class="form-control pno" required>
+							<input type="number" name="phone_number" class="form-control pno" required>
 						</div>
 						<div class="form-group">
 							<label>Address</label>
-							<input type="text" name="add" class="form-control add" required>
+							<input type="text" name="address" class="form-control add" required>
 						</div>
-					<!-- <div>
-						<input type="radio" name="payment" value="cod" required>
-						<label>Cash On Delivery</label><br>
-						<input type="radio" name="payment" value="online" required>
-						<label>Online Payment</label>
-					</div> -->
+						<div class="form-group">
+							<label>When would you like to get call from admin</label>
+							<input type="time" name="time" class="form-control add time-min" step= '60' value="09:00" required>
+						</div>
+
 					<input type="submit" class="btn btn-primary btn-block my-2" name="purchase" value="Make Purchase" onclick="placeOrder(event,this)">
 					</form>
 					<?php } ?>

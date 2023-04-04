@@ -33,7 +33,12 @@ if (session_status() == PHP_SESSION_NONE) {
         $con = connect_to_db();
         $response = array();
 
-        $sql = "SELECT corder.OrderId, product.ProductTitle , corder.* FROM corder JOIN product ON corder.ProductId = product.ProductId WHERE corder.CustomerId = '{$_SESSION['userId']}';";
+        // $sql = "SELECT corder.OrderId, product.ProductTitle , corder.* FROM corder JOIN product ON corder.ProductId = product.ProductId WHERE corder.CustomerId = '{$_SESSION['userId']} ' DESC;";
+        $sql = "SELECT corder.OrderId, product.ProductTitle, corder.* 
+        FROM corder 
+        JOIN product ON corder.ProductId = product.ProductId 
+        WHERE corder.CustomerId = '{$_SESSION['userId']}' 
+        ORDER BY corder.OrderId DESC ";
 
         $res = mysqli_query($con , $sql);
         $con->close();

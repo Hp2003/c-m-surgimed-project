@@ -24,7 +24,7 @@
 						<li><a href="#">Payment</a></li>
 						<li><a href="#">Returns</a></li>
 						<!-- <li><a href="#"></a></li> -->
-						<li><a href="#">payment option</a></li>
+						<li><a href="/change_password">Change Password</a></li>
 					</ul>
 				</div>
 				<div class="footer-col">
@@ -75,9 +75,12 @@
 <script src="../src/js/Alert.js"></script>
 <script src="../src/js/confirmbox.js"></script>
 <?php 
+if(isset($IsAdmin) ){
 	if($IsAdmin == false){
 		echo '<script src="../src/js/searchProduct.js"></script>';
 	}
+}
+
 ?>
 
 <script src="../src/js/orderpage_ui.js"></script>

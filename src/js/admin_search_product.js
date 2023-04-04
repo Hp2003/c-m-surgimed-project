@@ -1,5 +1,4 @@
 {
-
 let searchBtn = document.querySelector('.serachBtn')
 let searchInput ;
 let currentoffsetSearch  = 0;

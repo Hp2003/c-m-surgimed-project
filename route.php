@@ -76,6 +76,10 @@ else if ($request ===  '/report') {
         }
     }
 
+}  
+else if (strpos($_SERVER['REQUEST_URI'], '/gen_order_email') === 0) {
+        require_once('src/genrate_email.php');
+    
 }
 else if ($_SERVER['REQUEST_URI'] === '/forgot_password' ) {
         include ('handlers/forgot_password_handler.php');
@@ -169,12 +173,21 @@ else if($request == '/error'){
                 
         }
     }
+    // if ($_SERVER['REQUEST_URI'] ===  '/api/send_order_details') {
+    //         if($_SERVER['REQUEST_METHOD'] === "POST"){
+    //             require_once('src/generate_email.php');
+    //             gen_order_email();
+                
+    //     }
+    // }
     if (strpos($_SERVER['REQUEST_URI'], '/api/place_order') === 0) {
             if($_SERVER['REQUEST_METHOD'] === "POST"){
                 require_once('src/place_order.php');
                 place_order();
         }
     }
+
+
     if (strpos($_SERVER['REQUEST_URI'], '/api/order_page') === 0) {
             if($_SERVER['REQUEST_METHOD'] === "POST"){
                 require_once('src/show_orders.php');
