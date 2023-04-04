@@ -1,11 +1,12 @@
 <?php 
     include '../vendor/autoload.php';
+    include '../src/connection.php';
     use Faker\Factory;
-
     $faker = Factory::create();
     
     function random_user_gen(){
         // Database connection details
+        $faker = \Faker\Factory::create();
         $dsn = 'mysql:host=localhost;dbname=mydatabase';
         $username = 'myusername';
         $password = 'mypassword';
@@ -13,68 +14,70 @@
         
         $genArray = array("MALE", "FEMALE");
         
-        for ($i = 0; $i < 10; $i++) {
+        
+        $dates = gen_timestamp_in_sequence();
+
+        $con = connect_to_db();
+        for ($i = 0; $i < count($dates); $i++) {
             $username = $faker->userName;
             $fname = $faker->firstName;
             $lname = $faker->lastName;
             $password = $faker->password;
             $email = $faker->email;
+            $address = $faker->address;
             $phoneNumber = $faker->numberBetween(1000000000, 9999999999);
+            $gender = $faker->randomElement(['MALE', 'FEMALE']);
             // $
-            $registration_time = $faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d H:i:s');
-            echo $username . "\n";
-            echo $fname . "\n";
-            echo $lname . "\n";
-            echo $email . "\n";
-            echo $password . "\n";
-            echo $phoneNumber . "\n";
-            echo $gender . "\n";
-            echo $registration_time . "\n\n";
+            // $registration_time = $faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d H:i:s');
+            $profile;
+            if($gender == 'MALE'){
+                $profile = './img/defaultIMG/Default_male.jpg';
+            }else{
+                $profile = './img/defaultIMG/Default_fmale.jpg';
+            }
+            $dob = $faker->dateTimeBetween('-90 years', '-18 years');
+            $dobreal = $dob->format('Y-m-d');
+            $sql = $con->prepare("INSERT INTO users (UserName, FirstName, LastName, MobileNumber, Email, AccountPassword, UserAddress, ProfilePicture, Dob, Gender, JoinedAt)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+
+            $sql->bind_param('sssssssssss', $username, $fname, $lname, $phoneNumber, $email, $password, $address, $profile,  $dobreal, $gender, $dates[$i]);
+            
+            $sql->execute();
             
         }
         echo "Fake users added to database successfully!";
     }
     
-    function time_stamp_generator(){
-        $faker = Factory::create();
-        $month_start = strtotime('2020-02-01');
-        $month_end = strtotime('2020-03-31');
+    // function time_stamp_generator(){
+    //     $faker = Factory::create();
+    //     $month_start = strtotime('2020-02-01');
+    //     $month_end = strtotime('2020-03-31');
 
-        $registered_users_count = 0;
+    //     $registered_users_count = 0;
 
-        while ($registered_users_count < 20) {
-            $registration_time = $faker->dateTimeBetween(date('Y-m-d', $month_start), date('Y-m-d', $month_end))->format('Y-m-d H:i:s');
+    //     while ($registered_users_count < 20) {
+    //         $registration_time = $faker->dateTimeBetween(date('Y-m-d', $month_start), date('Y-m-d', $month_end))->format('Y-m-d H:i:s');
             
-            // Insert the registration time into the database here
+    //         // Insert the registration time into the database here
             
-            // Count the number of registered users in the month
-            echo $registration_time . "\n\n";
-            $registered_users_count ++;
-        }
+    //         // Count the number of registered users in the month
+    //         echo $registration_time . "\n\n";
+    //         $registered_users_count ++;
+    //     }
 
-        echo "At least 20 users registered in the month of January 2020.";
-    }
+    //     echo "At least 20 users registered in the month of January 2020.";
+    // }
     function gen_timestamp_in_sequence(){
         $faker = Factory::create();
 
         $countOfTime = 0;
-        // while ($date <= $month_end ) {
-        //     if(rand(0,1) == 0){
-        //         $date += rand(86400, 86400); // skip a random number of days
-        //         continue;
-        //     }
-        //     $registration_time = date('Y-m-d H:i:s', $date);
-        //     echo $registration_time . "\n";
-        //     // $count ++;
-        //     $date += rand(60, 360); // increment time by a random number of seconds
-        //     $count ++;
-        // }
 
-        $month_start = strtotime('2022-02-01');
-        $month_end = strtotime('2022-02-31');
+        $dates = array();
+        $month_start = strtotime('2022-01-01');
+        $month_end = strtotime('2023-02-31');
 
         // Generate between 300 and 500 timestamps
-        $count = rand(100, 300);
+        $count = rand(500, 800);
 
         // Generate timestamps
         $timestamps = array();
@@ -97,11 +100,10 @@
             $countOfTime ++;
         }
         sort($timestamps);
-        print_r($timestamps);
-
-        echo "Total $countOfTime";
+        
+        return $timestamps;
 
 
     }
-    gen_timestamp_in_sequence();
+    random_user_gen();
 ?>
