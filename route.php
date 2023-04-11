@@ -159,6 +159,15 @@ else if($request == '/error'){
                 search();
         }
     }
+    if ($_SERVER['REQUEST_URI'] === '/api/get_report') {
+        if(isset($_SESSION['IsAdmin'] )){
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once('src/admin_report_generator/report_generator_main.php');
+                gen_report_main();
+        }
+        }
+
+    }
     if (strpos($_SERVER['REQUEST_URI'], '/api/get_details_page') === 0) {
             if($_SERVER['REQUEST_METHOD'] === "POST"){
                 require_once('src/give_details.php');

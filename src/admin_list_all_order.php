@@ -62,7 +62,7 @@
         WHERE (@searchId IS NOT NULL AND CustomerId = @searchId AND (@var IS NULL OR OrderStatus = @var))
         OR (@var IS NOT NULL AND OrderStatus = @var AND (@searchId IS NULL OR CustomerId = @searchId))
         OR (@var IS NULL AND @searchId IS NULL)
-        ORDER BY OrderId DESC
+        ORDER BY PlacedOn DESC
         LIMIT 50 OFFSET ? ;");
 
         $sql->bind_param('i', $offset);
