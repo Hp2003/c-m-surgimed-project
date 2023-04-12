@@ -33,7 +33,7 @@
 						<li><a href="#">chair</a></li>
 						<li><a href="#">stracher</a></li>
 						<li><a href="#">stool</a></li>
-						<li><a href="#">bad</a></li>
+						<li><a href="#">beds</a></li>
 					</ul>
 				</div>
 				<div class="footer-col">

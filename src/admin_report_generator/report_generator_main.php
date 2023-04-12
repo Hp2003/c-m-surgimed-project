@@ -76,6 +76,32 @@
 
                     array_push($res1, get_details($mainId , $status, $startTime, $endTime, $subId, $productId, $userId, $offset) );
                 }
+                if($desicion == 'product_with_id'){
+                    // getting summery first time only
+                    if(!empty($_POST['get_summery']) ){
+                        // $subs = get_all_productids($subId);
+                            array_push($res, get_sum_of_category(null , $status, $startTime, $endTime, null, $productId, $userId));
+                    }
+
+                    array_push($res1, get_details(null , $status, $startTime, $endTime, null, $productId, $userId, $offset) );
+                }
+
+                if($desicion == 'default_view'){
+                    header('Content-Type: application/json');
+                $main_cats = get_all_main_categorys();
+
+                $Details = array();
+                foreach($main_cats as $row){
+                    array_push($Details,get_sum_of_category($row['MainCategoryId'], $status,$startTime, $endTime, null,null, $userId ));
+                }
+                $res = array( 
+                    'data' => get_sum_of_category(null, $status,  $startTime, $endTime, null,null, $userId),
+                    'data1' => $Details,
+                    'desicion' => $desicion
+                );
+                echo json_encode($res);
+                return;
+                }
                 header('Content-Type: application/json');
                 $data = array(
                     'data' => $res,
@@ -89,11 +115,18 @@
         }
     }
     function desicion_maker($mainId, $subId, $productId, $userId){
+        if(trim($productId) != '' && $productId != null  ){
+            return 'product_with_id';
+        }
         if($mainId != null && $subId == NULL ){
             return 'main_with_rows';
         }
         elseif($mainId != null && $subId != NULL ){
             return 'sub_with_rows';
         }
+        elseif($mainId == null && $subId == NULL && $productId == null ){
+            return 'default_view';
+        }
+        
     }
 ?>

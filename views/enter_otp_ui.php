@@ -1,6 +1,4 @@
-<?php 
-    echo $_SESSION['OTP'];
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

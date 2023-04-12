@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Report Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
   <div class="container pagination-btn" style="min-height: 300px;">
@@ -65,7 +66,34 @@
 		</select> -->
 		<div class="container text-center mt-5"><h3>Summery</h3></div>
 		<!-- Shows total -->
+		<div class="col-lg-9 container-fluid m-0 report-btns" style="width:100%">
+		<table class="table">
+				<thead>
+					<tr class="text-center " >
+						<th scope="col">Combine Revenue </th>
+						<th scope="col">Combine selling</th>
+						<th scope="col">Combine Cancelled</th>
+						<!-- <th scope="col">Quantity sold</th> -->
+						<!-- <th scope="col">Revenue</th>
+						<th scope="col">Cancelled Units</th>
+						<th scope="col">Total</th> -->
+					</tr>
+				</thead>
+				<tbody class="text-center ">
+					<tr>
+						<td><button type="button" class="btn btn-outline-warning combineRevBtn" onclick = "genrateCombineRevenue(event, this, true)"><i class="fa fa-pie-chart" aria-hidden="true"></i></button></td>
+						<td><button type="button" class="btn btn-outline-success combineSellingBtn" onclick = "genrateCombineSelling(event, this, true)"><i class="fa fa-pie-chart" aria-hidden="true"></i></button></td>
+						<td><button type="button" class="btn btn-outline-danger combineCancelledBtn" onclick = "genrateCombineCancelled(event, this, true)"><i class="fa fa-pie-chart" aria-hidden="true"></i></button></td>
+						<!-- <td><button type="button" class="btn btn-outline-" onclick = "genrateCombineChart(event, this)"><i class="fa fa-pie-chart" aria-hidden="true"></i></button></td> -->
+						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<hr style="border:3px dashed black" class="mt-3">
+
 		<div class="col-lg-9 container-fluid m-0" style="width:100%">
+		
 			<table class="table">
 				<thead>
 					<tr class="text-center header-summary" >
@@ -76,12 +104,6 @@
 						<th scope="col">Revenue</th>
 						<th scope="col">Cancelled Units</th>
 						<th scope="col">Total</th>
-						<!-- <th scope="col">Cancelled Orders</th> -->
-						<!-- <th scope="col">Status</th>
-						<th scope="col">Total price</th> -->
-						<!-- <th scope="col">Total Orders</th> -->
-						<!-- <th scope="col">Gender</th> -->
-						<!-- <th scope="col">Deleted</th> -->
 					</tr>
 				</thead>
 				<tbody class="text-center summery-tableBody">
@@ -156,10 +178,13 @@
 </div>
     <!-- Axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<!-- Chart.js -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	
 	<script src="../../src/js/report_generator/table_generator.js"></script>
 	<script src="../../src/js/report_generator/render_data.js"></script>
 	<script src="../../src/js/report_generator/report_gen.js"></script>
+	<script src="../../src/js/report_generator/generate_pi_chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
   </body>
 </html>

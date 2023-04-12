@@ -3,10 +3,18 @@ function fillMainCategorys() {
   let formData = new FormData();
   let container = document.querySelector(".main_category");
   formData.append("process", "get_main_categorys");
-  // container.innerHTML = ;
+		container.innerHTML = '<option value="" selected>Default</option>'
+    let select = true;
   axios.post("/api/get_report", formData).then((Response) => {
+    
     Response.data.data.forEach((element, index) => {
-      container.innerHTML += `<option value="${element.MainCategoryId}" >${element.MainCategoryName}</option>`;
+      if(select == true){
+        container.innerHTML += `<option value="${element.MainCategoryId}" selected>${element.MainCategoryName}</option>`;
+        select = false;
+        return;
+      }else{
+        container.innerHTML += `<option value="${element.MainCategoryId}">${element.MainCategoryName}</option>`;
+      }
     });
   });
 }
@@ -36,37 +44,12 @@ function getSubCategory(e, btn) {
 
 function rednerDefaultView() {
   let formData = new FormData();
+  let form = document.querySelector('.reportForm');
   formData.append("process", "start_page");
 
   axios
     .post("/api/get_report", formData)
-    .then((Response) => {
-      // console.log(Response.data.data1)
-      genrateHeaderSummary([
-        "Serial No.",
-        "Id",
-        "Name",
-        "Units Sold",
-        "Revenue",
-        "Cancelled Orders",
-        "Total",
-      ]);
-      genrateHeaderDetails([
-        "Serial No.",
-        "Id ",
-        "Name",
-        "Placed Orders",
-        "Revenue",
-        "Placed On",
-        "Cancelled",
-        "Units",
-      ]);
-      renderDetailView(Response.data.data);
-      renderSummeryView([Response.data.data1]);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    makeRequest(form);
 }
 rednerDefaultView();
 
@@ -136,7 +119,7 @@ function makeRequest(data) {
   // console.log(formData);
   axios.post("/api/get_report", formData).then((Response) => {
     currentOffset = 0;
-    console.log('in');
+    console.log(Response.data);
     genTableFromDesicion(Response.data, true);
 
   });

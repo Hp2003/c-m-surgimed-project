@@ -19,13 +19,13 @@
 			</div>
 			<div class="item"><a href="" onclick="getAllOrders(event)"><i class="fas fa-th" ></i>All Orders</a></div>
 			<div class="item"><a href="/report" onclick=""><i class="fa fa-line-chart" aria-hidden="true"></i>Report</a></div>
-			<div class="item">
+			<!-- <div class="item">
 				<a class="sub-btn"><i class="fas fa-cogs"></i>Settings<i class="fas fa-angle-right dropdown"></i></a>
 				<div class="sub-menu">
 					<a href="" class="sub-item">sub item 01</a>
 					<a href="" class="sub-item">sub item 02</a>
 				</div>
-			</div>
+			</div> -->
 			<!-- <div class="item"><a href=""><i class="fas fa-info-circle"></i>About Us</a></div> -->
 		</div>	
 	</div>
