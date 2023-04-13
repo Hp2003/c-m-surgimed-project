@@ -18,7 +18,6 @@
 						<!-- <option value="" selected>Default</option> -->
 					</select>
 				</div>
-				<!-- <input type="submit" name="edit_category" value="Search" class="btn btn-info px-3 mb-3 searchCategory"> -->
 				<div class="form-outline mb-4 w-50 m-auto">
 					<label class="form-label">Sub Category</label>
 					<select class="form-select sub_category"  name = "sub_category" aria-label="Default select example">
@@ -64,10 +63,10 @@
 			<option value="new" id="new" name="selectOder">Placed Only</option>
 			<option value="deleted" id="new" name="selectOder"></option>
 		</select> -->
-		<div class="container text-center mt-5"><h3>Summery</h3></div>
 		<!-- Shows total -->
+		<div class="container text-center mt-5"><h3>Pi Charts</h3></div>
 		<div class="col-lg-9 container-fluid m-0 report-btns" style="width:100%">
-		<table class="table">
+			<table class="table">
 				<thead>
 					<tr class="text-center " >
 						<th scope="col">Combine Revenue </th>
@@ -90,7 +89,11 @@
 				</tbody>
 			</table>
 		</div>
+		<!-- <div class="container text-center mt-5"><h3>Line Graph</h3> -->
+		<button type="button" class="btn btn-outline-primary" onclick="window.open(this.href,'_blank','width=500,height=500');return false;"><i class="fa fa-line-chart" aria-hidden="true"></i></button>
+
 		<hr style="border:3px dashed black" class="mt-3">
+		<div class="container text-center mt-5"><h3>Summery</h3></div>
 
 		<div class="col-lg-9 container-fluid m-0" style="width:100%">
 		
@@ -182,6 +185,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	
 	<script src="../../src/js/report_generator/table_generator.js"></script>
+	<script src="../../src/js/report_generator/line_graph_gen.js"></script>
 	<script src="../../src/js/report_generator/render_data.js"></script>
 	<script src="../../src/js/report_generator/report_gen.js"></script>
 	<script src="../../src/js/report_generator/generate_pi_chart.js"></script>

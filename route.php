@@ -77,6 +77,12 @@ else if ($request ===  '/report') {
     }
 
 }  
+else if ($_SERVER['REQUEST_URI'] === '/graph_genrator') {
+    if(isset($_SESSION['IsAdmin'] )){
+            require_once('src/admin_report_generator/graph_gen_main.php');
+            graph_gen_main();
+    }
+}
 else if (strpos($_SERVER['REQUEST_URI'], '/gen_order_email') === 0) {
         require_once('src/genrate_email.php');
     
@@ -166,8 +172,8 @@ else if($request == '/error'){
                 gen_report_main();
         }
         }
-
     }
+
     if (strpos($_SERVER['REQUEST_URI'], '/api/get_details_page') === 0) {
             if($_SERVER['REQUEST_METHOD'] === "POST"){
                 require_once('src/give_details.php');

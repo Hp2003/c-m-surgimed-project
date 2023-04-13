@@ -12,6 +12,7 @@ document.querySelector('.getUserBtn').addEventListener('click', (e)=>{
     currentUsrCount = 0;
     condition = 'normal';
     axios.post('/api/list_all_user', formData).then(response =>{
+      
       document.body.style.backgroundColor = 'white';
       console.log(response.data.userData);
       renderUserTable(response.data.html);
@@ -60,27 +61,39 @@ function createUserDataTable(data ,firstTime = false){
 						<td >${Element.LastName}</td>
 						<td >${Element.Email}</td>
 						<td >${Element.order_count}</td>
+						<td >${Element.JoinedAt}</td>
 						
 						<td >${Element.Gender}</td>
+						<td >${Element.IsDeleted}</td>
 						
 						<td>${
                             Element.IsDeleted == true? `<form action='manage_cart.php' method='post'>
-                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled' onclick="removeUser(event, this, ${currentUsrCount})"><i
+                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled del' onclick="removeUser(event, this, ${currentUsrCount})"><i
                                     class='fa-solid fa-trash'></i></button>
                             <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                         </form>
 
                     </td>`:`<form action='manage_cart.php' method='post'>
-                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger' onclick="removeUser(event, this, ${currentUsrCount})"><i
+                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger del' onclick="removeUser(event, this, ${currentUsrCount})"><i
                                     class='fa-solid fa-trash'></i></button>
                             <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                         </form>
 
                     </td>`
                         }
-                       
-                        
-                        
+                        <td>${
+                            Element.IsDeleted == false? `<form action='manage_cart.php' method='post'>
+                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled reopen' onclick="OpenAccount(event, this, ${currentUsrCount})"><i class='fas fa-door-open'></i></button>
+                            <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
+                        </form>
+    
+                    </td>`:`<form action='manage_cart.php' method='post'>
+                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger reopen' onclick="OpenAccount(event, this, ${currentUsrCount})"><i class='fas fa-door-open'></i></button>
+                            <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
+                        </form>
+    
+                    </td>`
+                        }
 							
 					</tr>
     `;
@@ -149,15 +162,17 @@ if(condition == 'normal'){
 
 }
 function searchUser(event){
-    if(event.keyCode === 13 ){
+    event.preventDefault();
+    console.log('in');
         let id = document.querySelector('.search_user_input').value;
-        if(id == ""){
+        if(id.trim() != ""){
             let formData = new FormData();
 
             formData.append('process_for_all_user_page', 'get_ui');
             formData.append('offset', 0);
             currentUsrCount = 0;
             axios.post('/api/list_all_user', formData).then(response =>{
+                
             document.body.style.backgroundColor = 'white';
             // console.log(response.data.userData);
             renderUserTable(response.data.html);
@@ -165,7 +180,6 @@ function searchUser(event){
                 event.preventDefault();
                 return 0;
             })
-        }
         if(id[0] == '#'){
             if(/^#!:\d+$/.test(id) ){
                 searchUserWithIdName(id, 'searchWithUserId');
@@ -187,13 +201,13 @@ function searchUser(event){
         }  
 
         
-        event.preventDefault();
         // formData.append('id', )
     }
     // console.log('he')
 
 }
 function searchUserWithIdName(id, process){
+
     let formData = new FormData()
     formData.append('id', id);
     formData.append('offset', 0);
@@ -203,6 +217,8 @@ function searchUserWithIdName(id, process){
             createAlert('warning', 'User not found!', '') ;
 
         }else{
+            currentUsrCount = 0;
+
             if(process == 'searchWithUserName'){
                 // console.log(response.data.userData)
                 if(response.data.userData == 'UserNotFound'){
@@ -213,6 +229,8 @@ function searchUserWithIdName(id, process){
                 currentUsrCount = 0
                 createUserDataTable(response.data.userData, true);
             }if(process == 'searchWithUserId'){
+            currentUsrCount = 0;
+
                 listSingleUser(response.data.userData);
             }
         }
@@ -230,18 +248,32 @@ function listSingleUser(data){
                     <td >${data.LastName}</td>
                     <td >${data.Email}</td>
                     <td >${data.order_count}</td>
-                    
+                    <td >${data.JoinedAt}</td>
                     <td >${data.Gender}</td>
+                    <td >${data.IsDeleted}</td>
                     <td>${
                         data.IsDeleted == true? `<form action='manage_cart.php' method='post'>
-                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled' onclick="removeUser(event, this, ${currentUsrCount})"><i
+                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled del' onclick="removeUser(event, this, ${currentUsrCount})"><i
                                 class='fa-solid fa-trash'></i></button>
                         <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                     </form>
 
                 </td>`:`<form action='manage_cart.php' method='post'>
-                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger' onclick="removeUser(event, this, ${currentUsrCount})"><i
+                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger del' onclick="removeUser(event, this, ${currentUsrCount})"><i
                                 class='fa-solid fa-trash'></i></button>
+                        <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
+                    </form>
+
+                </td>`
+                    }
+                    <td>${
+                        data.IsDeleted == false? `<form action='manage_cart.php' method='post'>
+                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled reopen' onclick="OpenAccount(event, this, ${currentUsrCount})"><i class='fas fa-door-open'></i></button>
+                        <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
+                    </form>
+
+                </td>`:`<form action='manage_cart.php' method='post'>
+                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger reopen' onclick="OpenAccount(event, this, ${currentUsrCount})"><i class='fas fa-door-open'></i></button>
                         <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                     </form>
 
@@ -282,12 +314,35 @@ function removeUser(e, btn, index){
             console.log(response);
             if(response.data.userData == true ){
                 createAlert('success', `User ${idS[index].value} Removed success fully!`, '');
-
+                document.querySelectorAll('.del')[index].classList.add('disabled');
+                document.querySelectorAll('.reopen')[index].classList.remove('disabled');
             }else{
                 createAlert('warning', `Failed Removing User ${idS[index].value} `, '');
             }
         })
     }
 
+}
+function OpenAccount(e,btn,index){
+    e.preventDefault();
+    const idS = document.querySelectorAll('.userId');
+    let formData = new FormData();
+
+    formData.append('process_for_all_user_page', 'reopenaccount');
+    console.log(index)
+    formData.append('uid', idS[index].value)
+    if(window.confirm('do you really want to re-open UserId : ' + idS[index].value)){
+        axios.post('/api/list_all_user', formData).then(response =>{
+            console.log(response);
+            if(response.data.userData == true ){
+                createAlert('success', `User ${idS[index].value} Reopened success fully!`, '');
+                document.querySelectorAll('.reopen')[index].classList.add('disabled');
+                document.querySelectorAll('.del')[index].classList.remove('disabled');
+
+            }else{
+                createAlert('warning', `Failed Removing User ${idS[index].value} `, '');
+            }
+        })
+    }
 }
 }

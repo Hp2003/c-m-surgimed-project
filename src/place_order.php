@@ -87,8 +87,8 @@ if (session_status() === PHP_SESSION_NONE) {
         $date = date("Y/m/d");
         $con = connect_to_db();
         for($i = 0 ; $i<count($total_price) ; $i++){
-            $sql = "INSERT INTO corder (CustomerId, TotalPrice , PlacedOn, OrderStatus, ProductId, Quantity, DeliveryAddress, PhoneNumber )
-            VALUES('{$_SESSION['userId']}', '$total_price[$i]','$date', 'Pending','$item_ids[$i]' , '$itm_quantity[$i]' , '$address' , '$PhoneNumber' )";
+            $sql = "INSERT INTO corder (CustomerId, TotalPrice , PlacedOn, OrderStatus, ProductId, Quantity, DeliveryAddress, PhoneNumber,Price )
+            VALUES('{$_SESSION['userId']}', '$total_price[$i]','$date', 'Pending','$item_ids[$i]' , '$itm_quantity[$i]' , '$address' , '$PhoneNumber' , '{$_SESSION['cart'][$i]['Item_Price']}')";
 
             // decrease_quantity($item_ids[$i], $itm_quantity[$i]);
             mysqli_query($con, $sql );

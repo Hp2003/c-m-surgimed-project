@@ -8,13 +8,16 @@
 				</div>
 				<input type="submit" name="search_order" value="Search" onClick = "serachOrder(event)"class="btn btn-info px-3 mb-3 searchCategory SubmitCusId">
 			</form>
+			<div class="container">
+				<select name="orderStatus" class=" form-select orderStatus"id="" aria-label="Default select example" onchange="filterOrders(event,this)">
+					<option value="Default" class="default-selection"selected="selected">Default</option>
+					<option value="Cancelled">Cancelled</option>
+					<option value="Pending">Pending</option>
+					<option value="Placed">Placed</option>
+				</select>
+			</div>
 		</div>
-		<select name="orderStatus" class="orderStatus"id="" onchange="filterOrders(event,this)">
-			<option value="Default">Default</option>
-			<option value="Cancelled">Cancelled</option>
-			<option value="Pending">Pending</option>
-			<option value="Placed">Placed</option>
-		</select>
+
 		<div class="col-lg-9 container-fluid m-0" style="width:100%">
 			<table class="table">
 				<thead>

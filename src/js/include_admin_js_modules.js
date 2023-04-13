@@ -425,7 +425,7 @@ function renderProductsWithCat(data, records) {
 }
 
 let currentOffsetAllOrders = 0;
-let currentStatusSearch = null;
+let currentStatusSearch = 'Default';
 let currentSearch = null;
 function getAllOrders(event) {
   currentOffsetAllOrders = 0;
@@ -442,6 +442,7 @@ function getAllOrders(event) {
     renderEditCategoryPage(Response.data.html);
     document.querySelector(".orderStatus").value = currentStatusSearch;
     renderOrders(Response.data.orderData);
+    document.querySelector('.default-selection').selected = true;
     console.log(Response.data.orderData);
   });
 }
@@ -451,7 +452,7 @@ function renderOrders(data) {
   data.forEach((element, index) => {
     container.innerHTML += `<tr>
         <td>${++currentOffsetAllOrders}</td>
-        <td>${element.OrderId}</td>
+        <td>${element.ProductId}</td>
         
         <td>${
           element.CustomerId

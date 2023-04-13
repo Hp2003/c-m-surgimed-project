@@ -3,17 +3,17 @@
 		<div class="col-lg-12 text-center border rounded bg-light my-5">
 			<form action="" method="post" class="text-center searchCatForm">
 				<div class="form-outline mb-4 w-50 m-auto">
-					<label class="form-label">Category Title</label>
-					<input type="text" name="category_name" value="" id="category_name" class="form-control search_user_input" onkeydown="searchUser(event)" required>
+					<h2 class="text-black">User List</h2>
+					<input type="text" name="User Id" placeholder="Enter user id"value="" id="category_name" class="form-control search_user_input"  required>
 				</div>
-				<input type="submit" name="edit_category" value="Search" class="btn btn-info px-3 mb-3 searchCategory">
+				<input type="submit" name="edit_category" value="Search" class="btn btn-info px-3 mb-3 searchCategory" onclick="searchUser(event)">
 			</form>
+			<select name="order" id="" class="orderBy form-select" aria-label="Default select example" onChange="orderBy(event, this)">
+				<option value="old" id="old" name="selectOder">Old First</option>
+				<option value="new" id="new" name="selectOder">New First</option>
+				<option value="deleted" id="new" name="selectOder">deleted</option>
+			</select>
 		</div>
-		<select name="order" id="" class="orderBy" onChange="orderBy(event, this)">
-			<option value="old" id="old" name="selectOder">Old First</option>
-			<option value="new" id="new" name="selectOder">New First</option>
-			<option value="deleted" id="new" name="selectOder">deleted</option>
-		</select>
 		<div class="col-lg-9 container-fluid m-0" style="width:100%">
 			<table class="table">
 				<thead>
@@ -25,10 +25,12 @@
 						<th scope="col">Last Name</th>
 						<th scope="col">Email</th>
 						<th scope="col">Orders Placed</th>
+						<th scope="col">Joined At</th>
 						<!-- <th scope="col">Total Orders</th> -->
 						<th scope="col">Gender</th>
-						<!-- <th scope="col">Deleted</th> -->
+						<th scope="col">Deleted</th>
 						<th scope="col">Remove</th>
+						<th scope="col">Re-Open</th>
 					</tr>
 				</thead>
 				<tbody class="text-center tableBody">

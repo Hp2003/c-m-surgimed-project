@@ -80,7 +80,9 @@ function genTableFromDesicion(data, removePrev){
         }
     }
     else if(data.desicion == 'product_with_id'){
+        let listClasses = ['title','units-sold-main', 'revenue-main', 'cancelled-orders']
         document.querySelector('.report-btns').style.display = 'none';
+        console.log('with id')
         // document.querySelector('.combineRevBtn').removeAttribute('onclick');
         // document.querySelector('.combineRevBtn').setAttribute('onclick', "genrateCombineRevenue(event, this)")
         // document.querySelector('.combineSellingBtn').removeAttribute('onclick')
@@ -92,12 +94,12 @@ function genTableFromDesicion(data, removePrev){
         // creating headers for summary table
         let con = document.querySelector(".summery-tableBody");
         con.innerHTML = '';
-        genrateHeaderSummary(['Serial No.', 'Id', 'Name', 'Units Sold', 'Revenue', 'Cancelled Orders']);
+        genrateHeaderSummary(['Serial No.', 'Id', 'Name', 'Units Sold', 'Revenue', 'Cancelled Orders','Pi Chart']);
         
         data.data.forEach((element, index) => {
             // console.log(index);
             let newDict = filterData(element, ['product_id', 'product_name', 'total_units_sold', 'total_selling', 'cancelled_orders']);
-            fillData(newDict, index + 1);
+            fillData(newDict, index + 1, listClasses, [2,3,4,5]);
         });
         // currentForm = data;
         console.log(data.data1);

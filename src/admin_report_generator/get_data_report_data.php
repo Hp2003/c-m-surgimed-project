@@ -44,7 +44,7 @@ function get_sum_of_category($main_id, $status, $start_date, $end_date,$sub_id =
 
     $sql = $con->prepare(
     "SELECT 
-    m3.`MainCategoryId` as main_category_id,
+        m3.`MainCategoryId` as main_category_id,
     c3.`CategoryName` as category_name,
     SUM(o3.`TotalPrice`) as total_selling,
     COUNT(*) as total_units_sold,
@@ -52,68 +52,60 @@ function get_sum_of_category($main_id, $status, $start_date, $end_date,$sub_id =
     o3.`OrderId` as `OrderId`,
     p3.ProductTitle as 'product_name',
     p3.ProductId as product_id,
-    p3.`CateGoryId` as category_id  , (  
+    p3.`CateGoryId` as category_id ,
+    (
         SELECT COUNT(*) 
-FROM corder o  
-JOIN product p ON o.ProductId = p.ProductId 
-JOIN category c ON p.CateGoryId = c.CategoryId  
-JOIN maincategory m ON m.`MainCategoryId` = c.`MainCategoryId`
-WHERE o.`OrderStatus` = 'Cancelled'
-AND o.`PlacedOn` BETWEEN @startDate AND @endDate 
-AND (
-    CASE
-        WHEN @UserId IS NOT NULL THEN o.`CustomerId` = @UserId
-        ELSE 1 = 1 
+        FROM corder o  
+        JOIN product p ON o.ProductId = p.ProductId  
+        JOIN category c ON p.CateGoryId = c.CategoryId  
+        JOIN maincategory m ON m.MainCategoryId = c.MainCategoryId
+        WHERE o.OrderStatus = 'Cancelled'
+        AND o.PlacedOn BETWEEN @startDate AND @endDate 
+        AND (
+            CASE
+                WHEN @UserId IS NOT NULL THEN o.CustomerId = @UserId
+                ELSE 1 = 1 
+            END
+        )
+        AND ( 
+            @ProductId IS NULL
+            OR o.ProductId = @ProductId 
+        )
+        AND (
+            @categoryId IS NULL
+            OR p.CategoryId = @categoryId 
+        )
+        AND (
+            @mainCategoryId IS NULL
+            OR c.MainCategoryId = @mainCategoryId
+        )
+    ) AS cancelled_orders
+FROM corder o3 
+JOIN product p3 ON o3.ProductId = p3.ProductId 
+JOIN category c3 ON p3.CategoryId = c3.CategoryId
+JOIN maincategory m3 ON m3.MainCategoryId = c3.MainCategoryId 
+WHERE o3.OrderStatus = 'Placed'  AND 
+ o3.PlacedOn BETWEEN @startDate  AND  @endDate  
+AND ( 
+    CASE 
+        WHEN @UserId IS NOT NULL THEN o3.CustomerId = @UserId 
+        ELSE 1 = 1   
     END
-)
-AND (
+) 
+AND (  
     @ProductId IS NULL
-    OR o.`ProductId` = @ProductId 
+    OR o3.ProductId = @ProductId  
 )
 AND (
     @categoryId IS NULL
-    OR p.`CategoryId` = @categoryId
+    OR p3.CategoryId = @categoryId  
 )
 AND (
     @mainCategoryId IS NULL
-    OR c.`MainCategoryId` = @mainCategoryId
-)) as cancelled_orders -- 2nd part 
-FROM corder o3 
-    JOIN product p3 ON o3.ProductId = p3.ProductId
-    JOIN category c3 ON p3.CateGoryId = c3.CategoryId
-    JOIN maincategory m3 ON m3.`MainCategoryId` = c3.`MainCategoryId` 
-WHERE 
- (
-        @ProductId IS NOT NULL
-        AND o3.`ProductId` = @ProductId
-        AND (
-            IFNULL( 
-                @mainCategoryId,
-                m3.`MainCategoryId`
-            ) = m3.`MainCategoryId`
-            OR @mainCategoryId IS NULL
-        )
-    )
-    AND o3.OrderStatus = IFNULL(@Status, o3.OrderStatus) COLLATE utf8mb4_unicode_ci
-    OR (
-        @ProductId IS NULL 
-        AND p3.`CateGoryId` = IFNULL(@categoryId, p3.`CateGoryId`)
-        AND (
-            IFNULL(
-                @mainCategoryId,
-                m3.`MainCategoryId`
-            ) = m3.`MainCategoryId`
-            OR @mainCategoryId IS NULL
-        )
-    )
-    AND o3.OrderStatus = IFNULL(@Status, o3.OrderStatus) COLLATE utf8mb4_unicode_ci
-    AND o3.`PlacedOn` BETWEEN @startDate AND @endDate
-    AND (
-        CASE
-            WHEN @UserId IS NOT NULL THEN o3.`CustomerId` = @UserId 
-            ELSE 1 = 1 
-        END
-    ) ORDER BY o3.`PlacedOn` LIMIT 100 OFFSET ? ;");
+    OR c3.MainCategoryId = @mainCategoryId
+)
+ORDER BY o3.PlacedOn
+LIMIT 100 OFFSET ?;");
 
     $sql->bind_param('i', $offset);
     $sql->execute();

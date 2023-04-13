@@ -3,7 +3,7 @@ function placeOrder(e,btn){
     e.preventDefault();
 
     let ids = document.querySelectorAll('.Item_Id');
-    let qty = document.querySelectorAll('.iqty')
+let qty = document.querySelectorAll('.iqty')
     const qtyArray = Array.from(qty).map(item => item.value);
     const idArray = Array.from(ids).map(item => item.value);
     const address = document.querySelector('.add').value;

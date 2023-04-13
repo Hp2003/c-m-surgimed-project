@@ -51,7 +51,8 @@ require_once('connection.php');
                     echo json_encode($resData);
                     return;
                 }
-            }if($_POST['process_for_all_user_page'] ==  'DeleteUser'){
+            }
+            if($_POST['process_for_all_user_page'] ==  'DeleteUser'){
                 if(isset($_POST['uid'])){
                     
                     header('Content-Type: application/json');
@@ -62,16 +63,84 @@ require_once('connection.php');
                     return;
                 }
             }
+            if($_POST['process_for_all_user_page'] ==  'reopenaccount'){
+                if(isset($_POST['uid'])){
+                    
+                    header('Content-Type: application/json');
+                    $resData = array(
+                        'userData' => re_open_account($_POST['uid'])
+                    );
+                    echo json_encode($resData);
+                    return;
+                }
+            }
         }
     }
     function get_all_use_data( $offset, $order = 'old'){
         $con = connect_to_db();
         if($order == 'new'){
-            $sql = $con->prepare("SELECT users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, corder.*, (SELECT COUNT(*) FROM corder WHERE CustomerId = users.UserId AND OrderStatus = 'Placed') AS order_count  FROM users LEFT JOIN corder ON users.UserId = corder.CustomerId ORDER BY UserId DESC LIMIT 25 OFFSET ?;");
+            $sql = $con->prepare("SELECT
+            users.UserName,
+            FirstName,
+            UserId,
+            LastName,
+            Gender,
+            Email,
+            IsDeleted,
+            `JoinedAt`,
+            corder.*,
+            COUNT(*) AS order_count  
+        FROM users 
+        LEFT JOIN corder ON users.UserId = corder.CustomerId 
+        WHERE corder.OrderStatus = 'Placed'
+        GROUP BY users.UserId
+        ORDER BY UserId DESC
+        LIMIT 25 
+        OFFSET ?;");
         }if($order == 'old'){
-            $sql = $con->prepare("SELECT users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, corder.*, (SELECT COUNT(*) FROM corder WHERE CustomerId = users.UserId AND OrderStatus = 'Placed') AS order_count   FROM users LEFT JOIN corder ON users.UserId = corder.CustomerId LIMIT 25 OFFSET ?;");
+            $sql = $con->prepare("SELECT
+            users.UserName,
+            FirstName,
+            UserId,
+            LastName,
+            Gender,
+            Email,
+            IsDeleted,
+            `JoinedAt`,
+            corder.*,
+            COUNT(*) AS order_count
+        FROM users
+            LEFT JOIN corder ON users.UserId = corder.CustomerId
+        WHERE
+            corder.OrderStatus = 'Placed'
+        GROUP BY users.UserId
+        ORDER BY JoinedAt 
+        LIMIT 25
+        OFFSET ?;
+        ");
+
         }if($order == 'deleted'){
-            $sql = $sql = $con->prepare("SELECT users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, corder.*, (SELECT COUNT(*) FROM corder WHERE CustomerId = users.UserId AND OrderStatus = 'Placed') AS order_count  FROM users LEFT JOIN corder ON users.UserId = corder.CustomerId WHERE IsDeleted = true LIMIT 25 OFFSET ? ;");
+            $sql = $sql = $con->prepare("SELECT
+            users.UserName,
+            FirstName,
+            UserId,
+            LastName,
+            Gender,
+            Email,
+            IsDeleted,
+            `JoinedAt`,
+            corder.*,
+            COUNT(*) AS order_count
+        FROM users
+            LEFT JOIN corder ON users.UserId = corder.CustomerId
+        WHERE
+            corder.OrderStatus = 'Placed'
+        AND 
+            IsDeleted = true
+        GROUP BY users.UserId
+        ORDER BY JoinedAt DESC
+        LIMIT 25
+        OFFSET ?;");
 
         }
 
@@ -105,12 +174,24 @@ require_once('connection.php');
             $con = connect_to_db();
             $id = str_replace( '#!:', '',$user_id );
             
-            $sql = $con->prepare("SELECT users.UserName, FirstName, UserId, LastName, Gender, Email,IsDeleted, corder.*, 
-            (SELECT COUNT(*) FROM corder WHERE CustomerId = users.UserId AND OrderStatus = 'Placed') AS order_count , 
-            (SELECT COUNT(*) FROM corder) AS total_order_count 
-            FROM users 
-            LEFT JOIN corder ON users.UserId = corder.CustomerId 
-            WHERE users.UserId = ? ");
+            $sql = $con->prepare("SELECT
+            users.UserName,
+            FirstName,
+            UserId,
+            LastName,
+            Gender,
+            Email,
+            IsDeleted,
+            `JoinedAt`,
+            corder.*,
+            COUNT(*) AS order_count
+        FROM users
+            LEFT JOIN corder ON users.UserId = corder.CustomerId
+        WHERE
+            corder.OrderStatus = 'Placed'
+        AND
+            UserId = ?
+        GROUP BY users.UserId");
             
             $sql->bind_param('s', $id);
             
@@ -134,12 +215,24 @@ require_once('connection.php');
         $con = connect_to_db();
         $input = '%'.$user_name.'%';
         
-        $sql = $con->prepare("SELECT users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, corder.*, 
-        (SELECT COUNT(*) FROM corder WHERE CustomerId = users.UserId AND OrderStatus = 'Placed') AS order_count , 
-        (SELECT COUNT(*) FROM corder) AS total_order_count 
-        FROM users 
-        LEFT JOIN corder ON users.UserId = corder.CustomerId 
-        WHERE users.UserName LIKE ? LIMIT 25 OFFSET ? ");
+        $sql = $con->prepare("SELECT
+        users.UserName,
+        FirstName,
+        UserId,
+        LastName,
+        Gender,
+        Email,
+        IsDeleted,
+        `JoinedAt`,
+        corder.*,
+        COUNT(*) AS order_count
+    FROM users
+        LEFT JOIN corder ON users.UserId = corder.CustomerId
+    WHERE
+        corder.OrderStatus = 'Placed'
+    AND users.UserName LIKE ? 
+    GROUP BY users.UserId
+        LIMIT 25 OFFSET ? ");
         
         $sql->bind_param('ss', $input, $offset);
         
@@ -185,6 +278,25 @@ require_once('connection.php');
         $con->close();
 
         if($res1 && $res){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function re_open_account($uid){
+        $con = connect_to_db();
+
+        $sql = $con->prepare("UPDATE users SET IsDeleted = 0 WHERE UserId = ? ;");
+        // $delorders = $con->prepare("UPDATE corder SET OrderStatus = 'Cancelled' WHERE CustomerId = ? LIMIT 1");
+
+
+        $sql->bind_param('s', $uid);
+        $res1 = $sql->execute();
+        $sql->close();
+
+        $con->close();
+
+        if( $res1){
             return true;
         }else{
             return false;
