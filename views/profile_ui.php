@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bootstrap demo</title>
+  <link rel="shortcut icon" type="image/png" href="../favicon-16x16.png" sizes="16x16">
   <!-- Font awsome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -68,8 +69,7 @@ body{
               disabled><i class="fa fa-pencil-square-o enable_me" aria-hidden="true"></i></div>
           <div class="container user-data"><input type="text" name="LastName" id="" class="main-text " value="LastName"placeholder=""
               disabled><i class="fa fa-pencil-square-o enable_me" aria-hidden="true"></i></div>
-          <div class="container user-data"><input type="text" name="Email" id="" class="main-text " value="Email" placeholder=""disabled><i
-              class="fa fa-pencil-square-o enable_me" aria-hidden="true"></i></div>
+          <div class="container user-data"><input type="text" name="Email" id="" class="main-text " value="Email" placeholder=""disabled></div>
           <div class="container user-data"><input type="text" name="MobileNumber" id="" class="main-text " value="MobileNumber"placeholder=""
               disabled><i class="fa fa-pencil-square-o enable_me" aria-hidden="true"></i></div>
           <div class="container user-data ">
@@ -97,7 +97,7 @@ body{
               class="fa fa-pencil-square-o enable_me" aria-hidden="true"></i></div>
           <div class="container user-data p-0">
             <div class="input__box m-0">
-              <input type="submit" value="Password" />
+              <input type="submit"class="homebtn" value="Home" />
             </div>
           </div>
           <div class="container user-data p-0">
@@ -111,6 +111,13 @@ body{
     </div>
   </section>
 </form>
+<script>
+  document.querySelector('.homebtn').addEventListener('click', (e)=>{
+    e.preventDefault();
+
+    window.location.href = '/';
+  })
+</script>
   <!-- Moment -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 

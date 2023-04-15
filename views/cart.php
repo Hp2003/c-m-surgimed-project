@@ -81,10 +81,10 @@
 							<label>Address</label>
 							<input type="text" name="address" class="form-control add" required>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label>When would you like to get call from admin</label>
 							<input type="time" name="time" class="form-control add time-min" step= '60' value="09:00" required>
-						</div>
+						</div> -->
 
 					<input type="submit" class="btn btn-primary btn-block my-2" name="purchase" value="Make Purchase" onclick="placeOrder(event,this)">
 					</form>

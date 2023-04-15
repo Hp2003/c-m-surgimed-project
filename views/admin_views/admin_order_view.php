@@ -14,6 +14,8 @@
 					<option value="Cancelled">Cancelled</option>
 					<option value="Pending">Pending</option>
 					<option value="Placed">Placed</option>
+					<option value="Cancel Request" >Cancel Request</option>
+
 				</select>
 			</div>
 		</div>

@@ -8,21 +8,27 @@ let qty = document.querySelectorAll('.iqty')
     const idArray = Array.from(ids).map(item => item.value);
     const address = document.querySelector('.add').value;
     const phno = document.querySelector('.pno').value;
+    const name = document.querySelector('.fname').value;
+    // console.log(name);
     if(address.length < 12){
         createAlert('warning', 'Please enter valid address..','');
         return;
-    }else if(phno < 15 ){
+    }else if(phno.length != 10 ||  phno.length > 15){
         createAlert('warning', 'Please enter valid phone number..','');
         return;
-    }
-    var userInputTime = document.querySelector('.time-min').value;
-    var currentTime = (new Date().getHours() + 1 ) +  ':' + new Date().getMinutes();
-
-    if (userInputTime.localeCompare(currentTime) === -1 ) {
-    // console.log("The user input time is less than the current time.");
-    createAlert('warning', 'Please enter valid Time..','');
+    }else if (name.length > 200 || name.trim().trim == ""){
+        createAlert('warning','Please Enter Valid Name..', '');
         return;
-    } else {
+    }
+    // var userInputTime = document.querySelector('.time-min').value;
+    // var currentTime = (new Date().getHours() + 1 ) +  ':' + new Date().getMinutes();
+
+    // if (userInputTime.localeCompare(currentTime) === -1 ) {
+    // // console.log("The user input time is less than the current time.");
+    // createAlert('warning', 'Please enter valid Time..','');
+    //     return;
+    // }
+     
         let formData = new FormData(document.querySelector('#purchaseForm'));
 
         formData.append('orderPageProcess', 'getOrderPage');
@@ -44,6 +50,6 @@ let qty = document.querySelectorAll('.iqty')
             createAlert('success', `Quantity not available for `,'');
         }
         })
-    }
+    
 }
 

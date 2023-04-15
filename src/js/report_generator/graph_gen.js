@@ -41,6 +41,7 @@ function disableInputs(process){
     Element.disabled = process;
   })
 }
+
 function randerCompareBox(visiblity){
   let container = document.querySelector('.compareContainer')
   container.style.display = visiblity;
@@ -54,9 +55,10 @@ function showCompareForm(e,btn){
     graphBtn.style.display = 'none';
     disableInputs(false);
     randerCompareBox('block')
+    fillCompareMonth();
+    fillSubMainCategory();
   }else{
     graphBtn.style.display = 'inline';
-
     disableInputs(true);
     randerCompareBox('none')
   }
@@ -67,9 +69,9 @@ function showCompareForm(e,btn){
 function genGraph(event, button){
   event.preventDefault();
   if(button.value == 'normalGraph'){
-    console.log('generating normal graph')
+    // console.log('generating normal graph')
   }else{
-    console.log('comparing graph')
+    // console.log('comparing graph')
   }
 }
 
@@ -79,7 +81,7 @@ function fillMainCategory(){
   formData.append('process', 'get_main_categorys')
   axios.post('/graph_genrator', formData).then(Response =>{
     // console.log(Response)
-    fillSelectionBoxes('main-main_category', Response.data.data,['MainCategoryId','MainCategoryName'], false)
+    fillSelectionBoxes(`main-main_category`, Response.data.data,['MainCategoryId','MainCategoryName'], false)
     
 })
 }
@@ -94,13 +96,13 @@ function fillSelectionBoxes(classname, valueArray,attributName, removeDefault = 
     contaiener.innerHTML += `<option value="${Element[attributName[0]]}" >${Element[attributName[1]]}</option>`
   })
 }
-function getSubCategory(e,btn){
+function getSubCategory(e,btn, target = 'main-sub_category'){
   let formData = new FormData();
   formData.append('process', 'get_sub_categorys') ;
   formData.append('id', btn.value);
   // console.log(btn.value)
   axios.post('/graph_genrator', formData).then(Response =>{
-    fillSelectionBoxes('main-sub_category',Response.data.data,['CategoryId', 'CategoryName'],true, '<option value="" selected>Default</option>' );
+    fillSelectionBoxes(target,Response.data.data,['CategoryId', 'CategoryName'],true, '<option value="" selected>Default</option>' );
   })
 }
 let year ;
@@ -111,7 +113,7 @@ async function getFirstYear() {
   formData.append("process", "get_first_year");
   const response = await axios.post("/graph_genrator", formData);
   document.querySelector(".main-year").innerHTML += `<option value="" >Default</option>`;
-  console.log(response.data.data);
+  // console.log(response.data.data);
    year = response.data.data;
   let years = getYears(response.data.data.substr(0, 4));
   let first = true;
@@ -155,11 +157,11 @@ let Months = {
   11:'November',
   12:'December'
 };
-function getMonths(year){
+function getMonths(year, classname = 'main-month'){
     let month 
     month = parseInt(year.substr(5,2));
     let months = (Object.values(Months).slice(month - 1));
-    let container = document.querySelector('.main-month');
+    let container = document.querySelector(`.${classname}`);
     container.innerHTML = `<option value="" >Default</option>`;
     // adding months to select
     months.forEach(element =>{
@@ -174,7 +176,7 @@ function changeMonth(e,b){
     if(parseInt(b.value.substr(0,4)) == new Date().getFullYear() ){
       let month = new Date().getMonth();
       let months = (Object.values(Months).slice(0,month + 1));
-      console.log(months)
+      // console.log(months)
       renderMonths('main-month',months, 1)
       return 0;
     }
@@ -192,3 +194,51 @@ function renderMonths(classContainer, list, index){
   })
 }
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Compare part
+
+function fillCompareMonth(){
+  let container = document.querySelector('.main-year');
+  let optionValues = [...container.options].map(o => o.value)
+  let optionNames = [...container.options].map(o => o.text)
+  // console.log(optionNames)
+  let yearContainer = document.querySelector('.sub-year')
+  yearContainer.innerHTML = '<option value="" Selected>Default</option>'
+  optionValues.forEach((element, index)=>{
+    if(index == 0){
+      return 0;
+    }
+    yearContainer.innerHTML += `<option value="${element}">${optionNames[index]}</option>`;
+  })
+}
+function changeSubMonth(e,b){
+  if(b.selectedIndex == 0){
+    document.querySelector('.sub-month').innerHTML = `<option value="" >Default</option>`
+  }
+  if(b.selectedIndex > 1 ){
+    if(parseInt(b.value.substr(0,4)) == new Date().getFullYear() ){
+      let month = new Date().getMonth();
+      let months = (Object.values(Months).slice(0,month + 1));
+      // console.log(months)
+      renderMonths('sub-month',months, 1)
+      return 0;
+    }
+    renderMonths('sub-month',Object.values(Months), 1)
+    return 0;
+  }else if(b.selectedIndex == 1){
+    getMonths(b.value, 'sub-month');
+  }
+}
+function fillSubMainCategory(){
+  let cats = document.querySelector('.main-main_category')
+  let options = [...cats.options].map(element => element.text)
+  let values = [...cats.options].map(element => element.value)
+  let container = document.querySelector('.sub-main_category');
+  container.innerHTML = '<option value = "" selected>Default</option>'
+  values.forEach((element, index)=>{
+    if(index == 0){
+      return ;
+    }
+    container.innerHTML += `<option value="${element}">${options[index]}</option>`
+  })
+}

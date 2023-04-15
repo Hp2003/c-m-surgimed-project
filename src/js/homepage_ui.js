@@ -105,7 +105,15 @@ function searchByCat(event, link , Index){
   })
 
 }
-
+function sendFeedback(){
+  let feedbackfrom = document.querySelector('#contactUs_form');
+  let formData = new FormData(feedbackfrom);
+  axios.post('/api/send_feedback').then(Response =>{
+    if(Response.data.text == 'eamilSentSuccessFully'){
+      createAlert('succecss', 'Email Sent Successfully..', '');
+    }
+  })
+}
 // function loadmoreProducts(){
 //   // e.preventDefault();
 //   let formData = new FormData();

@@ -41,15 +41,25 @@ if (session_status() == PHP_SESSION_NONE) {
         // Graph secion
         elseif(isset($_POST['graph_process'])){
             if($_POST['graph_process'] == 'get_normal_graph_data'){
-
-                $mainId = $_POST['main-main_category'] == "" ? NULL : $_POST['main-main_category'];
-                $subId = $_POST['main-sub_category']  == "" ? NULL : $_POST['main-sub_category'];
-                $productId = $_POST['main-product_id']  == "" ? NULL : $_POST['main-product_id'];
-                $userId = $_POST['main-user_id']  == "" ? NULL : $_POST['main-user_id'];
-                $year = $_POST['main-Year']  == "" ? NULL : $_POST['main-Year'];
-                $month = $_POST['main-Month']  == "" ? NULL : $_POST['main-Month'];
-                $type = $_POST['main-type']  == "" ? NULL : $_POST['main-type'];
-                $status = $_POST['main-Status']  == "" ? 'Placed' : $_POST['main-Status'];
+                if(isset($_POST['normal_data'])){
+                    $mainId = $_POST['main-main_category'] == "" ? NULL : $_POST['main-main_category'];
+                    $subId = $_POST['main-sub_category']  == "" ? NULL : $_POST['main-sub_category'];
+                    $productId = $_POST['main-product_id']  == "" ? NULL : $_POST['main-product_id'];
+                    $userId = $_POST['main-user_id']  == "" ? NULL : $_POST['main-user_id'];
+                    $year = $_POST['main-Year']  == "" ? NULL : $_POST['main-Year'];
+                    $month = $_POST['main-Month']  == "" ? NULL : $_POST['main-Month'];
+                    $type = $_POST['main-type']  == "" ? NULL : $_POST['main-type'];
+                    $status = $_POST['main-Status']  == "" ? 'Placed' : $_POST['main-Status'];
+                }else{
+                    $mainId = $_POST['sub-main_category'] == "" ? NULL : $_POST['sub-main_category'];
+                    $subId = $_POST['sub-sub_category']  == "" ? NULL : $_POST['sub-sub_category'];
+                    $productId = $_POST['sub-product_id']  == "" ? NULL : $_POST['sub-product_id'];
+                    $userId = $_POST['sub-user_id']  == "" ? NULL : $_POST['sub-user_id'];
+                    $year = $_POST['sub-year']  == "" ? NULL : $_POST['sub-year'];
+                    $month = $_POST['sub-month']  == "" ? NULL : $_POST['sub-month'];
+                    $type = $_POST['main-type']  == "" ? NULL : $_POST['main-type'];
+                    $status = $_POST['sub-status']  == "" ? 'Placed' : $_POST['sub-status'];
+                }
 
                 $desicion = desicionGenrator($mainId, $subId, $productId, $userId, $year, $month, $status);
 

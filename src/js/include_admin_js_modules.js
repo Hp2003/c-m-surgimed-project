@@ -452,14 +452,14 @@ function renderOrders(data) {
   data.forEach((element, index) => {
     container.innerHTML += `<tr>
         <td>${++currentOffsetAllOrders}</td>
-        <td>${element.ProductId}</td>
+        <td value="${element.ProductId}" class="product_id">${element.ProductId}</td>
         
         <td>${
           element.CustomerId
         }<input type='hidden' class="orderId" value='${element.OrderId}'></td>
         <td >
         ${element.OrderId}
-        <td >${element.Quantity}</td>
+        <td value="${element.Quantity}" class="product_quantity">${element.Quantity}</td>
         <td >${element.TotalPrice}</td>
         <td >${element.PlacedOn}</td>
         <td class="status">${element.OrderStatus}</td>
@@ -571,8 +571,11 @@ function placeOrderAdmin(e,btn, index){
   e.preventDefault();
   let formData = new FormData();
   formData.append("admin_order_page_process", "placeOrder");
-  // console.log(document.querySelectorAll('.orderId')[index].value)
+  // console.log(index)
+
   formData.append("OrderId", document.querySelectorAll('.orderId')[index -1].value);
+  formData.append('ProId', document.querySelectorAll('.product_id')[index -1].textContent);
+  formData.append('quantity', document.querySelectorAll('.product_quantity')[index -1].textContent);
   axios.post('/api/get_all_orders', formData).then(response =>{
     console.log(response.data);
     if(response.data.text == 1){
@@ -595,6 +598,8 @@ function cancelOrder(e,btn,index){
   console.log(document.querySelectorAll('.orderId')[index -1].value);
   // console.log(document.querySelectorAll('.orderId')[index].value)
   formData.append("OrderId", document.querySelectorAll('.orderId')[index -1].value);
+  formData.append('ProId', document.querySelectorAll('.product_id')[index -1].textContent);
+  formData.append('quantity', document.querySelectorAll('.product_quantity')[index -1].textContent);
   axios.post('/api/get_all_orders', formData).then(response =>{
     console.log(response.data);
 

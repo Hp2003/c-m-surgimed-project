@@ -38,7 +38,7 @@ else if($request == '/enterotp'){
     
     Otp_handler();
 }
-else if($request == '/change_password'){
+else if($request == '/enter_new_password'){
     
     require_once 'handlers/change_password_handler.php';
 
@@ -77,6 +77,16 @@ else if ($request ===  '/report') {
     }
 
 }  
+else if ($request ===  '/change_password') {
+        
+    if(isset($_SESSION['loggedIn'])){
+            include('handlers/change_to_new_password_handler.php');
+    }else{
+        header('Location: /err');
+    }
+
+}  
+
 else if ($_SERVER['REQUEST_URI'] === '/graph_genrator') {
     if(isset($_SESSION['IsAdmin'] )){
             require_once('src/admin_report_generator/graph_gen_main.php');
@@ -126,6 +136,14 @@ else if($request == '/error'){
             get_categorys_brands_and_sub_categorys();
         }
     }
+    if ($_SERVER['REQUEST_URI'] ===  '/api/send_feedback') {
+        if($_SERVER['REQUEST_METHOD'] === "POST"){
+                require_once("handlers/homepage_handler.php");
+                if(isset($_POST['SendFeedback'])){
+                    send_feedback();
+                }
+            }
+        }
     if ($_SERVER['REQUEST_URI'] ===  '/api/search_by_category') {
         if($_SERVER['REQUEST_METHOD'] === "POST"){
             require_once('src/search_by_category.php');

@@ -5,7 +5,6 @@ const Message = document.getElementById('mhc');
 
 submitContactBtn.addEventListener('click', (e)=>{
     e.preventDefault();
-
     if(checkEmail(emailContact.value) === null ){
         createAlert('warning', 'Email', 'Please Enter Valid Email', 8000 );
         return 0;
@@ -26,12 +25,13 @@ function checkEmail(inputEmail){
 
 function make_request(){
     const formData = new FormData(contactForm);
-
-    axios.post('', formData).then(Response =>{
+    formData.append('SendFeedback', true);
+    axios.post('/api/send_feedback', formData).then(Response =>{
+        console.log(Response)
         const Message = Response.data.text;
         if(Message !== "" || Message !== undefined){
             if(Message == "eamilSentSuccessFully"){
-                createAlert('success', 'Email Sent! : ', 'Thankyou for Your Feedback! &#x1F60A;');
+                createAlert('success', 'Email Sent! : ', 'Thankyou for Your Feedback! ');
             }
             else if(Message == "emailIsIncorrect"){
                 createAlert('danger', 'Warning : ', 'Check Email Input!');
@@ -45,5 +45,5 @@ function make_request(){
     })
     console.log('req sent');
 }
-// createAlert('success', 'Email Sent! : ', 'Thankyou for Your Feedback! &#x1F60A;');
+// createAlert('success', 'Email Sent! : ', 'Thankyou for Your Feedback!;');
 

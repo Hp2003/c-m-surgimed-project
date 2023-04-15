@@ -1,11 +1,12 @@
     <?php 
     require_once('connection.php');
+    require_once('place_order.php');
     function display_all_orders(){
         if($_POST['admin_order_page_process'] == 'get_order_page'){
             header('Content-Type: application/json');
             // Read the contents of the HTML file
             $html = file_get_contents('./views/admin_views/admin_order_view.php');
-    
+            
             $resData = array(
                 'html' => $html,
                 'orderData' => get_all_orders($_POST['offset'])
@@ -15,7 +16,9 @@
         }
         if($_POST['admin_order_page_process'] == 'placeOrder'){
             if(isset($_POST['OrderId'])){
+                decrease_quantity($_POST['ProId'], $_POST['quantity'], 'decrease');
                 header('Content-Type: application/json');
+                
                 echo json_encode(array( 'text' => orderHnalder($_POST['OrderId'] , 'Placed')));
 
 
@@ -24,6 +27,7 @@
         }
         elseif($_POST['admin_order_page_process'] == 'cancelOrder'){
             if(isset($_POST['OrderId'])){
+                decrease_quantity($_POST['ProId'], $_POST['quantity'], 'increase');
                 header('Content-Type: application/json');
                 echo json_encode(array( 'text' => orderHnalder($_POST['OrderId'] , 'Cancelled')));
 
@@ -82,9 +86,7 @@
 
         function orderHnalder($id, $status){
             $con = connect_to_db();
-            if (!$con) {
 
-            }
             $id = intval($id);
 
             $sql = $con->prepare("UPDATE corder SET OrderStatus = ? WHERE OrderId = ? LIMIT 1");
@@ -106,5 +108,29 @@
             $con->close();
             return 0;
         }
-
-        ?>
+        function decrease_quantity($proId, $quantity, $process){
+            $con = connect_to_db();
+            $sql = '';
+            if($process == 'decrease'){
+                $sql = "UPDATE product SET QuantityOnHand = QuantityOnHand - '$quantity' WHERE ProductId = '$proId'";
+            }else{
+                $sql = "UPDATE product SET QuantityOnHand = QuantityOnHand + '$quantity' WHERE ProductId = '$proId'";
+            }
+            $res = mysqli_query($con , $sql);
+            $con->close();
+            if (!$res) {
+                // Handle the mysqli error here
+                $error_code = mysqli_errno($con);
+                if ($error_code == 3819) {
+                    header('Content-Type: application/json');
+                    json_encode(array(
+                        'text' => 'quantity Not available'
+                    ));
+                    exit();
+                } else {
+                    // Handle other mysqli errors here
+                }
+            }
+            return $res;
+        }
+?>

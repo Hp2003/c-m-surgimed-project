@@ -239,7 +239,7 @@ require_once('./src/deleteProduct.php');
     }
     function get_category_data($id){
         $con  = connect_to_db();
-        $sql;
+        // $sql;
             $sql = $con-> prepare("SELECT * FROM category WHERE MainCategoryId = ? ");
         // if(preg_match('/^#!:\d+$/', $id)){
         //     $id = str_replace( '#!:', '',$user_id );

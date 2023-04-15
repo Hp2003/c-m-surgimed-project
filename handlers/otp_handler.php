@@ -31,7 +31,7 @@ function Otp_handler(){
         }
         $otp = $_POST['otp'];
         if(strlen($otp) === 7){
-          $otp  = substr_rep;lace($otp, '', 3, 1);
+          $otp  = substr_replace($otp, '', 3, 1);
           if(!(preg_match('/^(\d{6}|\d{3}-\d{3})$/', $otp))){
               header('Content-Type: application/json');
               $resonseData = array(
@@ -50,7 +50,7 @@ function Otp_handler(){
             $_SESSION['changePassword'] = true;
             header('Content-Type: application/json');
             $res = array(
-              'url' => '/change_password'
+              'url' => '/enter_new_password'
             );
             echo json_encode($res);
             return;

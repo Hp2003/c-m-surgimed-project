@@ -6,6 +6,9 @@ let userSearchInput = '';
 document.querySelector('.getUserBtn').addEventListener('click', (e)=>{
     e.preventDefault();
     let formData = new FormData();
+    if(document.querySelector('.loadMoreProducts') != null){
+        document.querySelector('.loadMoreProducts').remove();
+    }
   
     formData.append('process_for_all_user_page', 'get_ui');
     formData.append('offset', 0);

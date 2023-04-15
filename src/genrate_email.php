@@ -80,14 +80,13 @@ $email_text .= "
         <h3>Full Name :- $_SESSION[fname]</h3> 
         <h3>Phone No. :- $_SESSION[phno]</h3> 
         <h3>Full Name :- $_SESSION[fname]</h3> 
-        <h3>Time :- $_SESSION[call_time]</h3> 
         <h3>Test Email For testing website</h3>
     </div>
     <h4></h4>
         <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js' integrity='sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe' crossorigin='anonymous'></script>
       </body>
     </html>";
-    // send_email('panchalhirenm123@gmail.com', $email_text);
+    send_email('panchalhirenm123@gmail.com', $email_text);
     // unset($_SESSION['sendOrderDetails']);
     return 1;
 }

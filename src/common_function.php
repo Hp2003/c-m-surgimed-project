@@ -73,7 +73,7 @@ if (session_status() == PHP_SESSION_NONE) {
 				}
 			}
 		}		
-		echo $count;
+		// echo $count;
 	}	
 	//All Products are get
 	function get_all_products(){

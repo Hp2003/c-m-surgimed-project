@@ -18,24 +18,20 @@
 					</ul>
 				</div> -->
 				<div class="footer-col">
-					<h4>Get Help</h4>
+					<h4>Account</h4>
 					<ul>
-						<!-- <li><a href="#">FAQ</a></li> -->
-						<li><a href="#">Payment</a></li>
-						<li><a href="#">Returns</a></li>
-						<!-- <li><a href="#"></a></li> -->
 						<li><a href="/change_password">Change Password</a></li>
 					</ul>
 				</div>
 				<div class="footer-col">
-					<h4>Online Shop</h4>
+					<h4>About</h4>
 					<ul>
-						<li><a href="#">chair</a></li>
-						<li><a href="#">stracher</a></li>
-						<li><a href="#">stool</a></li>
-						<li><a href="#">beds</a></li>
+						<li><i class="fa fa-phone" aria-hidden="true"></i> 903-345-8586</li>
+						<li><i class="fa-solid fa-user"></i> Mr.Hiren Agrawal</li>
+						<li><i class="fa fa-map-marker" aria-hidden="true"></i> Ahmedabad, Gujarat</li>
 					</ul>
 				</div>
+				
 				<div class="footer-col">
 					<h4>Follow Us</h4>
 					<div class="social-links">
@@ -45,21 +41,32 @@
 						<!-- <a href="#"><i class="fab fa-linkedin-in"></i></a> -->
 					</div>
 				</div>
+				<div class="footer-col" >
+					<h4>Address</h4>
+					<p style="word-spacing: 7px;margin-top:3px;">04 R kantilal Estate, opp Mayur Soap Factory, Tavdipura, Dudheshwar, Shahibaugh
+						Ahmedabad-380004
+					</p>
+				</div>
+			</div>
+			<div class="conatier-fluid d-flex justify-content-center" style="position:absolute; bottom:10px;left:0; width:100%;" >
+				<p>© 2022-2023, C M Surgimed, Design Devevloped By Hiren Panchal, Dixit Sathwara, Taxil Parekh</p>
 			</div>
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-5  contact_form" id="contact">
+		<h4>Contact Us</h4>
                 <form id="contactUs_form">
                     <fieldset class="form-group">
                         <input type="email" class="form-control" id="ehc" name="Email" placeholder="Enter email">
                     </fieldset>
                     <fieldset class="form-group">
-                        <textarea class="form-control" id="mhc" placeholder="Message" name="message"></textarea>
+                        <textarea class="form-control" id="mhc" placeholder="Message" name="Message"></textarea>
                     </fieldset>
                     <fieldset class="form-group text-xs-right">
                         <button type="button" class="btn btn-secondary-outline btn-lg" id="hcb">Send</button>
                     </fieldset>
                 </form>
-            </div>
+		</div>
+
 	</footer>
 
 	<!-- Axios -->
@@ -89,7 +96,7 @@ if(isset($IsAdmin) ){
 <script src="../src/js/popup.js"></script>
 <script src="../src/js/display_product_page.js"></script>
 <!-- <script src="../src/js/cart.js"></script> -->
-<!-- <script src="../src/js/homepage_contact.js"></script> -->
+<script src="../src/js/homepage_contact.js"></script>
 <script src="../src/js/homepage_ui.js"></script>
 <?php 
 	if(isset($IsAdmin) ){
@@ -115,7 +122,7 @@ if(isset($IsAdmin) ){
 		}
 		function takeToTop(){
 			document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+			document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 		}
 	</script>
 
@@ -135,6 +142,15 @@ if(isset($IsAdmin) ){
 				$('.menu-btn').css("visibility","visible");
 			});
 		});
+	</script>
+	<script>
+		function scrollToContact(e) {
+		e.preventDefault();
+  // Use the smooth scrolling behavior for a nicer effect
+  document.querySelector('#contact').scrollIntoView({
+    behavior: 'smooth'
+  });
+}
 	</script>
 	<script>
 		window.addEventListener('scroll', function() {

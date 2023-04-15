@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Report Page</title>
+    <link rel="shortcut icon" type="image/png" href="../../favicon-16x16.png" sizes="16x16">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
@@ -90,7 +92,7 @@
 			</table>
 		</div>
 		<!-- <div class="container text-center mt-5"><h3>Line Graph</h3> -->
-		<button type="button" class="btn btn-outline-primary" onclick="window.open(this.href,'_blank','width=500,height=500');return false;"><i class="fa fa-line-chart" aria-hidden="true"></i></button>
+		<button type="button" class="btn btn-outline-primary" onclick="window.open( '\graph_genrator','_blank', 'noopener,noreferrer' )"> <i class="fa fa-line-chart" aria-hidden="true"></i></button>
 
 		<hr style="border:3px dashed black" class="mt-3">
 		<div class="container text-center mt-5"><h3>Summery</h3></div>

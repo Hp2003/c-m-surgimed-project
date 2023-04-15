@@ -9,6 +9,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C M Surgimed</title>
+    <link rel="shortcut icon" type="image/png" href="../favicon-16x16.png" sizes="16x16">
+
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -63,6 +66,32 @@
         /* top: 0; */
         bottom: 10vh;
     }
+    .contact_form{
+        font-size: 18px;
+        color: #ffffff;
+        text-transform: capitalize;
+        margin-bottom: 35px;
+        font-weight: 500;
+        position: relative;
+    }
+    .contact_form h4{
+	font-size: 18px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+}
+.contact_form h4::before{
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: -10px;
+	background-color: #e91e63;
+	height: 2px;
+	box-sizing: border-box;
+	width: 50px;
+}
 </style>
 <body class="change" id="top">
 
@@ -73,7 +102,7 @@
                         id="navcol-1">
                         <ul class="nav navbar-nav">
                             <li class="nav-item " role="presentation"><a class="nav-link " href="/">home</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="#">Contact</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="" onclick="scrollToContact(event)">Contact</a></li>
                             <?php 
                                 if(!empty($_SESSION['loggedIn'])){
                                     echo '

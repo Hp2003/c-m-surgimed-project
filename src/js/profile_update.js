@@ -79,7 +79,7 @@ function updateUserProfile(formDataProfile){
     if(fileInput &&  fileInput.files.length > 0){
         const fileSizeMB = fileInput.files[0].size / 1024 / 1024;
         // Checking file size
-        if (fileSizeMB > 5) {
+        if (fileSizeMB > 10) {
             createAlert('warning', 'Oops! :', 'Please select small image', 10000);
         } else {
             formDataProfile.append('UserImg', file);
@@ -93,8 +93,10 @@ if(window.confirm('do you really want to make changes')){
             const message = Response.data.text;
             if(message == "Updated"){
                 createAlert('success', 'Success! : ', 'Profile Updated!');
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000);
             }
-            // console.log(message)
         }
         console.log(Response.data)
         

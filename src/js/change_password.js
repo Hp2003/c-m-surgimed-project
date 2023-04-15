@@ -17,8 +17,9 @@ document.querySelector('#new_pass').addEventListener('click', (e)=>{
     }
     const formData = new FormData(document.querySelector('#change_passwrod'));
 
-    axios.post('/change_password', formData).then(Response =>{
+    axios.post('/enter_new_password', formData).then(Response =>{
         if(Response.data.url != undefined && Response.data.url != ""){
+            console.log('res');
             window.location.href = Response.data.url;
         }
     })

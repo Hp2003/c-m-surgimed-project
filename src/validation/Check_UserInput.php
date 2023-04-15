@@ -69,7 +69,7 @@ function validate_image(){
     // echo json_encode($responseData);
     // return;
     if($check){
-        if ($_FILES["UserImg"]["size"] <=  5000000) {
+        if ($_FILES["UserImg"]["size"] <=  10000000) {
             if($imgfiletype == "jpg" || $imgfiletype == "png" || $imgfiletype == "jpeg") {
                 return 1;  //Image is Valid
             }

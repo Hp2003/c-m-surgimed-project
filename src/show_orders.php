@@ -52,7 +52,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
         $con = connect_to_db();
 
-        $sql = "UPDATE corder SET OrderStatus = 'Cancelled' WHERE OrderId = '$orderId' AND CustomerId = '{$_SESSION['userId']}' LIMIT 1";
+        $sql = "UPDATE corder SET OrderStatus = 'Cancel Request' WHERE OrderId = '$orderId' AND CustomerId = '{$_SESSION['userId']}' LIMIT 1";
         
         $res = mysqli_query($con, $sql);
         

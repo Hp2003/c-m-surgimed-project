@@ -73,16 +73,16 @@
                                     echo json_encode($responseData);
                                     return;
                                 }
-                                $_SESSION['IsDefault'] = false;
-                                $response = $con->query($query);
-                                $con->close();
-                                $_SESSION['userName'] = $UserName;
-                                header("Content-Type: application/json");
-                                $responseData = array(
-                                    'text' => 'Updated'
-                                );
-                                echo json_encode($responseData);
-                                return;
+                                // $_SESSION['IsDefault'] = false;
+                                // $response = $con->query($query);
+                                // $con->close();
+                                // $_SESSION['userName'] = $UserName;
+                                // header("Content-Type: application/json");
+                                // $responseData = array(
+                                //     'text' => 'Updated'
+                                // );
+                                // echo json_encode($responseData);
+                                // return;
                             
                         }elseif(set_image()){
                             header("Content-Type: application/json");

@@ -83,6 +83,7 @@ function get_yearly_data($sub_id = null, $start_date, $end_date, $status = 'Plac
     $sql = "SELECT  
     SUM(o3.`TotalPrice`) as total_selling,  
     COUNT(*) as total_units_sold,
+    MONTH(o3.PlacedOn) as month,
     m3.`MainCategoryName` as main_category_name,
     p3.ProductId as product_id, 
     o3.Quantity as qty,

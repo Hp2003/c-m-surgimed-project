@@ -10,4 +10,9 @@ RewriteCond %{REQUEST_URI} !\.(js|css|png|jpg|gif)$ [NC]
 RewriteRule ^(.+)$ route.php?ur=$1 [QSA,L]
 
 
-
+# RewriteEngine on
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_URI} !/favicon-16x16.png [NC]
+# RewriteCond %{REQUEST_URI} !\.(js|css|png|jpg|gif)$ [NC]
+# RewriteRule ^(.+)$ route.php?ur=$1 [QSA,L]
