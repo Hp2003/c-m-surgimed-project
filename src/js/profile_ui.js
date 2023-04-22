@@ -87,6 +87,5 @@ function getImage(){
       
 }
 getData().then(data=>{
-    
     addData(data);
 })

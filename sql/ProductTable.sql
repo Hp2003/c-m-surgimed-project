@@ -1,23 +1,22 @@
-CREATE TABLE Product(
-    ProductId INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-    ProductTitle VARCHAR(255) NOT NULL,
-    ProductCategroy INT NOT NULL,
-    ProductImg VARCHAR(100),
-    ProductDesc VARCHAR(1000),
-    ProductSpecification VARCHAR(1000)
-);
-
-ALTER TABLE Product ADD ProductPrice FLOAT NOT NULL CHECK(ProductPrice > 0);
-
-ALTER TABLE product ADD CateGoryId INT NOT NULL ;
-ALTER TABLE product ADD CONSTRAINT CategoryId
-Foreign Key (CategoryId) REFERENCES category(CategoryId);
-
-ALTER TABLE Product ADD QuantityOnHand INT NOT NULL CHECK(QuantityOnHand >= 0) DEFAULT  0;
-
-ALTER TABLE Product ADD ProductKeywords VARCHAR(200) NOT NULL ;
-ALTER TABLE Product ADD ProductStatus VARCHAR(20) DEFAULT  'Available' ;
-
-ALTER TABLE Product ADD COLUMN BrandId INT,ADD CONSTRAINT fk_BrandId Foreign Key (BrandId) REFERENCES Brand(BrandId);
-
-ALTER TABLE product MODIFY COLUMN UpdateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+CREATE TABLE `product` (
+  `ProductId` int NOT NULL AUTO_INCREMENT,
+  `ProductTitle` varchar(255) NOT NULL,
+  `ProductImg` varchar(100) DEFAULT NULL,
+  `ProductDesc` varchar(1000) DEFAULT NULL,
+  `ProductSpecification` varchar(1000) DEFAULT NULL,
+  `ProductPrice` float NOT NULL,
+  `CateGoryId` int NOT NULL,
+  `QuantityOnHand` int NOT NULL DEFAULT '0',
+  `ProductKeywords` varchar(200) DEFAULT NULL,
+  `ProductStatus` varchar(20) DEFAULT 'Available',
+  `CreateAt` datetime NOT NULL,
+  `UpdateAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `BrandId` int DEFAULT NULL,
+  PRIMARY KEY (`ProductId`),
+  KEY `CategoryId` (`CateGoryId`),
+  KEY `fk_BrandId` (`BrandId`),
+  CONSTRAINT `CategoryId` FOREIGN KEY (`CateGoryId`) REFERENCES `category` (`CategoryId`),
+  CONSTRAINT `fk_BrandId` FOREIGN KEY (`BrandId`) REFERENCES `brand` (`BrandId`),
+  CONSTRAINT `product_chk_1` CHECK ((`ProductPrice` > 0)),
+  CONSTRAINT `product_chk_2` CHECK ((`QuantityOnHand` >= 0))
+) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

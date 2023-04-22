@@ -1,0 +1,20 @@
+CREATE TABLE `corder` (
+  `OrderId` bigint NOT NULL AUTO_INCREMENT,
+  `CustomerId` int NOT NULL,
+  `TotalPrice` int NOT NULL,
+  `PlacedOn` datetime DEFAULT CURRENT_TIMESTAMP,
+  `OrderStatus` varchar(30) NOT NULL DEFAULT 'Panding',
+  `ProductId` int NOT NULL,
+  `Quantity` int NOT NULL,
+  `DeliveryAddress` varchar(300) NOT NULL,
+  `PhoneNumber` varchar(15) NOT NULL,
+  `Price` int NOT NULL,
+  PRIMARY KEY (`OrderId`),
+  KEY `CustomerId` (`CustomerId`),
+  KEY `ProductId` (`ProductId`),
+  CONSTRAINT `corder_ibfk_1` FOREIGN KEY (`CustomerId`) REFERENCES `users` (`UserId`),
+  CONSTRAINT `corder_ibfk_2` FOREIGN KEY (`ProductId`) REFERENCES `product` (`ProductId`),
+  CONSTRAINT `corder_chk_1` CHECK ((`TotalPrice` > 0)),
+  CONSTRAINT `corder_chk_2` CHECK ((`Quantity` > 0)),
+  CONSTRAINT `corder_chk_3` CHECK ((`Price` > 0))
+) ENGINE=InnoDB AUTO_INCREMENT=12821 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

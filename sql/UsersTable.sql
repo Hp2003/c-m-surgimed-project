@@ -1,0 +1,22 @@
+CREATE TABLE `users` (
+  `UserId` int NOT NULL AUTO_INCREMENT,
+  `UserName` varchar(30) NOT NULL,
+  `FirstName` varchar(40) NOT NULL,
+  `LastName` varchar(40) NOT NULL,
+  `MobileNumber` varchar(15) DEFAULT NULL,
+  `Email` varchar(320) NOT NULL,
+  `AccountPassword` char(64) NOT NULL,
+  `UserAddress` varchar(255) DEFAULT NULL,
+  `ProfilePicture` varchar(100) DEFAULT NULL,
+  `Captcha` tinyint(1) DEFAULT '0',
+  `Dob` date NOT NULL,
+  `Gender` varchar(6) NOT NULL,
+  `IsAdmin` tinyint(1) NOT NULL DEFAULT '0',
+  `IsDeleted` tinyint(1) NOT NULL DEFAULT '0',
+  `UpdateAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `JoinedAt` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`UserId`),
+  UNIQUE KEY `UserId` (`UserId`),
+  UNIQUE KEY `Email` (`Email`),
+  UNIQUE KEY `MobileNumber` (`MobileNumber`)
+) ENGINE=InnoDB AUTO_INCREMENT=1569 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

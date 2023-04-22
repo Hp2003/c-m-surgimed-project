@@ -34,7 +34,7 @@ $mail->Body = " $Content";
 $mail->AltBody = 'This is alt body';
 
 try{
-    $mail->send();
+    // $mail->send();
     return 1;
 }catch(Exception $e){
     return 0;

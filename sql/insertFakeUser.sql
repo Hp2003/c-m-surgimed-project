@@ -1,0 +1,3 @@
+INSERT INTO users (UserName, FirstName, LastName, MobileNumber, Email, AccountPassword, UserAddress, ProfilePicture, Dob, Gender, IsAdmin, IsDeleted)
+VALUES ('UserExample', 'FirstName', 'LastName', 1234567891, 'Example1@gmail.com', '1234', '', './img/defaultIMG/Default_male.jpg', '2003-05-09','MALE',  0, 0 )
+VALUES ('Example', 'FirstName', 'LastName', 1234567890, 'Example@gmail.com', '1234', '', './img/defaultIMG/Default_male.jpg', '2003-05-09','MALE',  1, 0 );

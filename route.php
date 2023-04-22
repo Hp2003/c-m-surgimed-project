@@ -9,7 +9,7 @@ date_default_timezone_set('Asia/Kolkata');
 $url = $_SERVER['REQUEST_URI'];
 $request = str_replace("route.php" , '' , $url );
 // echo $url;
-// $request = str_replace("/C_M_surgimed/" , '' , $url );
+// $request = str_replace("/C_M_surgimed" , '' , $url );
 // $url = str_replace(, '', $request);
 // echo "$request <br>";
 
