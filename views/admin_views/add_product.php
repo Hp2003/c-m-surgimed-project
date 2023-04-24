@@ -1,7 +1,7 @@
 
-<div class="container  main-add-pro main-form" style="height:100vh">
+<div class="container  main-add-pro main-form" style="height:109em;">
 		<h1 class="text-center pt-4 pb-1">Add product</h1>
-		<form action="" method="post" id="addProductForm" style="background: #ffffff42;padding: 2em;border-radius: 14px; bbackdrop-filter: blur(13px);" class="mt-5 popupForm">
+		<form action="" method="post" id="addProductForm" style="background: #ffffff42;padding: 2em;border-radius: 14px; backdrop-filter: blur(13px); padding:0px;" class="mt-5 popupForm">
 			<div class="form-outline w-75 mt-3 m-auto mb-4" >
 				<label class="form-label">Product Title</label>
 				<input type="text" name="product_title" value="" class="form-control" id="product_title" required>
@@ -66,10 +66,10 @@
 
 			<div class="container d-flex w-75 pt-3 justify-content-around">
 				<div class="    pt-3">
-					<input type="submit" name="add_product" value="Add Product" class="btn btn-info px-3 mb-3 add_product">
+					<input type="submit" name="add_product" value="Add Product" class="btn btn-info px-3 mb-3 add_product mx-3" style="position:unset">
 				</div>
 				<div class="    pt-3">
-					<input type="submit" name="" value="Close" class="btn btn-info px-3 mb-3 closeAddProduct">
+					<input type="submit" name="" value="Close" class="btn btn-info px-3 mb-3 closeAddProduct" style="position:unset">
 				</div>
 			</div>
 

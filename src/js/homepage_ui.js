@@ -42,6 +42,14 @@ function display_categorys(){
 }
 
 display_categorys();
+function updateProCount(){
+  let text = document.querySelector('.cart-btn') ;
+  var numericString = text.textContent.match(/\d+/); // This regular expression pattern matches one or more digits
+  var number = parseInt(numericString[0]); // Extract the first match as a string and parse it to an integer
+  text.textContent = `Cart(${number + 1})`
+}   
+
+// updateProCount();
 // let popup = document.querySelector('.popup')
 
 // function getData(){

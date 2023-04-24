@@ -65,13 +65,13 @@
         $con = connect_to_db();
         $sql = '';
         if($rmdelted){
-            $sql = "SELECT b.BrandId, b.BrandName,b.CreatedAt, b.UpdatedAt, COUNT(p.ProductId) AS ProductCount
+            $sql = "SELECT b.BrandId, b.BrandName,b.CreatedAt, b.UpdatedAt, b.IsDeleted, COUNT(p.ProductId) AS ProductCount
             FROM brand b
             LEFT JOIN product p ON b.BrandId = p.BrandId AND p.ProductStatus = 'Available'
             WHERE b.IsDeleted = 0
             GROUP BY b.BrandId ";
         }else{
-            $sql = "SELECT b.BrandId, b.BrandName,b.CreatedAt, b.UpdatedAt, COUNT(p.ProductId) AS ProductCount
+            $sql = "SELECT b.BrandId, b.BrandName,b.CreatedAt, b.UpdatedAt, b.IsDeleted, COUNT(p.ProductId) AS ProductCount
             FROM brand b
             LEFT JOIN product p ON b.BrandId = p.BrandId AND p.ProductStatus = 'Available'
             GROUP BY b.BrandId ";

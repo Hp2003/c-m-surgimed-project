@@ -155,33 +155,42 @@ function checkInput(){
     return 0;
   }
   else if(mainYear.value == "" && subYear.value != ""){
-    window.alert('select Main Year');
+    createAlert('warning', 'select Main Year', '');
     return 0;
   }
   else if(subMainCategory.value == "" && mainMainCategory.value != ""){
-    window.alert('select Main Categroy');
+    // window.alert('');
+    createAlert('warning', 'select Main Categroy', '');
     return 0;
   }else if(mainMonth.value != "" && subMonth.value == ""){
-    window.alert('select Sub Month');
+    // window.alert('select Sub Month');
+    createAlert('warning', 'select Sub Month', '');
     return 0;
   }else if(mainMonth.value == "" && subMonth.value != ""){
-    window.alert('select Main Month');
+    // window.alert('select Main Month');
+    createAlert('warning', 'select Main Month', '');
     return 0;
   }
   else if(subMainCategory.value != "" && mainMainCategory.value == ""){
-    window.alert('select Sub Category');
+    // window.alert('select Sub Category');
+    createAlert('warning', 'select Sub Categroy', '');
     return 0;
   }else if(mainProId.value.trim() != "" && subProid.value.trim() == ""){
-    window.alert('Enter Sub product Id')
+    // window.alert('Enter Sub product Id')
+    createAlert('warning', 'select Sub Product Id', '');
     return 0;
   }else if(mainProId.value.trim() == "" && subProid.value.trim() != ""){
-    window.alert('Enter Main product Id')
+    // window.alert('Enter Main product Id')
+    createAlert('warning', 'select Main Product Id', '');
     return 0;
   }else if(mainUserId.value.trim() == "" && subUsrId.value.trim() != ""){
-    window.alert('Enter Main User Id')
+    // window.alert('Enter Main User Id')
+    createAlert('warning', 'select Main User Id', '');
+
     return 0;
   }else if(mainUserId.value.trim()!== "" && subUsrId.value.trim() == ""){
-    window.alert('Enter Sub UserId Id')
+    // window.alert('Enter Sub UserId Id')
+    createAlert('warning', 'select Main Sub User Id', '');
     return 0;
   }
   // console.log('else');

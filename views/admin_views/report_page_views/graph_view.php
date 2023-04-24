@@ -134,6 +134,7 @@
 			<!-- Chart.js -->
 			<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+			<script src="../../src/js/Alert.js"></script>
 			<script src="../../src/js/report_generator/graph_gen.js"></script>
 			<script src="../../src/js/report_generator/graph_request.js"></script>
 			<script src="../../src/js/report_generator/graph_gen_main.js"></script>

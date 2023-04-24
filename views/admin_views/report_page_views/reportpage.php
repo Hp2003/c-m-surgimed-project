@@ -44,12 +44,12 @@
 				</div>
 				<div class="form-outline mb-4 w-50 m-auto">
 					<label class="form-label">Time period Start</label>
-					<input type="datetime-local" name="start_time" id="category_name" class="form-control search_user_input" min="2022-03-01 02:26:20" max="2023-03-27 21:08:39" value="2022-03-01 02:26:20" required>
+					<input type="datetime-local" name="start_time" id="category_name" class="form-control search_user_input start-time" min="2022-03-0T 02:26:20" max="" value="2022-03-01T02:26:20" required>
 				</div>
 				<!-- <input type="submit" name="edit_category" value="Search" class="btn btn-info px-3 mb-3 searchCategory"> -->
 				<div class="form-outline mb-4 w-50 m-auto">
 					<label class="form-label">Time periond End</label>
-					<input type="datetime-local" name="end_time" id="category_name" class="form-control search_user_input" min="2022-03-01 02:26:20" max="2023-03-27 21:08:39" value="2023-03-27 21:08:39" required>
+					<input type="datetime-local" name="end_time" id="category_name" class="form-control search_user_input max-date" min="2022-03-01 02:26:20" max="" value="" required>
 
 				</div>
 				<input type="submit" name="edit_category" value="Generate" onclick = "generateReport(event,this)" class="btn btn-info px-3 mb-3 searchCategory">
@@ -67,7 +67,7 @@
 		</select> -->
 		<!-- Shows total -->
 		<div class="container text-center mt-5"><h3>Pi Charts</h3></div>
-		<div class="col-lg-9 container-fluid m-0 report-btns" style="width:100%">
+		<div class="col-lg-9 container-fluid m-0 report-btns" style="width:100%;overflow:scroll">
 			<table class="table">
 				<thead>
 					<tr class="text-center " >
@@ -97,7 +97,7 @@
 		<hr style="border:3px dashed black" class="mt-3">
 		<div class="container text-center mt-5"><h3>Summery</h3></div>
 
-		<div class="col-lg-9 container-fluid m-0" style="width:100%">
+		<div class="col-lg-9 container-fluid m-0" style="width:100%;overflow:scroll">
 		
 			<table class="table">
 				<thead>

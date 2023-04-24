@@ -35,7 +35,7 @@
 <div class="product">	
 	<div class="container">
 		<div class="wrapper">
-			<div class="row card-main">
+			<div class="row card-main" style="justify-content:center">
 		<?php
 			get_product();
 		?>

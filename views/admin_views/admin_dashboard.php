@@ -12,7 +12,7 @@
 			<div class="item">
 				<a class="sub-btn"><i class="fas fa-table"></i>Product<i class="fas fa-angle-right dropdown"></i></a>
 				<div class="sub-menu">
-					<a href="" class="sub-item add-product">Add Product</a>
+					<a href="" class="sub-item add-product ">Add Product</a>
 					<a href="" class="sub-item categoryedit">Edit Category</a>
 					<a href="/edit_brand" class="sub-item" onclick="openBrandPage(event,this)">Edit Brands</a>
 				</div>

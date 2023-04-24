@@ -1,5 +1,5 @@
 
-	<div class="container  main-edit-pro main-form">
+	<div class="container  main-edit-pro main-form" style="height:125em">
 		<h1 class="text-center pt-4 pb-1">Edit Product</h1>
 		<form action="" method="post" id="editProduct" class="mt-5 popupForm">
 			<div class="form-outline w-75 mt-3 m-auto mb-4">
@@ -80,10 +80,10 @@
 			</div>
 			<div class="container d-flex w-75 pt-3 justify-content-around">
 				<div class="    pt-3">
-					<input type="submit" name="" value="Update Product" class="btn btn-info px-3 mb-3  " onClick="editProduct(event)">
+					<input type="submit" name="" value="Update Product" class="btn btn-info px-3 mb-3 mr-3  " onClick="editProduct(event)"style="position:unset" >
 				</div>
 				<div class="    pt-3">
-					<input type="submit" name="" value="Close" class="btn btn-info px-3 mb-3 closeEditForm">
+					<input type="submit" name="" value="Close" class="btn btn-info px-3 mb-3 closeEditForm" style="position:unset">
 				</div>
 			</div>
 

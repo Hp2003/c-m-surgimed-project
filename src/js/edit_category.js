@@ -100,13 +100,13 @@ function createMainCategoryTable(data ){
 
           <td>${
                   Element.IsDeleted == true? `<form action='manage_cart.php' method='post'>
-                  <button name='Remove_Item' class='btn btn-sm btn-outline-danger mainCatDelBtn disabled' onclick="removeMainCategory(event, this, ${index})"><i
+                  <button name='Remove_Item' class='btn btn-sm btn-outline-danger mainCatDelBtn disabled' onclick="removeMainCategory(event, this, ${index})" style="position:unset"><i
                           class='fa-solid fa-trash'></i></button>
                   <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
               </form>
 
           </td>`:`<form action='manage_cart.php' method='post'>
-                  <button name='Remove_Item' class='btn btn-sm btn-outline-danger mainCatDelBtn' onclick="removeMainCategory(event, this, ${index})"><i
+                  <button name='Remove_Item' class='btn btn-sm btn-outline-danger mainCatDelBtn' onclick="removeMainCategory(event, this, ${index})" style="position:unset"><i
                           class='fa-solid fa-trash'></i></button>
                   <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
               </form>
@@ -115,12 +115,12 @@ function createMainCategoryTable(data ){
               }
               <td>${
                 Element.IsDeleted == 1? `<form action='manage_cart.php' method='post'>
-                <button name='Remove_Item' class='btn btn-sm btn-outline-danger  mainCatOpenBtn' onclick="openMainCategory(event, this, ${index})"><i class="fa-solid fa-door-open"></i></button>
+                <button name='Remove_Item' class='btn btn-sm btn-outline-danger  mainCatOpenBtn' onclick="openMainCategory(event, this, ${index})" style="position:unset"><i class="fa-solid fa-door-open"></i></button>
                 <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
             </form>
 
         </td>`:`<form action='manage_cart.php' method='post'>
-                <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled mainCatOpenBtn' onclick="openMainCategory(event, this, ${index})"><i class="fa-solid fa-door-open"></i></button>
+                <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled mainCatOpenBtn' onclick="openMainCategory(event, this, ${index})" style="position:unset"><i class="fa-solid fa-door-open"></i></button>
                 <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
             </form>
 
@@ -157,7 +157,7 @@ function listCategorys(event, btn, index){
 
 // //////////////////////////////////////////////////////////////////////
 
-function renderCategory(data){
+function renderCategory(data, addColumn = true){
   console.log(data);
   // if(data == 0 || data == undefined){
   //   return 0;
@@ -168,9 +168,10 @@ function renderCategory(data){
   let container = document.querySelector('.tableBody')
   let prevemail;
   container.innerHTML = '';
-  document.querySelector('.headings').innerHTML += `<th scope="col">Move Category</th>`;
+  if(addColumn == true){
+    document.querySelector('.headings').innerHTML += `<th scope="col">Move Category</th>`;
+  }
   data.forEach((Element, index) => {  
-    // console.log(data[data.length -1][index]);
     if(Element.CategoryId == undefined){
       return 0;
     }
@@ -189,13 +190,13 @@ function renderCategory(data){
 
           <td>${
                   Element.IsDeleted == true? `<form action='manage_cart.php' method='post'>
-                  <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled deleteCatBen' onclick="deleteCategory(event, this ,${index})"><i
+                  <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled deleteCatBen' onclick="deleteCategory(event, this ,${index})" style="position:unset"><i
                           class='fa-solid fa-trash'></i></button>
                   <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
               </form>
 
           </td>`:`<form action='manage_cart.php' method='post'>
-                  <button name='Remove_Item' class='btn btn-sm btn-outline-danger deleteCatBen' onclick="deleteCategory(event, this ,${index})"><i
+                  <button name='Remove_Item' class='btn btn-sm btn-outline-danger deleteCatBen' onclick="deleteCategory(event, this ,${index})" style="position:unset"><i
                           class='fa-solid fa-trash'></i></button>
                   <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
               </form>
@@ -204,12 +205,12 @@ function renderCategory(data){
               }
           <td>${
                   Element.IsDeleted == 1? `<form action='manage_cart.php' method='post'>
-                  <button name='Remove_Item' class='btn btn-sm btn-outline-danger  openCategoryBtn' onclick="re_openCategory(event, this ,${index})"><i class="fa-solid fa-door-open"></i></button>
+                  <button name='Remove_Item' class='btn btn-sm btn-outline-danger  openCategoryBtn' onclick="re_openCategory(event, this ,${index})" style="position:unset"><i class="fa-solid fa-door-open" ></i></button>
                   <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
               </form>
 
           </td>`:`<form action='manage_cart.php' method='post'>
-                  <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled openCategoryBtn' onclick="re_openCategory(event, this ,${index})"><i class="fa-solid fa-door-open"></i></button>
+                  <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled openCategoryBtn' onclick="re_openCategory(event, this ,${index})" style="position:unset"><i class="fa-solid fa-door-open"></i></button>
                   <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
               </form>
 
@@ -217,7 +218,7 @@ function renderCategory(data){
               }
               <td>
               <form action='manage_cart.php' method='post'>
-              <button name='Remove_Item' class='btn btn-sm btn-outline-danger changeCategory'  onclick = "moveCategory(event, this, ${index})"><i class="fas fa-dolly"></i>  </button>
+              <button name='Remove_Item' class='btn btn-sm btn-outline-danger changeCategory'  onclick = "moveCategory(event, this, ${index})" style="position:unset"><i class="fas fa-dolly"></i>  </button>
               <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
           </form>
               </td>
@@ -459,4 +460,31 @@ function refreshChart(){
   console.log('here');
   buttonChangeIndex = 0;
   displayEditCat();
+}
+function searchCategory(e){
+  e.preventDefault();
+  const type =  document.querySelector('.add_category').value;
+  const name = document.querySelector('.serach_main_cat').value;
+  const mainId = document.querySelector('.mainCatId');
+
+  let formData = new FormData();
+  formData.append('type', type);
+  formData.append('process', 'search_category');
+  if(mainId != undefined){
+    formData.append('mainId', mainId.value);
+  }else{
+    // place holder 0
+    formData.append('mainId', 0);
+  }
+  formData.append('name', name)
+  axios.post('api/edit_category',formData).then(response=>{
+    console.log(response);
+    if(type == 'MainCategory'){
+       document.querySelector('.tableBody').innerHTML = '';
+       createMainCategoryTable(response.data.data);
+    }else{
+      document.querySelector('.tableBody').innerHTML = '';
+      renderCategory(response.data.data, false);
+    }
+  }) 
 }

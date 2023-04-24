@@ -342,7 +342,7 @@ function renderProductsWithCat(data, records) {
 
           <tr class="dataRows">
 
-            <td>${indexOfProducts++}</td>
+            <td>${indexOfProducts}</td>
 
             <td>${element.ProductId} <input type="hidden" name="proId" value="${
       element.ProductId
@@ -371,14 +371,14 @@ function renderProductsWithCat(data, records) {
             <td>${
               element.ProductStatus != "Available"
                 ? `<form action='manage_cart.php' method='post'>
-              <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled' onclick = 'deltePro(event,this)'><i
+              <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled' onclick = 'deltePro(event,this, ${indexOfProducts - 1 })' style="position:unset"><i
                       class='fa-solid fa-trash'></i></button>
               <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
           </form>
 
       </td>`
                 : `<form action='manage_cart.php' method='post'>
-              <button name='Remove_Item' class='btn btn-sm btn-outline-danger' ><i
+              <button name='Remove_Item' class='btn btn-sm btn-outline-danger' onclick = 'deltePro(event,this, ${indexOfProducts -1 })' style="position:unset"><i
                       class='fa-solid fa-trash'></i></button>
               <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
           </form>
@@ -389,13 +389,13 @@ function renderProductsWithCat(data, records) {
             <td>${
               element.ProductStatus != "Available"
                 ? `<form action='manage_cart.php' method='post'>
-              <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled' onclick = "updateProductCategoryTable(event, this)">Save</button>
+              <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled' onclick = "updateProductCategoryTable(event, this, ${indexOfProducts -1 } )" style="position:unset">Save</button>
               <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
               </form>
               
               </td>`
                 : `<form action='manage_cart.php' method='post'>
-              <button name='Remove_Item' class='btn btn-sm btn-outline-danger ' >Save</button>
+              <button name='Remove_Item' class='btn btn-sm btn-outline-danger 'onclick = "updateProductCategoryTable(event, this, ${indexOfProducts -1 })" style="position:unset">Save</button>
               <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
               </form>
               
@@ -407,6 +407,7 @@ function renderProductsWithCat(data, records) {
 
           </tbody>
           `;
+          indexOfProducts++;
   });
   if (records > 20) {
     // <button name='Remove_Item' class='btn btn-sm btn-outline-danger' onclick="">Save</button>
@@ -467,12 +468,12 @@ function renderOrders(data) {
         ${
           element.OrderStatus == "Cancelled"
             ? `<form action='manage_cart.php' method='post'>
-        <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled cancelOrder' onclick= "cancelOrder(event,this,${currentOffsetAllOrders})"><i
+        <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled cancelOrder' onclick= "cancelOrder(event,this,${currentOffsetAllOrders})" style="position:unset"><i
             class='fa-solid fa-trash'></i></button>
         <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
       </form>`
             : `<form action='manage_cart.php' method='post'>
-      <button name='Remove_Item' class='btn btn-sm btn-outline-danger cancelOrder' onclick= "cancelOrder(event,this,${currentOffsetAllOrders})"><i
+      <button name='Remove_Item' class='btn btn-sm btn-outline-danger cancelOrder' onclick= "cancelOrder(event,this,${currentOffsetAllOrders})" style="position:unset"><i
           class='fa-solid fa-trash'></i></button>
       <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
     </form>`
@@ -483,10 +484,10 @@ function renderOrders(data) {
         <td>
         ${
  element.OrderStatus  != 'Placed' ? `<form action='manage_cart.php' method='post'>
-      <button name='Remove_Item' class='btn btn-sm btn-outline-danger  placeOrder' onclick = "placeOrderAdmin(event, this, ${currentOffsetAllOrders})"><i class="fas fa-save"></i></button>
+      <button name='Remove_Item' class='btn btn-sm btn-outline-danger  placeOrder' onclick = "placeOrderAdmin(event, this, ${currentOffsetAllOrders})" style="position:unset"><i class="fas fa-save"></i></button>
       <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
     </form>`:`<form action='manage_cart.php' method='post'>
-    <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled placeOrder' onclick= " placeOrderAdmin(event, this, ${currentOffsetAllOrders})"><i class="fas fa-save"></i></button>
+    <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled placeOrder' onclick= " placeOrderAdmin(event, this, ${currentOffsetAllOrders})" style="position:unset"><i class="fas fa-save"></i></button>
     <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
   </form>`
         }

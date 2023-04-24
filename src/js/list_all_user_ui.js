@@ -71,13 +71,13 @@ function createUserDataTable(data ,firstTime = false){
 						
 						<td>${
                             Element.IsDeleted == true? `<form action='manage_cart.php' method='post'>
-                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled del' onclick="removeUser(event, this, ${currentUsrCount})"><i
+                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled del' onclick="removeUser(event, this, ${currentUsrCount})" style="position:unset"><i
                                     class='fa-solid fa-trash'></i></button>
                             <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                         </form>
 
                     </td>`:`<form action='manage_cart.php' method='post'>
-                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger del' onclick="removeUser(event, this, ${currentUsrCount})"><i
+                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger del' onclick="removeUser(event, this, ${currentUsrCount})" style="position:unset"><i
                                     class='fa-solid fa-trash'></i></button>
                             <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                         </form>
@@ -86,12 +86,12 @@ function createUserDataTable(data ,firstTime = false){
                         }
                         <td>${
                             Element.IsDeleted == false? `<form action='manage_cart.php' method='post'>
-                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled reopen' onclick="OpenAccount(event, this, ${currentUsrCount})"><i class='fas fa-door-open'></i></button>
+                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled reopen' onclick="OpenAccount(event, this, ${currentUsrCount})" style="position:unset"><i class='fas fa-door-open'></i></button>
                             <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                         </form>
     
                     </td>`:`<form action='manage_cart.php' method='post'>
-                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger reopen' onclick="OpenAccount(event, this, ${currentUsrCount})"><i class='fas fa-door-open'></i></button>
+                            <button name='Remove_Item' class='btn btn-sm btn-outline-danger reopen' onclick="OpenAccount(event, this, ${currentUsrCount})" style="position:unset"><i class='fas fa-door-open'></i></button>
                             <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                         </form>
     
@@ -256,13 +256,13 @@ function listSingleUser(data){
                     <td >${data.IsDeleted}</td>
                     <td>${
                         data.IsDeleted == true? `<form action='manage_cart.php' method='post'>
-                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled del' onclick="removeUser(event, this, ${currentUsrCount})"><i
+                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled del' onclick="removeUser(event, this, ${currentUsrCount})" style="position:unset"><i
                                 class='fa-solid fa-trash'></i></button>
                         <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                     </form>
 
                 </td>`:`<form action='manage_cart.php' method='post'>
-                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger del' onclick="removeUser(event, this, ${currentUsrCount})"><i
+                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger del' onclick="removeUser(event, this, ${currentUsrCount})" style="position:unset"><i
                                 class='fa-solid fa-trash'></i></button>
                         <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                     </form>
@@ -271,12 +271,12 @@ function listSingleUser(data){
                     }
                     <td>${
                         data.IsDeleted == false? `<form action='manage_cart.php' method='post'>
-                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled reopen' onclick="OpenAccount(event, this, ${currentUsrCount})"><i class='fas fa-door-open'></i></button>
+                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled reopen' onclick="OpenAccount(event, this, ${currentUsrCount})" style="position:unset"><i class='fas fa-door-open'></i></button>
                         <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                     </form>
 
                 </td>`:`<form action='manage_cart.php' method='post'>
-                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger reopen' onclick="OpenAccount(event, this, ${currentUsrCount})"><i class='fas fa-door-open'></i></button>
+                        <button name='Remove_Item' class='btn btn-sm btn-outline-danger reopen' onclick="OpenAccount(event, this, ${currentUsrCount})" style="position:unset"><i class='fas fa-door-open'></i></button>
                         <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                     </form>
 

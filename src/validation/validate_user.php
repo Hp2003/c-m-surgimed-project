@@ -50,6 +50,7 @@ function Validate_user($email){
     if(send_email($email , $_SESSION['OTP'])){
         header("Content-Type: application/json");
         $_SESSION['total_submit_otp'] = 0;
+        $_SESSION['User_Email'] = $email;
         $responseData = array(
         'url' => '/enterotp'
         );

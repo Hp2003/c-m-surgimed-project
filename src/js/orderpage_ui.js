@@ -49,13 +49,13 @@ function rederRows(data) {
                         ${
                           element.OrderStatus == "Cancelled"
                         ? `<form action='manage_cart.php' method='post'>
-								<button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled' onClick='cancelOrder(event, this, ${index})' ><i
+								<button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled' onClick='cancelOrder(event, this, ${index})'style="position:unset" ><i
 										class='fa-solid fa-trash'></i></button>
 								<input type='hidden' name='OrderId' class='OrderId' value='${element.OrderId}'>
 							</form>
 `
                             : `<form action='manage_cart.php' method='post'>
-                                    <button name='Remove_Item' class='btn btn-sm btn-outline-danger' onClick='cancelOrder(event, this, ${index})'><i
+                                    <button name='Remove_Item' class='btn btn-sm btn-outline-danger' onClick='cancelOrder(event, this, ${index})' style="position:unset"><i
                                             class='fa-solid fa-trash'></i></button>
                                     <input type='hidden' name='OrderId' class='OrderId' value='${element.OrderId}'>
                                 </form>`

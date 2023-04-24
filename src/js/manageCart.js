@@ -1,5 +1,7 @@
 // let addToCartBtns = document.querySelectorAll('.addToCart');
+
 let currentIndexToAddProInCart = 0;
+let currentProduct = 0;
 function addToCart(event, btn, Index){
     event.preventDefault();
     let cartData = document.querySelectorAll('.cartForm');
@@ -14,6 +16,7 @@ function addToCart(event, btn, Index){
         axios.post('/api/add_to_cart', formData).then(Response =>{
             console.log(Response)
             createAlert('success', 'item added', '');
+            updateProCount();
         })
 }
 

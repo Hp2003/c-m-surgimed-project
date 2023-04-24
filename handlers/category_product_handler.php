@@ -136,8 +136,7 @@ require_once('./src/deleteProduct.php');
 
         $con = connect_to_db();
         if(isset($_POST['category_name'])){
-            $sql = $con->prepare("SELECT p.*, c.CategoryName FROM product p JOIN category c ON p.CategoryId = c.CategoryId WHERE c.CategoryName = ? LIMIT 20 OFFSET $offset");
-            
+            $sql = $con->prepare("SELECT p.*, c.CategoryName FROM product p JOIN category c ON p.CategoryId = c.CategoryId WHERE c.CategoryName = ?  LIMIT 20 OFFSET $offset ");
         }else{
             $sql = $con->prepare("SELECT p.*, c.CategoryName FROM product p JOIN category c ON p.CategoryId = c.CategoryId WHERE c.CategoryId = ? LIMIT 20 OFFSET $offset");
         }

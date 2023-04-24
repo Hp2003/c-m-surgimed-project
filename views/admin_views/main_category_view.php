@@ -23,24 +23,24 @@
  Main Chart
   </button>
 
-<div class="container pagination-btn" style="min-height: 300px;">
+<div class="container pagination-btn" style="min-height: 300px; ">
 	<div class="row">
-		<div class="col-lg-12 text-center border rounded bg-light my-5">
+		<div class="col-lg-12 text-center border rounded bg-light my-5 " >
 			<form action="" method="post" class="text-center searchCatForm">
 				<div class="form-outline mb-4 w-50 m-auto">
 					<label class="form-label">Category Title</label>
-					<input type="text" name="category_name" value="" id="category_name" class="form-control serach_main_cat" onkeydown="listCategorys(event)" required>
+					<input type="text" name="category_name" value="" id="category_name" class="form-control serach_main_cat" required>
 				</div>
-				<input type="submit" name="edit_category" value="Search" class="btn btn-info px-3 mb-3 searchCategory">
+				<input type="submit" name="edit_category" value="Search" class="btn btn-info px-3 mb-3 searchCategory" onclick="searchCategory(event)">
 			</form>
+			<input type="submit" name="edit_category" value="MainCategory" onclick = 'submitNewCategory(event, this)' class="btn btn-info px-3 mb-3 add_category " style="position:unset">
 		</div>
-		<input type="submit" name="edit_category" value="MainCategory" onclick = 'submitNewCategory(event, this)' class="btn btn-info px-3 mb-3 add_category">
 		<!-- <select name="order" id="" class="orderBy" onChange="orderBy(event, this)">
 			<option value="old" id="old" name="selectOder">Old First</option>
 			<option value="new" id="new" name="selectOder">New First</option>
 			<option value="deleted" id="new" name="selectOder">deleted</option>
 		</select> -->
-		<div class="col-lg-9 container-fluid m-0" style="width:100%">
+		<div class="col-lg-9 container-fluid m-0" style="width:100%;overflow:scroll">
 			<table class="table">
 				<thead>
 					<tr class="text-center headings">

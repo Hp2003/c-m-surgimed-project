@@ -169,7 +169,7 @@ else if($request == '/error'){
                 require_once('handlers/homepage_handler.php');
                 header('Content-Type: application/json');
                 $res = array(
-                    'cats' => get_categorys_with_id()
+                    'cats' => get_categorys_with_id(false)
                 );
                 echo json_encode($res);
                 return 0;
@@ -351,6 +351,12 @@ else if($request == '/error'){
             return;
         }
 
+    }
+    if($_SERVER['REQUEST_URI'] ===  '/api/send_otp_again'){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            require_once('src/send_otp.php');
+            send_otp();
+        }
     }
     if ($_SERVER['REQUEST_URI'] ===  '/api/list_all_user') {
         if(isset($_SESSION['IsAdmin'])){

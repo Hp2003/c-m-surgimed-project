@@ -33,15 +33,17 @@
 
 </head>
 <style>
-    /* @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap"); */
-     body,html{
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+    body,html{
         overflow:visible;
         /* height: 100%; */
  
         color:white;
         
     }
-    
+    *:not(i){
+        font-family: 'Roboto', sans-serif !important;
+    }
 	.side-bar{
 		
 		z-index: 10;
@@ -57,14 +59,14 @@
         cursor:pointer;
     }
     .back-to-top{
-        font-size: 2em;
-        width: 2em;
-        /* position: absolute; */
+        /* font-size: 2em; */
+        width: 4em;
         right: 23px;
-        position: fixed;
+        position: sticky;
         z-index: 200000;
-        /* top: 0; */
-        bottom: 10vh;
+
+        height: 4em;
+        bottom: 10px;
     }
     .contact_form{
         font-size: 18px;
@@ -92,12 +94,19 @@
 	box-sizing: border-box;
 	width: 50px;
 }
+.paginationBtnUser{
+    bottom: 0;
+    position: unset;
+}
+.temp-form{
+    z-index: 10000000000000000;
+}
 </style>
 <body class="change" id="top">
 
 <div class="header-dark py-2 ">
             <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search d-flex justify-content-between">
-                <div class="container-fluid"><a class="navbar-brand" href="#">C M Surgimed</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="container-fluid"><a class="navbar-brand" href="/">C M Surgimed</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse"
                         id="navcol-1">
                         <ul class="nav navbar-nav">
@@ -127,10 +136,10 @@
                         <?php if(isset($_SESSION['loggedIn'])){if($_SESSION['loggedIn'] == true){ echo '<span class="navbar-text">  <a href="/" class="logout">Log Out</a> </span>'; }}?>
                         <div class="d-flex">
                             <a href="/cart">
-                                <button class="btn btn-outline-success mx-4">Cart(<?php echo $cnt; ?>)</button>
+                                <button class="btn btn-outline-success cart-btn mx-3" style='position:unset'>Cart(<?php echo $cnt; ?>)</button>
                             </a>
                         </div>
-                        <span class="navbar-text"><?php $log_link = give_user_name() === 'signUp'?  "<a href='/login' class='login'>Log In</a>":  ' '; echo $log_link  ?></span><?php $name =  give_user_name() === 'signUp'? "<a class='btn btn-light action-button' role='button' href='/reg'>signUp</a></div>":"<a class='btn btn-light action-button' role='button' href='/".'profile'."'>". give_user_name() ."</a></div>"; echo $name ?>
+                        <span class="navbar-text"><?php $log_link = give_user_name() === 'signUp'?  "<a href='/login' class='login'>Log In</a>":  ' '; echo $log_link  ?></span><?php $name =  give_user_name() === 'signUp'? "<a class='btn btn-light action-button' role='button' href='/reg'>signUp</a></div>":"<a class='btn btn-light action-button' role='button' href='/".'profile'."' style='position:unset'>". give_user_name() ."</a></div>"; echo $name ?>
                 </div>
             </nav>
         </div>

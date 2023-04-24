@@ -9,7 +9,7 @@
 				<input type="submit" name="edit_category" value="Search" class="btn btn-info px-3 mb-3 searchCategory">
 			</form>
 		</div>
-		<div class="col-lg-9 container-fluid m-0" style="width:100%">
+		<div class="col-lg-9 container-fluid m-0" style="width:100%;overflow:scroll">
 			<table class="table">
 				<thead>
 					<tr class="text-center">

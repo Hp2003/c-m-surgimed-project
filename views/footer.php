@@ -3,9 +3,8 @@
 <div class="container pagination-main d-flex justify-content-center">
 
 </div>
-<button type="button" class="btn btn-primary rounded-circle back-to-top" style="display:none;"><i class="fa fa-arrow-up" aria-hidden="true" style="fontsize:2em;  " onclick="takeToTop()"></i>
-</button>
-	<footer class="footer d-flex " style="height:100%;">
+
+	<footer class="footer d-flex " style="height:100%;position:relative;">
 		<div class="container" style="background-color: #24262b; ">
 			<div class="row" >
 				<!-- <div class="footer-col">
@@ -62,13 +61,14 @@
                         <textarea class="form-control" id="mhc" placeholder="Message" name="Message"></textarea>
                     </fieldset>
                     <fieldset class="form-group text-xs-right">
-                        <button type="button" class="btn btn-secondary-outline btn-lg" id="hcb">Send</button>
+                        <button type="button" class="btn btn-secondary-outline btn-lg" id="hcb" style="position:unset">Send</button>
                     </fieldset>
                 </form>
 		</div>
 
 	</footer>
-
+	<button type="button" class="btn btn-primary rounded-circle back-to-top" style="display:none;"  onclick="takeToTop()"><i class="fa fa-arrow-up" aria-hidden="true" style="fontsize:2em;  "></i>
+</button>
 	<!-- Axios -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -90,6 +90,7 @@ if(isset($IsAdmin) ){
 
 ?>
 
+<script src="../src/js/homepage_ui.js"></script>
 <script src="../src/js/orderpage_ui.js"></script>
 <script src="../src/js/order_view.js"></script>
 <script src="../src/js/manageCart.js"></script>
@@ -97,7 +98,6 @@ if(isset($IsAdmin) ){
 <script src="../src/js/display_product_page.js"></script>
 <!-- <script src="../src/js/cart.js"></script> -->
 <script src="../src/js/homepage_contact.js"></script>
-<script src="../src/js/homepage_ui.js"></script>
 <?php 
 	if(isset($IsAdmin) ){
 		if($IsAdmin == true){
@@ -160,6 +160,9 @@ if(isset($IsAdmin) ){
 				document.querySelector('.back-to-top').style.display = 'none';
 			}
 		});
+	</script>
+	<script>
+		
 	</script>
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

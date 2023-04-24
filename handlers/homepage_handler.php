@@ -55,10 +55,14 @@
             return ;
         }
     }
-    function get_categorys_with_id(){
+    function get_categorys_with_id($filter = true){
         $connection = connect_to_db();
-
-        $query = "SELECT CategoryName, CategoryId FROM category ";
+        $query = '';
+        if($filter){
+            $query = "SELECT CategoryName, CategoryId FROM category ";
+        }else{
+            $query = "SELECT CategoryName, CategoryId FROM category WHERE IsDeleted = 0";
+        }
 
         $result = mysqli_query($connection, $query);
 

@@ -43,9 +43,9 @@
                             <div class="input__box"> 
                                 <input type="submit" value="Submit" id="pass_btn"/>
                             </div>
-                            <p class="forget">
+                            <!-- <p class="forget">
                                 Didn't get OTP ?  <a href="#" class="link">Send again</a>
-                            </p>
+                            </p> -->
                         </form>
                     </div>
             </div>

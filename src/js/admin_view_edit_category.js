@@ -28,11 +28,12 @@ document.querySelector('.searchCategory').addEventListener('click', (e)=>{
 
 })
 
-function updateProductCategoryTable(event, button){
+function updateProductCategoryTable(event, button, index){
     event.preventDefault();
-    let index = button.parentNode.parentNode.rowIndex;
+    // let index = button.parentNode.parentNode.rowIndex;
     console.log(index)
-    let dataRows = [document.querySelectorAll('.dataRows')[index-1].childNodes]
+    
+    let dataRows = [document.querySelectorAll('.dataRows')[index].childNodes]
     dataRows.forEach(element => {
         console.log(element[7].childNodes[1].value, element[11].childNodes[1].value)
 
@@ -49,12 +50,13 @@ function updateProductCategoryTable(event, button){
         })
     });
 }
-function deltePro(event, button){
+function deltePro(event, button, index){
+    // console.log('in');
     event.preventDefault();
     // console.log('in del')
-    let index = button.parentNode.parentNode.rowIndex;
+    // let index = button.parentNode.parentNode.rowIndex;
 
-    let dataRows = [document.querySelectorAll('.dataRows')[index-1].childNodes]
+    let dataRows = [document.querySelectorAll('.dataRows')[index].childNodes]
     dataRows.forEach(element => {
 
         let formData = new FormData();
@@ -65,10 +67,8 @@ function deltePro(event, button){
         axios.post('/api/Edit_products_category', formData).then(Response =>{
             if(Response.data.text == 'productDeleted'){
                 createAlert('success', 'Product Deleted!','');
-                document.querySelectorAll('.dataRows')[index-1].remove()
-                
+                document.querySelectorAll('.dataRows')[index].style.display = 'none';
             }
-            
         })
     });
 }

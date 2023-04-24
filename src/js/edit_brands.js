@@ -21,7 +21,7 @@ function DisplayBrand(data, removeAll = false){
         }
         console.log(data);
         data.forEach((Element , index) => {
-
+            console.log(Element)
             container.innerHTML += `
         <tr>
                             <td>${index + 1}</td>
@@ -36,14 +36,14 @@ function DisplayBrand(data, removeAll = false){
                             
                            
                             <td>${
-                                Element.IsDeleted == true? `<form action='manage_cart.php' method='post'>
-                                <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled removeBrand' onclick="removeBrand(event, this ${index})"><i
+                                Element.IsDeleted == 1 ? `<form action='manage_cart.php' method='post'>
+                                <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled removeBrand' onclick="removeBrand(event, this ${index})" style="position:unset"><i
                                         class='fa-solid fa-trash'></i></button>
                                 <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                             </form>
     
                         </td>`:`<form action='manage_cart.php' method='post'>
-                                <button name='Remove_Item' class='btn btn-sm btn-outline-danger removeBrand' onclick="removeBrand(event, this, ${index})"><i
+                                <button name='Remove_Item' class='btn btn-sm btn-outline-danger removeBrand' onclick="removeBrand(event, this, ${index})" style="position:unset"><i
                                         class='fa-solid fa-trash'></i></button>
                                 <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                             </form>
@@ -51,13 +51,13 @@ function DisplayBrand(data, removeAll = false){
                         </td>`
                             }
                             <td>${
-                                Element.IsDeleted != true? `<form action='manage_cart.php' method='post'>
-                                <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled re-openBrand' onclick="reOpenBrand(event, this, ${index})"><i class="fa-solid fa-door-open"></i></button>
+                                Element.IsDeleted != 1? `<form action='manage_cart.php' method='post'>
+                                <button name='Remove_Item' class='btn btn-sm btn-outline-danger disabled re-openBrand' onclick="reOpenBrand(event, this, ${index})" style="position:unset"><i class="fa-solid fa-door-open"></i></button>
                                 <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                             </form>
     
                         </td>`:`<form action='manage_cart.php' method='post'>
-                                <button name='Remove_Item' class='btn btn-sm btn-outline-danger re-openBrand' onclick="reOpenBrand(event, this, ${index})"><i class="fa-solid fa-door-open"></i></button>
+                                <button name='Remove_Item' class='btn btn-sm btn-outline-danger re-openBrand' onclick="reOpenBrand(event, this, ${index})" style="position:unset"><i class="fa-solid fa-door-open"></i></button>
                                 <input type='hidden' name='Item_Name' value='$value[Item_Name]'>
                             </form>
     
@@ -91,7 +91,7 @@ function addNewBrand(e,btn){
                 return 1;
             }
             if(Response.data.data == 2){
-                creataeAlert('warning', 'Failed creating brand!', '');
+                createAlert('warning', 'Failed creating brand!', '');
                 return 0;
             }
         })
@@ -101,8 +101,10 @@ function removeBrand(e,btn,index){
     e.preventDefault();
 
     const confirmation = window.prompt('Please type confirm to  continue : ');
-
-    if(confirmation != undefined || confirmation.trim() != "" ){
+    if(confirmation == null ){
+        return 0;
+    }
+    if(confirmation != undefined || confirmation.trim() != ""  ){
 
         if(confirmation == 'confirm'){
             let formData  = new FormData();
@@ -122,6 +124,7 @@ function removeBrand(e,btn,index){
                     creataeAlert('warning', 'Failed Deleting brand!', '');
                     return 0;
                 }
+                console.log(Response.data)
             })
         }
     }

@@ -127,6 +127,39 @@ require_once('./src/deleteProduct.php');
                 echo json_encode($res);
                 return;
             }
+            if($_POST['process'] == 'search_category'){
+
+                    if($_POST['type'] == 'MainCategory'){
+                        $mainCats = findCategory($_POST['name'],$_POST['mainId'] ,$_POST['type']);
+                        $subcatCount = array();
+                        foreach($mainCats as $val){
+                            array_push($subcatCount, get_sub_cat_data($val['MainCategoryId'])) ;
+                        }
+                        array_push($mainCats, $subcatCount);
+                        header('Content-Type: application/json');
+                        $res= array(
+                            'data' => $mainCats
+                        );
+                        echo json_encode($res);
+                        return;
+                    }else{
+                        $data = findCategory($_POST['name'],$_POST['mainId'] ,$_POST['type']);
+
+                        $count_product = array();
+
+                        // getting product count
+                        foreach($data as $val){
+                            array_push($count_product, get_product_count($val['CategoryId']));
+                        }
+                        header('Content-Type: application/json');
+                        array_push($data, $count_product);
+                        $res = array(
+                            'data' => $data
+                        );
+                        echo json_encode($res);
+                        return;
+                    }
+            }
             if($_POST['process'] == 'add_cat'){
                 if(isset($_POST['catName'])){
 
@@ -358,9 +391,8 @@ require_once('./src/deleteProduct.php');
 
         while($row = mysqli_fetch_assoc($res)){
             if(delte_files($row['ProductImg'])){
-                $date_time = date("Y-m-d H:i:s");
 
-                $sql = "UPDATE  product  SET ProductStatus = 'Deleted' AND UpdateAt = '$date_time' WHERE ProductId = '{$row['ProductId']}'";
+                $sql = "UPDATE  product  SET ProductStatus = 'Deleted' WHERE ProductId = '{$row['ProductId']}'";
                 if(!mysqli_query($con, $sql)){
                     header('Content-Type: application/json');
                     $responseData = array(
@@ -411,6 +443,7 @@ require_once('./src/deleteProduct.php');
         }
         return rmdir($path);
     }
+
     function re_nameCategory($type , $newName, $id){
         $date  = date("Y-m-d H:i:s");
         $con = connect_to_db();
@@ -545,4 +578,30 @@ require_once('./src/deleteProduct.php');
         
         return $ans;
     }
+    require_once('./src/connection.php');
+    function findCategory($name, $main, $type){
+        $con = connect_to_db();
+
+        $newName = "%".$name."%";
+        $sql = '';
+        if($type == 'subCategory'){
+            $sql = $con->prepare("SELECT * FROM Category WHERE CategoryName LIKE ? AND MainCategoryId = ?");
+            $sql->bind_param('si', $newName, $main);
+        }else{
+            $sql = $con->prepare("SELECT * FROM MainCategory WHERE MainCategoryName LIKE ? ");
+            $sql->bind_param('s', $newName);
+        }
+        // print_r($sql);
+
+        $sql->execute();
+
+        $res = $sql->get_result();
+
+        $response = array();
+        while($row = mysqli_fetch_assoc($res)){
+            array_push($response, $row);
+        }
+        return $response;
+    }
+    // print_r(findCategory('b', '', 'sd'));
 ?>

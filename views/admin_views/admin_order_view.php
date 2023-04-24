@@ -20,7 +20,7 @@
 			</div>
 		</div>
 
-		<div class="col-lg-9 container-fluid m-0" style="width:100%">
+		<div class="col-lg-9 container-fluid m-0" style="width:100%; overflow:scroll">
 			<table class="table">
 				<thead>
 					<tr class="text-center">

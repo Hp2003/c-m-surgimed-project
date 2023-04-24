@@ -62,7 +62,7 @@ require_once('./src/deleteProduct.php');
 
         $con = connect_to_db();
 
-        $sql = "INSERT INTO brand (BrandName, BrandLogo) VALUES ('$nameOfBrand', '' )";
+        $sql = "INSERT INTO brand (BrandName, BrandLogo) VALUES ('$nameOfBrand', ' ' )";
         try{
             $result = mysqli_query($con, $sql);
 
@@ -74,11 +74,12 @@ require_once('./src/deleteProduct.php');
                 return 0;
             }
         }catch(Exception $e){
-            $con->close();
-
-            if($con->errno() ==1062 ){
-                return 2;
+            
+            if($con->errno == 1062 ){
+                $con->close();
+                return 3;
             }else{
+                $con->close();
                 return 0;
             }
         }
@@ -87,7 +88,7 @@ require_once('./src/deleteProduct.php');
     function removebrand($id){
         $con = connect_to_db();
 
-        $gettingProducts = "SELECT * FROM product WHERE BrandId = '$id' ";
+        $gettingProducts = "SELECT * FROM product WHERE BrandId = '$id' AND ProductStatus = 'Available'";
 
         $res = mysqli_query($con, $gettingProducts);
 
