@@ -12,6 +12,7 @@ if(searchBtn != undefined){
         formData.append('offset_search',0);
     
         axios.post('/api/search_product', formData).then(Response =>{
+            console.log(Response);
             if (Response.data.text == 'couldNotFind'){
                 createAlert('warning', 'Sorry Product Not available','');
                 return;

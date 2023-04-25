@@ -10,12 +10,12 @@
             $resData = array(
                 'text' => 'couldNotFind'
             );
-            echo json_encode($data);
+            echo json_encode($resData);
             return;
         }
         $imgs = array();
-        
         // getting product  images
+        
         foreach($data as $val){
             array_push( $imgs, $val['ProductImg'] . '/' .scandir($val['ProductImg'])[2]);
         }
@@ -25,8 +25,5 @@
         header('Content-Type: application/json');
         echo json_encode($data);
         return;
-    }
-    
-    
-    
+    } 
 ?>

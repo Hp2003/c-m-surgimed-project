@@ -117,18 +117,19 @@ function search_product(){
 		if(isset($_SESSION['IsAdmin'])){
 			if($_SESSION['IsAdmin'] == true){
 				if( preg_match('/^#!:\d+$/', $search_data_value)){
-					$sql = $con->prepare("SELECT * FROM product WHERE ProductId =  ? LIMIT 1");
-	
-					$id = str_replace( '#!:', '',$search_data_value );
-					$sql->bind_param('s', $id);
-	
+					$sql = $con->prepare("SELECT * FROM product WHERE ProductId = ? AND ProductStatus = 'Available'");
+					$id = (int) str_replace('#!:', '', $search_data_value);
+					$sql->bind_param('i', $id);
 					$sql->execute();
 					$result = $sql->get_result();
 					$con->close();
 					$sql->close();
 					$data = mysqli_fetch_assoc($result);
-					
-					return $data;
+
+					array_push($data);
+					$final = array($data);
+					return $final;
+
 				}
 			}
 		}
