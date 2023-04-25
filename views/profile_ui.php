@@ -69,7 +69,7 @@ body{
               disabled><i class="fa fa-pencil-square-o enable_me" aria-hidden="true"></i></div>
           <div class="container user-data"><input type="text" name="LastName" id="" class="main-text " value="LastName"placeholder=""
               disabled><i class="fa fa-pencil-square-o enable_me" aria-hidden="true"></i></div>
-          <div class="container user-data"><input type="text" name="Email" id="" class="main-text " value="Email" placeholder=""disabled></div>
+          <div class="container user-data"><input type="text" name="Email" id="" class="main-text disabled" value="Email" placeholder=""disabled></div>
           <div class="container user-data"><input type="text" name="MobileNumber" id="" class="main-text " value="MobileNumber"placeholder=""
               disabled><i class="fa fa-pencil-square-o enable_me" aria-hidden="true"></i></div>
           <div class="container user-data ">

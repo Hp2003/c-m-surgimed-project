@@ -17,13 +17,13 @@ $mail->isSMTP();
 $mail->Host = 'smtp.gmail.com';
 $mail->SMTPAuth = true;
 $mail->Username = 'panchalhirenproj@gmail.com'; // Sender's email
-$mail->Password = 'adkvhlhffcdgvfgq';          
+$mail->Password = 'aqwwbdvrnspenizm';          
 $mail->SMTPSecure = 'tls';
 $mail->Port = 587;
 
 // Recipent
 
-$mail->setFrom('hirenpanchal499@gmail.com', 'Mailer');  // sender's email   
+$mail->setFrom('panchalhirenproj@gmail.com', 'Mailer');  // sender's email   
 $mail->addAddress("$reciver", 'user'); // Reciver's email
 
 // Content part
@@ -40,7 +40,4 @@ try{
     return 0;
 }
 }
-
-
-
 ?>

@@ -32,7 +32,7 @@
                                 <div class="popover-container" style="">
                                         <input type="email" placeholder="Email" name="Email" class="my-textbox Email popover-container input-container" required>
                                         <div class="popover-content">
-                                            <p>Popover content goes here</p>
+                                            <p>Email Is Not Valid</p>
                                         </div>
                                 </div>
                             </div>

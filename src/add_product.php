@@ -89,7 +89,7 @@
     function add_product_in_db($title, $disc, $filePath, $price, $qoh, $type, $keyword, $Maincategory, $SubCategory, $Brand){
         $connection = connect_to_db();
         $date = date('y-m-d h:i:s');
-        $query;
+        $query = '';
         if($type === "DEFAULT_CATEGORY"){
             // getting category id
             try{

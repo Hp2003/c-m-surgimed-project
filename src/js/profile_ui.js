@@ -1,13 +1,16 @@
-let allTextBoxes = document.querySelectorAll('.main-text');
+let allTextBoxes = document.querySelectorAll('.main-text:not(.disabled)' );
+console.log(allTextBoxes);
 let allButtons = document.querySelectorAll('.enable_me');
 
 function createClickListener(index) {
+    console.log(index);  
     return function(){
         if(allTextBoxes[index].disabled === true){
             allTextBoxes[index].disabled = false;
             allTextBoxes[index].style.borderColor = "yellow";
             allTextBoxes[index].focus();
             const length = allTextBoxes[index].value.length;
+
             allTextBoxes[index].setSelectionRange(length, length);
         }else{
             allTextBoxes[index].disabled = true;
@@ -17,8 +20,10 @@ function createClickListener(index) {
 }
 
 allButtons.forEach((element,index)=>{
-    const listener = createClickListener(index);
+    const listener = createClickListener(index );
+
     element.addEventListener('click', listener);
+    console.log(element);
 })
 // let input = document.getElementById('Female').checked;
 // console.log(input);

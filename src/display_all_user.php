@@ -89,12 +89,11 @@ require_once('connection.php');
             IsDeleted,
             `JoinedAt`,
             corder.*,
-            COUNT(*) AS order_count  
-        FROM users 
-        LEFT JOIN corder ON users.UserId = corder.CustomerId 
-        WHERE corder.OrderStatus = 'Placed'
-        GROUP BY users.UserId
-        ORDER BY UserId DESC
+            COUNT(corder.OrderId) AS order_count
+        FROM users
+        LEFT JOIN corder ON users.UserId = corder.CustomerId AND corder.OrderStatus = 'Placed'
+        GROUP BY users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, JoinedAt
+        ORDER BY JoinedAt DESC
         LIMIT 25 
         OFFSET ?;");
         }if($order == 'old'){
@@ -108,12 +107,10 @@ require_once('connection.php');
             IsDeleted,
             `JoinedAt`,
             corder.*,
-            COUNT(*) AS order_count
+            COUNT(corder.OrderId) AS order_count
         FROM users
-            LEFT JOIN corder ON users.UserId = corder.CustomerId
-        WHERE
-            corder.OrderStatus = 'Placed'
-        GROUP BY users.UserId
+        LEFT JOIN corder ON users.UserId = corder.CustomerId AND corder.OrderStatus = 'Placed'
+        GROUP BY users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, JoinedAt
         ORDER BY JoinedAt 
         LIMIT 25
         OFFSET ?;
@@ -130,14 +127,11 @@ require_once('connection.php');
             IsDeleted,
             `JoinedAt`,
             corder.*,
-            COUNT(*) AS order_count
+            COUNT(corder.OrderId) AS order_count
         FROM users
-            LEFT JOIN corder ON users.UserId = corder.CustomerId
-        WHERE
-            corder.OrderStatus = 'Placed'
-        AND 
-            IsDeleted = true
-        GROUP BY users.UserId
+        LEFT JOIN corder ON users.UserId = corder.CustomerId AND corder.OrderStatus = 'Placed' 
+        WHERE  users.IsDeleted = 1
+        GROUP BY users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, JoinedAt
         ORDER BY JoinedAt DESC
         LIMIT 25
         OFFSET ?;");
@@ -184,14 +178,11 @@ require_once('connection.php');
             IsDeleted,
             `JoinedAt`,
             corder.*,
-            COUNT(*) AS order_count
+            COUNT(corder.OrderId) AS order_count
         FROM users
-            LEFT JOIN corder ON users.UserId = corder.CustomerId
-        WHERE
-            corder.OrderStatus = 'Placed'
-        AND
-            UserId = ?
-        GROUP BY users.UserId");
+        LEFT JOIN corder ON users.UserId = corder.CustomerId AND corder.OrderStatus = 'Placed' 
+        WHERE  users.UserId = ?
+        GROUP BY users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, JoinedAt");
             
             $sql->bind_param('s', $id);
             
@@ -225,13 +216,11 @@ require_once('connection.php');
         IsDeleted,
         `JoinedAt`,
         corder.*,
-        COUNT(*) AS order_count
+        COUNT(corder.OrderId) AS order_count
     FROM users
-        LEFT JOIN corder ON users.UserId = corder.CustomerId
-    WHERE
-        corder.OrderStatus = 'Placed'
-    AND users.UserName LIKE ? 
-    GROUP BY users.UserId
+    LEFT JOIN corder ON users.UserId = corder.CustomerId AND corder.OrderStatus = 'Placed' 
+    WHERE  users.UserName LIKE ?
+    GROUP BY users.UserName, FirstName, UserId, LastName, Gender, Email, IsDeleted, JoinedAt
         LIMIT 25 OFFSET ? ");
         
         $sql->bind_param('ss', $input, $offset);

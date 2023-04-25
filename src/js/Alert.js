@@ -12,7 +12,7 @@ function createAlert(alertType, heading, message, duration = 5000){
   alertDiv.classList.add('alert', `alert-${alertType}`, 'alert-dismissible', 'fade', 'show');
   alertDiv.setAttribute('data-bs-delay', `${duration}`);
   alertDiv.style.position = 'fixed';
-  alertDiv.style.zIndex = 9999;
+  alertDiv.style.zIndex = '1000000000000000000';
   alertDiv.style.top = 0;
   alertDiv.style.left = 0;
   alertDiv.style.height = '60px';

@@ -43,19 +43,29 @@ function Otp_handler(){
         }
 
         if((int)$_SESSION['OTP'] === (int)$otp){
-
-          if($_SESSION['type'] == 'changePassword'){
-            unset($_SESSION['type']);
-            unset($_SESSION['OTP']);
-            $_SESSION['changePassword'] = true;
-            header('Content-Type: application/json');
-            $res = array(
-              'url' => '/enter_new_password'
-            );
-            echo json_encode($res);
-            return;
+          if(isset($_SESSION['type'])){
+            if($_SESSION['type'] == 'changePassword'){
+              unset($_SESSION['type']);
+              unset($_SESSION['OTP']);
+              $_SESSION['changePassword'] = true;
+              header('Content-Type: application/json');
+              $res = array(
+                'url' => '/enter_new_password'
+              );
+              echo json_encode($res);
+              return;
+            }
           }
             call_user_func_array("Insert_user", $_SESSION['userdata']);
+            // unset($_SESSION['OTP']);
+            // // $_SESSION['changePassword'] = true;
+            // header('Content-Type: application/json');
+            // $res = array(
+            //   'url' => '/complete_profile'
+            // );
+            // echo json_encode($res);
+            // return;
+
         }else{
           header('Content-Type: application/json');
 

@@ -37,7 +37,7 @@
     body,html{
         overflow:visible;
         /* height: 100%; */
- 
+        scroll-behavior: smooth;
         color:white;
         
     }
@@ -100,6 +100,9 @@
 }
 .temp-form{
     z-index: 10000000000000000;
+}
+.searchCatForm > *{
+    color: black;
 }
 </style>
 <body class="change" id="top">

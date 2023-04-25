@@ -187,16 +187,17 @@ function renderProducts() {}
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const date = String(currentDate.getDate()).padStart(2, '0');
     const year = String(currentDate.getFullYear());
-    const hour = String(currentDate.getHours() );
+    const hour = String(parseInt(currentDate.getHours()) < 12 ? "0" + currentDate.getHours() : currentDate.getHours());
     const minutes = String(currentDate.getMinutes()).padStart(2, '0');
     const seconds = String(currentDate.getSeconds()).padStart(2, '0');
  
-    console.log(hour)
+    // console.log(hour)
     const fullDate = `${year}-${month}-${date}T${hour}:${minutes}:${seconds}`;
-    console.log(fullDate);
+    // console.log(fullDate);
     document.querySelector('.max-date').value = fullDate;
     document.querySelector('.max-date').setAttribute('max', currentDate.toISOString().slice(0, 16));
     document.querySelector('.start-time').max = fullDate;
+    console.log(fullDate);
   }
 
   dateRender();

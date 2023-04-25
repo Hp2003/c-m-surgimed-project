@@ -178,7 +178,7 @@ function searchUser(event){
                 
             document.body.style.backgroundColor = 'white';
             // console.log(response.data.userData);
-            renderUserTable(response.data.html);
+            // renderUserTable(response.data.html);
             createUserDataTable(response.data.userData, true);
                 event.preventDefault();
                 return 0;
@@ -231,10 +231,12 @@ function searchUserWithIdName(id, process){
                 // renderUserTable(response.data.html);
                 currentUsrCount = 0
                 createUserDataTable(response.data.userData, true);
+                document.querySelector('.paginationBtnUser').style.display = 'block';
             }if(process == 'searchWithUserId'){
-            currentUsrCount = 0;
+                currentUsrCount = 0;
 
                 listSingleUser(response.data.userData);
+                document.querySelector('.paginationBtnUser').style.display = 'none';
             }
         }
     })
@@ -302,6 +304,7 @@ function orderBy(event, btn){
     //   console.log(response.data.userData);
     //   renderUserTable(response.data.html);
       createUserDataTable(response.data.userData, true);
+
     })
 }
 

@@ -57,7 +57,7 @@ foreach($_SESSION['cart'] as $val){
     $tableRows .= "<td><br>$val[Item_Name]</td>";
     $tableRows .= "<td><br>$val[Item_Quantity]</td>";
     $tableRows .= "<td><br>$val[Item_Price]</td>";
-    $tableRows .= "<td> ₹ <br>$totalPrice</td>";
+    $tableRows .= "<td> &#x20B9; <br>$totalPrice</td>";
     $tableRows .= "</tr>";
     $count ++;
 }
