@@ -16,14 +16,14 @@ function send_email($reciver , $Content){
 $mail->isSMTP();
 $mail->Host = 'smtp.gmail.com';
 $mail->SMTPAuth = true;
-$mail->Username = 'panchalhirenproj@gmail.com'; // Sender's email
-$mail->Password = 'aqwwbdvrnspenizm';          
+$mail->Username = ''; // Sender's email
+$mail->Password = '';          
 $mail->SMTPSecure = 'tls';
 $mail->Port = 587;
 
 // Recipent
 
-$mail->setFrom('panchalhirenproj@gmail.com', 'Mailer');  // sender's email   
+$mail->setFrom('', 'Mailer');  // sender's email   
 $mail->addAddress("$reciver", 'user'); // Reciver's email
 
 // Content part
